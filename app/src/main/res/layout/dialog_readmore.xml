@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/corners_white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/txtHeading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_xmedium_20dp"
+        android:gravity="center"
+        android:text="Notes"
+        android:textColor="@color/color_blue"
+        android:textSize="@dimen/text_xmedium_16sp"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_tiny_2dp"
+        android:background="@color/colorPrimaryDark" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollIndicators="none"
+        android:scrollbars="none"
+        android:layout_marginTop="@dimen/space_xmedium_20dp"
+        android:layout_marginBottom="@dimen/space_xmedium_20dp">
+
+        <TextView
+            android:id="@+id/txtDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/space_small_10dp"
+            android:text="@string/dummy1"
+            android:textColor="@color/color_black"
+            android:textSize="@dimen/text_medium_14sp" />
+
+    </ScrollView>
+</LinearLayout>

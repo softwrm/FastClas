@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/corners_white"
+
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/txtGender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/space_small_10dp"
+        android:layout_marginTop="@dimen/space_small_10dp"
+        android:gravity="center"
+        android:text="" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_tiny_2dp"
+        android:background="@color/colorPrimaryDark" />
+
+    <ListView
+        android:id="@+id/lv_genderselect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+</LinearLayout>

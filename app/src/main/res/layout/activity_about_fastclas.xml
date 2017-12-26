@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fastclasbg"
+    android:orientation="vertical"
+    tools:context="com.versatile.fastclas.activities.AboutFastclasActivity">
+
+    <include layout="@layout/toolbar1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/space_medium_15dp"
+        android:background="@drawable/cardview_bg"
+        android:elevation="@dimen/space_vsmall_5dp"
+        android:orientation="vertical"
+        android:padding="@dimen/space_medium_15dp">
+
+        <ScrollView
+            android:id="@+id/scroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            android:scrollbars="none">
+
+            <TextView
+                android:id="@+id/txtAbout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/abouttext"
+                android:textColor="@color/color_ash" />
+
+        </ScrollView>
+    </LinearLayout>
+</LinearLayout>

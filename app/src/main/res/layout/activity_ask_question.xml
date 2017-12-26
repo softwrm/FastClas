@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.versatile.fastclas.activities.AskQuestionActivity">
+
+    <include layout="@layout/toolbar1" />
+
+    <LinearLayout
+        android:id="@+id/llLogin"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/space_small_10dp"
+        android:background="@drawable/cardview_bg"
+        android:elevation="@dimen/space_vsmall_5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/space_medium_15dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/askaquestionicon"
+                android:drawablePadding="@dimen/space_vsmall_5dp"
+                android:text="@string/question"
+                android:textColor="@color/color_blue"
+                android:layout_margin="@dimen/space_vsmall_5dp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="@dimen/space_vsmall_5dp"
+                android:background="@color/color_ash" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space_small_10dp"
+                android:background="@drawable/cardview_bg"
+                android:elevation="@dimen/space_vsmall_5dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_15xlarge_150dp"
+                    android:hint="Write Your Question here"
+                    android:padding="@dimen/space_small_10dp" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnSubmit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/space_xlarge_30dp"
+                android:background="@drawable/btn_bg"
+                android:gravity="center"
+                android:text="@string/submit"
+                android:textColor="#ffffff"
+                android:textSize="@dimen/text_xmedium_16sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

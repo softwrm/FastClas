@@ -1,0 +1,44 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fastclasbg"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar1" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/brown_light"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/space_small_10dp"
+            android:layout_marginRight="@dimen/space_small_10dp"
+            android:layout_marginTop="@dimen/space_small_10dp"
+            android:overScrollMode="never"
+            android:scrollIndicators="none"
+            android:scrollbars="none"
+            android:layout_above="@+id/btnAskQuestion"/>
+
+        <Button
+            android:id="@+id/btnAskQuestion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ask_a_question"
+            android:textAllCaps="false"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/text_xmedium_16sp"
+            android:padding="@dimen/space_small_10dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/btn_bg"
+            android:layout_marginTop="@dimen/space_small_10dp"
+            android:layout_marginBottom="@dimen/space_xmedium_20dp"/>
+
+    </RelativeLayout>
+</LinearLayout>

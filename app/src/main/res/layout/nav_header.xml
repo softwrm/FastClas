@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_blue"
+    android:gravity="center_vertical"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/space_small_10dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imgUser"
+            android:layout_width="@dimen/space_8xlarge_80dp"
+            android:layout_height="@dimen/space_8xlarge_80dp"
+            android:layout_marginBottom="@dimen/space_medium_15dp"
+            android:layout_marginTop="@dimen/space_xmedium_20dp"
+            android:src="@drawable/accountprofileicon"/>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space_small_10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvUserWelcome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/space_vsmall_5dp"
+                android:text="Welcome to"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/text_large_18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="@dimen/space_small_10dp"/>
+
+            <TextView
+                android:id="@+id/tvUserEmailHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/text_medium_14sp"/>
+
+           <!-- <TextView
+                android:id="@+id/tvUserDateHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tuesday, December 12,2017"
+                android:textColor="@color/color_ash"
+                android:textSize="@dimen/text_small_12sp" />-->
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

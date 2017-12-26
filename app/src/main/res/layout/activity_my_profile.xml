@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fastclasbg"
+    android:orientation="vertical"
+    tools:context="com.versatile.fastclas.activities.MyProfileActivity">
+
+    <include layout="@layout/toolbar1" />
+
+    <LinearLayout
+        android:id="@+id/llUserprofile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imgUser"
+        android:layout_marginLeft="@dimen/space_medium_15dp"
+        android:layout_marginRight="@dimen/space_medium_15dp"
+        android:layout_marginTop="@dimen/space_large_25dp"
+        android:background="@drawable/usermyprofileimage"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtProfilename"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/space_8xlarge_80dp"
+            android:text="Ray Parker"
+            android:textColor="@color/color_blue"
+            android:textSize="@dimen/text_medium_14sp" />
+
+        <TextView
+            android:id="@+id/txtProfileno"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/space_vsmall_5dp"
+            android:text="+91 8333062290"
+            android:textColor="@color/color_black"
+            android:textSize="@dimen/text_vsmall_10sp" />
+
+        <TextView
+            android:id="@+id/txtProfileemail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/space_xlarge_30dp"
+            android:layout_marginTop="@dimen/space_vsmall_5dp"
+            android:text="rayparker@gmail.com"
+            android:textColor="@color/color_black"
+            android:textSize="@dimen/text_vsmall_10sp" />
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space_medium_15dp"
+            android:background="@drawable/cardview_bg"
+            android:elevation="@dimen/space_vsmall_5dp"
+            android:orientation="vertical"
+            android:padding="@dimen/space_medium_15dp">
+
+
+            <TextView
+                android:id="@+id/txtMyProfile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/myprofile"
+                android:textColor="@color/color_blue"
+                android:textSize="@dimen/text_medium_14sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="@dimen/space_vsmall_5dp"
+                android:layout_marginTop="@dimen/space_vsmall_5dp"
+                android:background="@color/color_blue" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_vsmall_5dp"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <TextView
+                    android:id="@+id/txtName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="@string/name"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/text_small_12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=":" />
+
+                <TextView
+                    android:id="@+id/txtUsername"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:paddingLeft="@dimen/space_medium_15dp"
+                    android:text="Ray Parker"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/text_small_12sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_small_10dp"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <TextView
+                    android:id="@+id/txtGender"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="@string/gender"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/text_small_12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=":" />
+
+                <TextView
+                    android:id="@+id/txtUsergender"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:paddingLeft="@dimen/space_medium_15dp"
+                    android:text="male"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/text_small_12sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtContact"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_xmedium_20dp"
+                android:text="@string/contact"
+                android:textColor="@color/color_blue"
+                android:textSize="@dimen/text_medium_14sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="@dimen/space_vsmall_5dp"
+                android:layout_marginTop="@dimen/space_vsmall_5dp"
+                android:background="@color/color_blue" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_vsmall_5dp"
+                android:orientation="horizontal"
+                android:weightSum="1.5">
+
+                <TextView
+                    android:id="@+id/txtEmail"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="@string/email"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/text_small_12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=":" />
+
+                <TextView
+                    android:id="@+id/txtUseremail"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="@dimen/space_medium_15dp"
+                    android:text="rayparker@gmail.com"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/text_small_12sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_small_10dp"
+                android:orientation="horizontal"
+                android:weightSum="1.5">
+
+                <TextView
+                    android:id="@+id/txtPhoneno"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="@string/phoneno"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/text_small_12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=":" />
+
+                <TextView
+                    android:id="@+id/txtUserphoneno"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="@dimen/space_medium_15dp"
+                    android:text="+91-8333062290"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/text_small_12sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtAddressHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_xmedium_20dp"
+                android:text="@string/education"
+                android:textColor="@color/color_blue"
+                android:textSize="@dimen/text_medium_14sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="@dimen/space_vsmall_5dp"
+                android:layout_marginTop="@dimen/space_vsmall_5dp"
+                android:background="@color/color_blue" />
+
+            <TextView
+                android:id="@+id/txtAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_vsmall_5dp"
+                android:text="301,Moosarmbagh,SBI ATM,Hyderabad,Telagana 500028"
+                android:textColor="@color/color_black"
+                android:textSize="@dimen/text_small_12sp" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

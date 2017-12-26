@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fastclasbg"
+    android:orientation="vertical"
+    tools:context="com.versatile.fastclas.activities.LoginActivity">
+
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space_medium_15dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/space_10xlarge_100dp"
+                android:layout_height="@dimen/space_10xlarge_100dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/space_small_10dp"
+                android:src="@drawable/fastclasfinallogo" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/space_xmedium_20dp"
+                android:text="@string/login"
+                android:textColor="@color/color_black"
+                android:textSize="@dimen/text_xlarge_20sp" />
+
+            <EditText
+                android:id="@+id/edtUseremail"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_5xlarge_50dp"
+                android:layout_marginTop="@dimen/space_xxxlarge_40dp"
+                android:background="@drawable/edittext_bg"
+                android:drawableLeft="@drawable/fastclasusericon"
+                android:drawablePadding="@dimen/space_vsmall_5dp"
+                android:hint="@string/emailphone"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/space_small_10dp"
+                android:paddingRight="@dimen/space_small_10dp"
+                android:singleLine="true"
+                android:textColor="@color/color_black"
+                android:textColorHint="@color/color_silver"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/text_xmedium_16sp"
+                android:imeOptions="actionNext"/>
+
+            <EditText
+                android:id="@+id/edtUserpassword"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_5xlarge_50dp"
+                android:layout_marginTop="@dimen/space_small_10dp"
+                android:background="@drawable/edittext_bg"
+                android:drawableLeft="@drawable/passwordicon"
+                android:drawablePadding="@dimen/space_vsmall_5dp"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/space_small_10dp"
+                android:paddingRight="@dimen/space_small_10dp"
+                android:singleLine="true"
+                android:textColor="@color/color_black"
+                android:textColorHint="@color/color_silver"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/text_xmedium_16sp"
+                android:imeOptions="actionDone"/>
+
+            <TextView
+                android:id="@+id/txtForgotpassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_vsmall_5dp"
+                android:gravity="end"
+                android:text="@string/forgotpassword"
+                android:textColor="@color/color_ash" />
+
+            <Button
+                android:id="@+id/btnLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/space_xlarge_30dp"
+                android:background="@drawable/btn_bg"
+                android:gravity="center"
+                android:text="@string/login"
+                android:textColor="#ffffff"
+                android:textSize="@dimen/text_xmedium_16sp" />
+
+            <TextView
+                android:id="@+id/txtRegister"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_xxlarge_35dp"
+                android:gravity="center"
+                android:text="@string/donthaveanaccount"
+                android:textColor="@color/color_black"
+                android:textSize="@dimen/text_tiny_8sp" />
+
+            <Button
+                android:id="@+id/btnRegister"
+                android:layout_width="@dimen/space_15xlarge_150dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/space_5xlarge_50dp"
+                android:layout_marginTop="@dimen/space_vsmall_5dp"
+                android:background="@drawable/btn_register"
+                android:gravity="center"
+                android:text="@string/register"
+                android:textColor="#ffffff"
+                android:textSize="@dimen/text_xmedium_16sp" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
