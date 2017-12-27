@@ -43,8 +43,9 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     public static NavigationView navigationView;
     private RecyclerView recyclerView;
     private TextView tvUserWelcomeHeader, tvUserEmailHeader, txtToolbar;
-    Dialog dialog;
+    TextView txtSemester, txtCourse, txtxNoDataFound;
     private ImageView imgNotification;
+    Dialog dialog;
     ArrayList<SubjectModel> subjectModelArrayList = new ArrayList<>();
 
     @Override
@@ -65,7 +66,14 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
+
         txtToolbar = (TextView) findViewById(R.id.txtToolbar);
+        txtxNoDataFound = (TextView) findViewById(R.id.txtxNoDataFound);
+        txtSemester = (TextView) findViewById(R.id.txtSemester);
+        txtCourse = (TextView) findViewById(R.id.txtCourse);
+
+        txtSemester.setText(Utility.getSharedPreference(this, Constants.SEMESTER));
+        txtCourse.setText(Utility.getSharedPreference(this, Constants.COURSE));
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
@@ -223,7 +231,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                 String status = jsonObject.optString("status");
                 String message = jsonObject.optString("message");
                 if (status.equals("200")) {
-                    JSONArray jsonArray = jsonObject.getJSONArray("Data");
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObjectdata = jsonArray.getJSONObject(i);
                         String subject_id = jsonObjectdata.optString("subject_id");
@@ -244,7 +252,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                     HomeAdapter homeAdapter = new HomeAdapter(this, subjectModelArrayList, this);
                     recyclerView.setAdapter(homeAdapter);
                 } else {
-                    // show textView
+                    txtxNoDataFound.setText("No Subjects Found");
+                    txtxNoDataFound.setVisibility(View.VISIBLE);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

@@ -31,7 +31,7 @@ public class SessionsActivity extends BaseActivity implements View.OnClickListen
     private static final String TAG = SessionsActivity.class.getSimpleName();
     private Toolbar toolbar;
     private RecyclerView recyclerView;
-    private TextView txtToolbar, mTxtHeading;
+    private TextView txtToolbar, mTxtHeading, txtxNoDataFound;
     private ImageView mImgBack;
     private String label, heading, unitId;
     ArrayList<SessionsModel> sessionsModelArrayList = new ArrayList<>();
@@ -53,6 +53,7 @@ public class SessionsActivity extends BaseActivity implements View.OnClickListen
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         txtToolbar = (TextView) findViewById(R.id.txtToolbar);
         mTxtHeading = (TextView) findViewById(R.id.txtHeading);
+        txtxNoDataFound = (TextView) findViewById(R.id.txtxNoDataFound);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
@@ -139,7 +140,7 @@ public class SessionsActivity extends BaseActivity implements View.OnClickListen
                 String status = jsonObject.optString("status");
                 String message = jsonObject.optString("message");
                 if (status.equals("200")) {
-                    JSONArray jsonArray = jsonObject.getJSONArray("Data");
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObjectData = jsonArray.getJSONObject(i);
 
@@ -163,6 +164,10 @@ public class SessionsActivity extends BaseActivity implements View.OnClickListen
                     }
                     SessionsAdapter sessionsAdapter = new SessionsAdapter(this, sessionsModelArrayList, this);
                     recyclerView.setAdapter(sessionsAdapter);
+                }else {
+                    txtxNoDataFound.setText("No Session's Found");
+                    txtxNoDataFound.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.GONE);
                 }
 
             } catch (JSONException e) {

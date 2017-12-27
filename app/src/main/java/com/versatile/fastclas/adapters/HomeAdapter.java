@@ -51,7 +51,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyHolder> {
     public class MyHolder extends RecyclerView.ViewHolder {
 
         TextView mTextSubject;
-        LinearLayout mLayout;
 
         public MyHolder(View itemView) {
             super(itemView);

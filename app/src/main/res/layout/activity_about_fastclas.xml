@@ -25,6 +25,7 @@
             android:overScrollMode="never"
             android:scrollbars="none">
 
+
             <TextView
                 android:id="@+id/txtAbout"
                 android:layout_width="match_parent"

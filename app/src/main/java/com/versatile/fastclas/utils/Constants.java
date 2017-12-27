@@ -39,4 +39,8 @@ public class Constants {
 
 
     public static String FNAME = "FNAME";
+
+    //Project Name : KummaraYuvasena ; EmailID : Company EmailId
+    public static final String YOUTUBE_API = "AIzaSyDuEEAugZv6E_cwBjWuxl8TGLC1zP7Cc5E";
+
 }

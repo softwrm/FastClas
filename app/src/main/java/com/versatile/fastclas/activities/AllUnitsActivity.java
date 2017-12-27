@@ -31,7 +31,7 @@ public class AllUnitsActivity extends BaseActivity implements View.OnClickListen
     private static final String TAG = AllUnitsActivity.class.getSimpleName();
     private Toolbar toolbar;
     private RecyclerView recyclerView;
-    private TextView txtToolbar, mTxtHeading;
+    private TextView txtToolbar, mTxtHeading, txtxNoDataFound;
     private ImageView mImgBack;
     private String id, subject_name;
     ArrayList<AllUnitsModel> allUnitsModelArrayList = new ArrayList<>();
@@ -54,6 +54,7 @@ public class AllUnitsActivity extends BaseActivity implements View.OnClickListen
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         txtToolbar = (TextView) findViewById(R.id.txtToolbar);
         mTxtHeading = (TextView) findViewById(R.id.txtHeading);
+        txtxNoDataFound = (TextView) findViewById(R.id.txtxNoDataFound);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
@@ -138,7 +139,7 @@ public class AllUnitsActivity extends BaseActivity implements View.OnClickListen
                 String subject = jsonObject.optString("subject");
 
                 if (status.equals("200")) {
-                    JSONArray jsonArray = jsonObject.getJSONArray("Data");
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObjectData = jsonArray.getJSONObject(i);
 
@@ -150,7 +151,7 @@ public class AllUnitsActivity extends BaseActivity implements View.OnClickListen
                         AllUnitsModel allUnitsModel = new AllUnitsModel();
                         allUnitsModel.setDescription(description);
                         allUnitsModel.setUnitId(unit_id);
-                        allUnitsModel.setUnitNumber("Unit - "+unit_number);
+                        allUnitsModel.setUnitNumber("Unit - " + unit_number);
                         allUnitsModel.setUnitTitle(unit_title);
 
                         allUnitsModelArrayList.add(allUnitsModel);
@@ -159,6 +160,10 @@ public class AllUnitsActivity extends BaseActivity implements View.OnClickListen
 
                     AllUnitsAdapter allUnitsAdapter = new AllUnitsAdapter(this, allUnitsModelArrayList, this);
                     recyclerView.setAdapter(allUnitsAdapter);
+                } else {
+                    txtxNoDataFound.setText("No Unit's Found");
+                    txtxNoDataFound.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.GONE);
                 }
 
             } catch (JSONException e) {
