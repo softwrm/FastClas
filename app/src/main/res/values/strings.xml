@@ -67,4 +67,9 @@
     <string name="subjects"><font color="#3F51B5">:</font>Subjects</string>
     <string name="bsc_program">BSC PROGRAM:</string>
     <string name="no_data_found">No Data Found</string>
+    <string name="error_player">There was an error initializing the YouTubePlayer (%1$s)</string>
+    <string name="thumbnail">thumbnail</string>
+    <string name="play">play button</string>
+    <string name="bottom_button">bottom button</string>
+
 </resources>

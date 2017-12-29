@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.versatile.fastclas">
+    package="com.versatilemobitech.fastclas">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activities.SplashActivity"
+            android:name="com.versatile.fastclas.activities.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,54 +21,55 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
-
         <activity
-            android:name=".activities.LoginActivity"
+            android:name="com.versatile.fastclas.activities.LoginActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
-            android:name=".activities.RegisterActivity"
+            android:name="com.versatile.fastclas.activities.RegisterActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
-            android:name=".activities.AskQuestionActivity"
+            android:name="com.versatile.fastclas.activities.AskQuestionActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.HomeActivity"
+            android:name="com.versatile.fastclas.activities.HomeActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.MyProfileActivity"
+            android:name="com.versatile.fastclas.activities.MyProfileActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.AboutFastclasActivity"
+            android:name="com.versatile.fastclas.activities.AboutFastclasActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.EditProfileActivity"
+            android:name="com.versatile.fastclas.activities.EditProfileActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
-            android:name=".activities.ChangePasswordActivity"
+            android:name="com.versatile.fastclas.activities.ChangePasswordActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
-            android:name=".activities.TermsandconditionsActivity"
+            android:name="com.versatile.fastclas.activities.TermsandconditionsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.HelpActivity"
+            android:name="com.versatile.fastclas.activities.HelpActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.AllUnitsActivity"
+            android:name="com.versatile.fastclas.activities.AllUnitsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.SessionsActivity"
+            android:name="com.versatile.fastclas.activities.SessionsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.SessionsInnerActivity"
+            android:name="com.versatile.fastclas.activities.SessionsInnerActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.DiscussionForumActivity"
+            android:name="com.versatile.fastclas.activities.DiscussionForumActivity"
             android:screenOrientation="portrait" />
+        <activity android:name="com.versatile.fastclas.activities.YoutubeVideoPlayer"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="landscape" />
     </application>
+
 </manifest>

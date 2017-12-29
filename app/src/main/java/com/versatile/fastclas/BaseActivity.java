@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 
+import com.versatilemobitech.fastclas.R;
+
 public class BaseActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
     public String[] inspectionFormArray = new String[139];

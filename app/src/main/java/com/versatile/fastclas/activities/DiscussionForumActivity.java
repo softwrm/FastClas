@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.versatile.fastclas.BaseActivity;
-import com.versatile.fastclas.R;
+import com.versatilemobitech.fastclas.R;
 import com.versatile.fastclas.adapters.DiscussionForumAdapter;
 import com.versatile.fastclas.models.DiscussionForumModel;
 

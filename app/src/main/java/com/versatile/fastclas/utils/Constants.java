@@ -3,6 +3,8 @@ package com.versatile.fastclas.utils;
 public class Constants {
     public static final String BASE_URL = "http://fansadda.mobi/fastclas/ws/index.php";
 
+    public static final String YOUTUBE_API_KEY = "AIzaSyAYVM915-YH_jTe1LvEqXqemNSf3uz9ung";
+
     public static final int Service_State = 101;
     public static final int Service_University = 102;
     public static final int Service_Course = 103;
@@ -17,6 +19,7 @@ public class Constants {
     public static final int SERVICE_UNITS = 112;
     public static final int SERVICE_SESSION = 113;
     public static final int SERVICE_ITEM = 114;
+    public static final int SERVICE_VIDEO_WATECHED_1 = 115;
 
     public static final String APP_PREF = "fast_class_preff";
     public static final String LNAME = "LNAME";

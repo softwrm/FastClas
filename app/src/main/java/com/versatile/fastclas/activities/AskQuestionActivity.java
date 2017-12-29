@@ -7,7 +7,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.versatile.fastclas.R;
+import com.versatilemobitech.fastclas.R;
 
 public class AskQuestionActivity extends AppCompatActivity implements View.OnClickListener {
 

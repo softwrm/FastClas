@@ -21,13 +21,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.versatile.fastclas.R;
+import com.versatilemobitech.fastclas.R;
 import com.versatile.fastclas.customviews.SnackBar;
 
 
-/**
- * Created by uday kiran on 31-03-2017.
- */
+
 
 public class Utility {
 

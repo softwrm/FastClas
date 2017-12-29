@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.versatile.fastclas.BaseActivity;
-import com.versatile.fastclas.R;
+import com.versatilemobitech.fastclas.R;
 import com.versatile.fastclas.utils.Constants;
 import com.versatile.fastclas.utils.Utility;
 

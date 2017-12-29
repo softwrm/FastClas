@@ -22,7 +22,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 
-import com.versatile.fastclas.R;
+import com.versatilemobitech.fastclas.R;
 import com.versatile.fastclas.activities.RegisterActivity;
 import com.versatile.fastclas.interfaces.ReturnValue;
 

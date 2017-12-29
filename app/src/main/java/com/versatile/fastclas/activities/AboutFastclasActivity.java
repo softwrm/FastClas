@@ -7,7 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.versatile.fastclas.BaseActivity;
-import com.versatile.fastclas.R;
+import com.versatilemobitech.fastclas.R;
 
 public class AboutFastclasActivity extends BaseActivity implements View.OnClickListener {
 
