@@ -22,6 +22,9 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_profile);
+
+        HomeActivity.navigationView.getMenu().getItem(0).setChecked(false);
+
         initViews();
     }
 

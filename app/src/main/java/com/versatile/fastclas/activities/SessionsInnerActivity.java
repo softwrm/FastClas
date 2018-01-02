@@ -38,13 +38,13 @@ import java.util.ArrayList;
 
 
 public class SessionsInnerActivity extends BaseActivity implements View.OnClickListener,
-        SessionsInnerAdapter.OnItemClickListener, IParseListener {
-    private static final String TAG = SessionsActivity.class.getSimpleName();
-    private Toolbar toolbar;
+        IParseListener {
+    //    private static final String TAG = SessionsActivity.class.getSimpleName();
+    Toolbar toolbar;
     TextView textTitle1, textTitle2, textTitle3, textTitle4, textTitle5, textTitle6, textTitle7, textTitle8, textTitle9, textTitle10;
     TextView textStatus, textStatus2;
-    private TextView txtToolbar;
-    private String heading, unitId, sessionId;
+    TextView txtToolbar;
+    String heading, unitId, sessionId;
     ArrayList<SessionsInnerModel> sessionsInnerModelArrayList = new ArrayList<>();
     ImageView imgYoutube, imgYoutube2;
     ImageView imgButton, imgButton2;
@@ -53,6 +53,9 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
     RelativeLayout rl;
     ImageView imgOpenDialog;
     TextView txtNext;
+    TextView textReadMore, textReadMore2;
+    TextView txtPrevious;
+    int pageCount = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,34 +67,37 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
     }
 
     private void setReferences() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        txtToolbar = (TextView) findViewById(R.id.txtToolbar);
-        imgYoutube = (ImageView) findViewById(R.id.imgYoutube);
-        imgYoutube2 = (ImageView) findViewById(R.id.imgYoutube2);
-        imgButton = (ImageView) findViewById(R.id.imgButton);
-        imgButton2 = (ImageView) findViewById(R.id.imgButton2);
-        imgOpenDialog = (ImageView) findViewById(R.id.imgOpenDialog);
-        textTitle1 = (TextView) findViewById(R.id.textTitle1);
-        textTitle2 = (TextView) findViewById(R.id.textTitle2);
-        textTitle3 = (TextView) findViewById(R.id.textTitle3);
-        textTitle4 = (TextView) findViewById(R.id.textTitle4);
-        textTitle5 = (TextView) findViewById(R.id.textTitle5);
-        textTitle6 = (TextView) findViewById(R.id.textTitle6);
-        textTitle7 = (TextView) findViewById(R.id.textTitle7);
-        textTitle8 = (TextView) findViewById(R.id.textTitle8);
-        textTitle9 = (TextView) findViewById(R.id.textTitle9);
-        textTitle10 = (TextView) findViewById(R.id.textTitle10);
+        toolbar = findViewById(R.id.toolbar);
+        txtToolbar = findViewById(R.id.txtToolbar);
+        imgYoutube = findViewById(R.id.imgYoutube);
+        imgYoutube2 = findViewById(R.id.imgYoutube2);
+        imgButton = findViewById(R.id.imgButton);
+        imgButton2 = findViewById(R.id.imgButton2);
+        imgOpenDialog = findViewById(R.id.imgOpenDialog);
+        textTitle1 = findViewById(R.id.textTitle1);
+        textTitle2 = findViewById(R.id.textTitle2);
+        textTitle3 = findViewById(R.id.textTitle3);
+        textTitle4 = findViewById(R.id.textTitle4);
+        textTitle5 = findViewById(R.id.textTitle5);
+        textTitle6 = findViewById(R.id.textTitle6);
+        textTitle7 = findViewById(R.id.textTitle7);
+        textTitle8 = findViewById(R.id.textTitle8);
+        textTitle9 = findViewById(R.id.textTitle9);
+        textTitle10 = findViewById(R.id.textTitle10);
 
-        textStatus = (TextView) findViewById(R.id.textStatus);
-        textStatus2 = (TextView) findViewById(R.id.textStatus2);
+        textStatus = findViewById(R.id.textStatus);
+        textStatus2 = findViewById(R.id.textStatus2);
 
-        txtxNoDataFound = (TextView) findViewById(R.id.txtxNoDataFound);
+        txtxNoDataFound = findViewById(R.id.txtxNoDataFound);
 
-        txtNext = (TextView) findViewById(R.id.txtNext);
+        txtNext = findViewById(R.id.txtNext);
+        txtPrevious = findViewById(R.id.txtPrevious);
+        textReadMore = findViewById(R.id.textReadMore);
+        textReadMore2 = findViewById(R.id.textReadMore2);
 
-        rl = (RelativeLayout) findViewById(R.id.rl);
+        rl = findViewById(R.id.rl);
 
-        scrollView = (ScrollView) findViewById(R.id.scrollView);
+        scrollView = findViewById(R.id.scrollView);
 
         heading = getIntent().getStringExtra("heading");
         unitId = getIntent().getStringExtra("unit_id");
@@ -101,12 +107,23 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
         imgOpenDialog.setOnClickListener(this);
         imgButton.setOnClickListener(this);
         imgButton2.setOnClickListener(this);
-
-        callWebServiceForItems();
+        txtNext.setOnClickListener(this);
+        txtPrevious.setOnClickListener(this);
+        textReadMore.setOnClickListener(this);
+        textReadMore2.setOnClickListener(this);
+        callWebServiceForItems(pageCount);
     }
 
 
-    private void callWebServiceForItems() {
+    private void callWebServiceForItems(int pageCountValue) {
+
+        if (pageCountValue == 1) {
+            txtPrevious.setVisibility(View.GONE);
+        } else {
+            txtPrevious.setTextColor(getResources().getColor(R.color.color_blue));
+            txtPrevious.setVisibility(View.VISIBLE);
+            txtPrevious.setEnabled(true);
+        }
 
         if (PopUtils.checkInternetConnection(this)) {
             JSONObject jsonObject = new JSONObject();
@@ -115,9 +132,10 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
                 jsonObject.put("user_id", Utility.getSharedPreference(this, Constants.USER_ID));
                 jsonObject.put("unit_id", unitId);
                 jsonObject.put("session_id", sessionId);
-                jsonObject.put("page", "1");
+                jsonObject.put("page", "" + pageCountValue);
                 jsonObject.put("no_of_records", "2");
 
+                showLoadingDialog("Loading...", false);
                 ServerResponse serverResponse = new ServerResponse();
                 serverResponse.serviceRequest(this, Constants.BASE_URL, jsonObject, this, Constants.SERVICE_ITEM);
 
@@ -151,19 +169,53 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
                 startActivityForResult(intent, 4);
                 break;
             }
+            case R.id.txtNext: {
+                pageCount++;
+                callWebServiceForItems(pageCount);
+                break;
+            }
+            case R.id.txtPrevious: {
+                pageCount--;
+                Utility.showLog("Count", "" + pageCount);
+                callWebServiceForItems(pageCount);
+                break;
+            }
+            case R.id.textReadMore: {
+                callDialogeDescription(sessionsInnerModelArrayList.get(0).getDescription());
+                break;
+            }
+            case R.id.textReadMore2: {
+                callDialogeDescription(sessionsInnerModelArrayList.get(1).getDescription());
+                break;
+            }
         }
+    }
+
+    private void callDialogeDescription(String desc) {
+
+        final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        LayoutInflater layoutInflater = this.getLayoutInflater();
+        View view = layoutInflater.inflate(R.layout.dialog_readmore, null);
+        alertDialog.setView(view);
+        alertDialog.setCancelable(true);
+        //alertDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimationexit;
+
+        TextView txtDescription = view.findViewById(R.id.txtDescription);
+        txtDescription.setText(desc);
+        alertDialog.show();
     }
 
     private void callWebServiceVideo1(String item_id) {
         if (PopUtils.checkInternetConnection(this)) {
             JSONObject jsonObject = new JSONObject();
             try {
-                jsonObject.put("action","video");
+                jsonObject.put("action", "video");
                 jsonObject.put("user_id", "" + Utility.getSharedPreference(this, Constants.USER_ID));
                 jsonObject.put("session_id", "" + sessionId);
-                jsonObject.put("item_id", "" +item_id);
+                jsonObject.put("item_id", "" + item_id);
 
-                Utility.showLoadingDialog(this, "Loading...", false);
+                showLoadingDialog("Loading...", false);
+
                 ServerResponse serverResponse = new ServerResponse();
                 serverResponse.serviceRequest(this, Constants.BASE_URL, jsonObject, this, Constants.SERVICE_VIDEO_WATECHED_1);
 
@@ -183,26 +235,17 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
 
             callWebServiceVideo1(sessionsInnerModelArrayList.get(0).getItemId());
 
-            if ((textStatus.getVisibility() == View.VISIBLE) && (textStatus2.getVisibility() == View.VISIBLE)) {
-                txtNext.setTextColor(getResources().getColor(R.color.color_blue));
-                txtNext.setEnabled(true);
-                txtNext.setDrawingCacheBackgroundColor(getResources().getColor(R.color.color_blue));
+            checkAlreadyWatchedOrNot();
 
-            }
         } else if (requestCode == 4) {
             textStatus2.setVisibility(View.VISIBLE);
 
             callWebServiceVideo1(sessionsInnerModelArrayList.get(1).getItemId());
 
-            if ((textStatus.getVisibility() == View.VISIBLE) && (textStatus2.getVisibility() == View.VISIBLE)) {
-                txtNext.setTextColor(getResources().getColor(R.color.color_blue));
-                txtNext.setEnabled(true);
-                txtNext.setDrawingCacheBackgroundColor(getResources().getColor(R.color.color_blue));
-
-            }
-
+            checkAlreadyWatchedOrNot();
         }
     }
+
 
     private void openDialog() {
         final Dialog dialogShare = new Dialog(this);
@@ -215,9 +258,9 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
         dialogShare.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialogShare.show();
 
-        TextView textDiscussionForum = (TextView) dialogShare.findViewById(R.id.textDiscussionForum);
+        TextView textDiscussionForum = dialogShare.findViewById(R.id.textDiscussionForum);
 //        TextView textAskQuestion = (TextView) dialogShare.findViewById(R.id.textAskQuestion);
-        TextView textCancel = (TextView) dialogShare.findViewById(R.id.textCancel);
+        TextView textCancel = dialogShare.findViewById(R.id.textCancel);
 
         textCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -230,6 +273,7 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(SessionsInnerActivity.this, DiscussionForumActivity.class);
+                intent.putExtra("SessionId",sessionId);
                 startActivity(intent);
                 dialogShare.dismiss();
             }
@@ -245,18 +289,18 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
         });*/
     }
 
-    @Override
-    public void onItemClick(SessionsInnerModel sessionPojo, int Position) {
-        final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-        LayoutInflater layoutInflater = this.getLayoutInflater();
-        View view = layoutInflater.inflate(R.layout.dialog_readmore, null);
-        alertDialog.setView(view);
-        alertDialog.setCancelable(true);
-        //alertDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimationexit;
-
-        TextView txtDescription = (TextView) view.findViewById(R.id.txtDescription);
-        alertDialog.show();
-    }
+//    @Override
+//    public void onItemClick(SessionsInnerModel sessionPojo, int Position) {
+//        final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+//        LayoutInflater layoutInflater = this.getLayoutInflater();
+//        View view = layoutInflater.inflate(R.layout.dialog_readmore, null);
+//        alertDialog.setView(view);
+//        alertDialog.setCancelable(true);
+//        //alertDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimationexit;
+//
+////        TextView txtDescription =  view.findViewById(R.id.txtDescription);
+//        alertDialog.show();
+//    }
 
     @Override
     public void onBackPressed() {
@@ -266,22 +310,25 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
     @Override
     public void ErrorResponse(VolleyError volleyError, int requestCode) {
         if (requestCode == Constants.SERVICE_ITEM) {
-            Utility.hideLoadingDialog();
+            hideLoadingDialog();
         } else if (requestCode == Constants.SERVICE_VIDEO_WATECHED_1) {
-            Utility.hideLoadingDialog();
+            hideLoadingDialog();
         }
     }
 
     @Override
     public void SuccessResponse(String response, int requestCode) {
         if (requestCode == Constants.SERVICE_ITEM) {
-            Utility.hideLoadingDialog();
+            hideLoadingDialog();
 
             try {
+
+                sessionsInnerModelArrayList.clear();
 
                 JSONObject jsonObject = new JSONObject(response);
                 String status = jsonObject.optString("status");
                 String message = jsonObject.optString("message");
+
                 if (status.equals("200")) {
                     JSONArray jsonArray = jsonObject.getJSONArray("data");
                     for (int i = 0; i < jsonArray.length(); i++) {
@@ -314,41 +361,10 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
                         sessionsInnerModel.setYoutubeId(youtube_id);
                         sessionsInnerModelArrayList.add(sessionsInnerModel);
                     }
-/*
-                    textTitle1.setText(sessionsInnerModelArrayList.get(0).getItemTitle1());
-                    textTitle2.setText(sessionsInnerModelArrayList.get(0).getItemTitle2());
-                    textTitle3.setText(sessionsInnerModelArrayList.get(0).getItemTitle3());
-                    textTitle4.setText(sessionsInnerModelArrayList.get(0).getItemTitle4());
-                    textTitle5.setText(sessionsInnerModelArrayList.get(0).getItemTitle5());
-                    Picasso.with(this)
-                            .load(sessionsInnerModelArrayList.get(0).getThumbnailImage())
-                            .placeholder(R.drawable.video_image1)
-                            .into(imgYoutube);
-
-                    textTitle6.setText(sessionsInnerModelArrayList.get(1).getItemTitle1());
-                    textTitle7.setText(sessionsInnerModelArrayList.get(1).getItemTitle2());
-                    textTitle8.setText(sessionsInnerModelArrayList.get(1).getItemTitle3());
-                    textTitle9.setText(sessionsInnerModelArrayList.get(1).getItemTitle4());
-                    textTitle10.setText(sessionsInnerModelArrayList.get(1).getItemTitle5());
-
-                    Picasso.with(this)
-                            .load(sessionsInnerModelArrayList.get(1).getThumbnailImage())
-                            .placeholder(R.drawable.video_image1)
-                            .into(imgYoutube2);
-
-                    if (sessionsInnerModelArrayList.get(0).getVideoStatus().equals("0")) {
-                        textStatus.setVisibility(View.GONE);
-                    } else {
-                        textStatus.setVisibility(View.VISIBLE);
-                    }
-                    if (sessionsInnerModelArrayList.get(1).getVideoStatus().equals("0")) {
-                        textStatus2.setVisibility(View.GONE);
-                    } else {
-                        textStatus2.setVisibility(View.VISIBLE);
-                    }*/
                     setData();
                 } else {
                     scrollView.setVisibility(View.GONE);
+                    txtxNoDataFound.setText("No Item's Found");
                     txtxNoDataFound.setVisibility(View.VISIBLE);
                     rl.setVisibility(View.GONE);
 
@@ -357,7 +373,7 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
                 e.printStackTrace();
             }
         } else if (requestCode == Constants.SERVICE_VIDEO_WATECHED_1) {
-            Utility.hideLoadingDialog();
+            hideLoadingDialog();
 
             try {
                 JSONObject jsonObject = new JSONObject(response);
@@ -374,36 +390,114 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
 
     public void setData() {
 
-        textTitle1.setText(sessionsInnerModelArrayList.get(0).getItemTitle1());
-        textTitle2.setText(sessionsInnerModelArrayList.get(0).getItemTitle2());
-        textTitle3.setText(sessionsInnerModelArrayList.get(0).getItemTitle3());
-        textTitle4.setText(sessionsInnerModelArrayList.get(0).getItemTitle4());
-        textTitle5.setText(sessionsInnerModelArrayList.get(0).getItemTitle5());
+        if (Utility.isValueNullOrEmpty(sessionsInnerModelArrayList.get(0).getItemTitle1())) {
+            textTitle1.setVisibility(View.GONE);
+        } else {
+            textTitle1.setText(sessionsInnerModelArrayList.get(0).getItemTitle1());
+        }
+
+        if (Utility.isValueNullOrEmpty(sessionsInnerModelArrayList.get(0).getItemTitle2())) {
+            textTitle2.setVisibility(View.GONE);
+        } else {
+            textTitle2.setText(sessionsInnerModelArrayList.get(0).getItemTitle2());
+        }
+
+        if (Utility.isValueNullOrEmpty(sessionsInnerModelArrayList.get(0).getItemTitle3())) {
+            textTitle3.setVisibility(View.GONE);
+        } else {
+            textTitle3.setText(sessionsInnerModelArrayList.get(0).getItemTitle3());
+        }
+
+        if (Utility.isValueNullOrEmpty(sessionsInnerModelArrayList.get(0).getItemTitle4())) {
+            textTitle4.setVisibility(View.GONE);
+        } else {
+            textTitle4.setText(sessionsInnerModelArrayList.get(0).getItemTitle4());
+        }
+
+        if (Utility.isValueNullOrEmpty(sessionsInnerModelArrayList.get(0).getItemTitle5())) {
+            textTitle5.setVisibility(View.GONE);
+        } else {
+            textTitle5.setText(sessionsInnerModelArrayList.get(0).getItemTitle5());
+        }
+
         Picasso.with(this)
                 .load(sessionsInnerModelArrayList.get(0).getThumbnailImage())
                 .placeholder(R.drawable.video_image1)
                 .into(imgYoutube);
-
-        textTitle6.setText(sessionsInnerModelArrayList.get(1).getItemTitle1());
-        textTitle7.setText(sessionsInnerModelArrayList.get(1).getItemTitle2());
-        textTitle8.setText(sessionsInnerModelArrayList.get(1).getItemTitle3());
-        textTitle9.setText(sessionsInnerModelArrayList.get(1).getItemTitle4());
-        textTitle10.setText(sessionsInnerModelArrayList.get(1).getItemTitle5());
-
-        Picasso.with(this)
-                .load(sessionsInnerModelArrayList.get(1).getThumbnailImage())
-                .placeholder(R.drawable.video_image1)
-                .into(imgYoutube2);
 
         if (sessionsInnerModelArrayList.get(0).getVideoStatus().equals("0")) {
             textStatus.setVisibility(View.GONE);
         } else {
             textStatus.setVisibility(View.VISIBLE);
         }
-        if (sessionsInnerModelArrayList.get(1).getVideoStatus().equals("0")) {
-            textStatus2.setVisibility(View.GONE);
+
+        if (sessionsInnerModelArrayList.size() > 1) {
+            if (Utility.isValueNullOrEmpty(sessionsInnerModelArrayList.get(1).getItemTitle1())) {
+                textTitle6.setVisibility(View.GONE);
+            } else {
+                textTitle6.setVisibility(View.VISIBLE);
+                textTitle6.setText(sessionsInnerModelArrayList.get(1).getItemTitle1());
+            }
+
+            if (Utility.isValueNullOrEmpty(sessionsInnerModelArrayList.get(1).getItemTitle2())) {
+                textTitle7.setVisibility(View.GONE);
+            } else {
+                textTitle7.setVisibility(View.VISIBLE);
+                textTitle7.setText(sessionsInnerModelArrayList.get(1).getItemTitle2());
+            }
+            if (Utility.isValueNullOrEmpty(sessionsInnerModelArrayList.get(1).getItemTitle3())) {
+                textTitle8.setVisibility(View.GONE);
+            } else {
+                textTitle8.setVisibility(View.VISIBLE);
+                textTitle8.setText(sessionsInnerModelArrayList.get(1).getItemTitle3());
+            }
+            if (Utility.isValueNullOrEmpty(sessionsInnerModelArrayList.get(1).getItemTitle4())) {
+                textTitle9.setVisibility(View.GONE);
+            } else {
+                textTitle9.setVisibility(View.VISIBLE);
+                textTitle9.setText(sessionsInnerModelArrayList.get(1).getItemTitle4());
+            }
+            if (Utility.isValueNullOrEmpty(sessionsInnerModelArrayList.get(1).getItemTitle5())) {
+                textTitle10.setVisibility(View.GONE);
+            } else {
+                textTitle10.setVisibility(View.VISIBLE);
+                textTitle10.setText(sessionsInnerModelArrayList.get(1).getItemTitle5());
+            }
+            imgYoutube2.setVisibility(View.VISIBLE);
+            Picasso.with(this)
+                    .load(sessionsInnerModelArrayList.get(1).getThumbnailImage())
+                    .placeholder(R.drawable.video_image1)
+                    .into(imgYoutube2);
+
+
+            if (sessionsInnerModelArrayList.get(1).getVideoStatus().equals("0")) {
+                textStatus2.setVisibility(View.GONE);
+            } else {
+                textStatus2.setVisibility(View.VISIBLE);
+            }
+            textReadMore2.setVisibility(View.VISIBLE);
+            imgButton2.setVisibility(View.VISIBLE);
         } else {
-            textStatus2.setVisibility(View.VISIBLE);
+            textTitle6.setVisibility(View.GONE);
+            textTitle7.setVisibility(View.GONE);
+            textTitle8.setVisibility(View.GONE);
+            textTitle9.setVisibility(View.GONE);
+            textTitle10.setVisibility(View.GONE);
+            imgYoutube2.setVisibility(View.GONE);
+            textStatus2.setVisibility(View.GONE);
+            textReadMore2.setVisibility(View.GONE);
+            imgButton2.setVisibility(View.GONE);
+        }
+        checkAlreadyWatchedOrNot();
+    }
+
+    private void checkAlreadyWatchedOrNot() {
+        if ((textStatus.getVisibility() == View.VISIBLE) && (textStatus2.getVisibility() == View.VISIBLE)) {
+            txtNext.setTextColor(getResources().getColor(R.color.color_blue));
+            txtNext.setVisibility(View.VISIBLE);
+//            txtNext.setDrawingCacheBackgroundColor(getResources().getColor(R.color.color_blue));
+        } else {
+            txtNext.setVisibility(View.GONE);
         }
     }
 }

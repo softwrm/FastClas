@@ -71,5 +71,7 @@
     <string name="thumbnail">thumbnail</string>
     <string name="play">play button</string>
     <string name="bottom_button">bottom button</string>
+    <string name="write_your_question_here">Write Your Question here</string>
+    <string name="answer">Answer</string>
 
 </resources>

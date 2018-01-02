@@ -12,16 +12,6 @@
         android:layout_height="?attr/toolbarStyle"
         android:layout_alignParentTop="true" />
 
-    <TextView
-        android:id="@+id/txtxNoDataFound"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerInParent="true"
-        android:text="@string/no_data_found"
-        android:textColor="@color/colorPrimary"
-        android:textSize="@dimen/text_medium_14sp"
-        android:visibility="visible" />
 
     <ScrollView
         android:id="@+id/scrollView"
@@ -126,6 +116,13 @@
 
             </RelativeLayout>
 
+            <View
+                android:layout_marginBottom="@dimen/space_medium_15dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_tiny_2dp"
+                android:background="@color/colorPrimary"
+                android:layout_marginTop="@dimen/space_medium_15dp"/>
+
             <TextView
                 android:id="@+id/textTitle6"
                 android:layout_width="wrap_content"
@@ -221,6 +218,7 @@
             android:background="@color/color_blue" />
 
         <TextView
+            android:id="@+id/txtPrevious"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -254,8 +252,19 @@
             android:drawableRight="@drawable/next_icon"
             android:gravity="center"
             android:text="@string/next"
-            android:textColor="@color/color_ash" />
+            android:textColor="@color/color_blue" />
 
     </RelativeLayout>
 
+    <TextView
+        android:gravity="center"
+        android:id="@+id/txtxNoDataFound"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
+        android:text="@string/no_data_found"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/text_xmedium_16sp"
+        android:visibility="gone" />
 </RelativeLayout>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar1"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:layout_alignParentTop="true" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:text="@string/no_data_found"
+        android:textColor="@color/color_blue"
+        android:textSize="@dimen/text_xmedium_16sp"
+        android:visibility="gone"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewAnswer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/layoutComments"
+        android:layout_below="@+id/toolbar">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <RelativeLayout
+        android:id="@+id/layoutComments"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/space_vsmall_5dp">
+
+        <ImageView
+            android:id="@+id/imgUser"
+            android:layout_width="@dimen/text_5xlarge_50dp"
+            android:layout_height="@dimen/text_5xlarge_50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:contentDescription="@string/post"
+            android:padding="@dimen/space_vsmall_5dp"
+            android:src="@drawable/fastclasusericon" />
+
+        <EditText
+            android:id="@+id/edtComments"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="@dimen/space_small_10dp"
+            android:layout_toEndOf="@+id/imgUser"
+            android:layout_toRightOf="@+id/imgUser"
+            android:background="@color/gray_dark"
+            android:hint="@string/add_a_comment"
+            android:padding="@dimen/space_vsmall_5dp"
+            android:textSize="@dimen/text_medium_14sp" />
+
+        <TextView
+            android:id="@+id/txtPost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/edtComments"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="@dimen/space_small_10dp"
+            android:padding="@dimen/space_vsmall_5dp"
+            android:text="@string/post"
+            android:textColor="@color/color_blue" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

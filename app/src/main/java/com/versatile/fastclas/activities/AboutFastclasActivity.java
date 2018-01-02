@@ -19,6 +19,7 @@ public class AboutFastclasActivity extends BaseActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_fastclas);
         initViews();
+        HomeActivity.navigationView.getMenu().getItem(1).setChecked(false);
     }
 
     private void initViews() {
@@ -43,15 +44,11 @@ public class AboutFastclasActivity extends BaseActivity implements View.OnClickL
             case R.id.imgBack:
                 onBackPressed();
                 break;
-            default:
-                break;
         }
     }
 
     @Override
     public void onBackPressed() {
         finish();
-        overridePendingTransition(R.anim.trans_right_in, R.anim.trans_left_out);
-//        navigateActivityBack(new Intent(this, HomeActivity.class), false);
     }
 }

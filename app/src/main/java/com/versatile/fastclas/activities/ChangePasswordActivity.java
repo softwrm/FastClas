@@ -32,6 +32,9 @@ public class ChangePasswordActivity extends BaseActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
+
+        HomeActivity.navigationView.getMenu().getItem(3).setChecked(false);
+
         initViews();
     }
 

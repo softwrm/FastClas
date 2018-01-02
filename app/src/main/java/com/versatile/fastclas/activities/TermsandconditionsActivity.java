@@ -18,6 +18,9 @@ public class TermsandconditionsActivity extends BaseActivity implements View.OnC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_termsandconditions);
+
+        HomeActivity.navigationView.getMenu().getItem(4).setChecked(false);
+
         initViews();
     }
 

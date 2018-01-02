@@ -36,7 +36,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:maxLength="16"
+                        android:maxLength="25"
                         android:id="@+id/txtCourse"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
                         android:textSize="@dimen/text_large_18sp"
                         android:textStyle="bold" />
 
-                    <TextView
+                 <!--   <TextView
                         android:id="@+id/txtSubjects"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
                         android:layout_toRightOf="@+id/txtCourse"
                         android:text="@string/subjects"
                         android:textColor="@color/color_black"
-                        android:textSize="@dimen/text_large_18sp" />
+                        android:textSize="@dimen/text_large_18sp" />-->
 
                     <TextView
                         android:id="@+id/txtSemester"
@@ -61,8 +61,6 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
-                        android:layout_toEndOf="@+id/txtSubjects"
-                        android:layout_toRightOf="@+id/txtSubjects"
                         android:gravity="end"
                         android:padding="1dp"
                         android:text="@string/semester_i"

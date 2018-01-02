@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/space_vsmall_5dp"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/textUserLetter"
+        android:layout_width="@dimen/space_xxxlarge_40dp"
+        android:layout_height="@dimen/space_xxxlarge_40dp"
+        android:background="@drawable/circle_bg"
+        android:gravity="center"
+        android:padding="@dimen/space_vsmall_5dp"
+        android:textColor="@color/color_white"
+        android:textSize="@dimen/text_xxlarge_22sp"
+        android:layout_margin="@dimen/space_vsmall_5dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textUserName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="@dimen/space_vsmall_5dp"
+            android:gravity="center_vertical"
+            android:padding="@dimen/space_vsmall_5dp"
+            android:text="John Legend"
+            android:textColor="@color/color_black"
+            android:textSize="@dimen/text_large_18sp" />
+
+        <TextView
+            android:id="@+id/textAnswer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/space_vsmall_5dp"
+            android:padding="@dimen/space_vsmall_5dp"
+            android:text="When an unknown printer took a gallery of type and scrambled it to make a type specimen book."
+            android:textColor="@color/color_ash" />
+
+    </LinearLayout>
+</LinearLayout>

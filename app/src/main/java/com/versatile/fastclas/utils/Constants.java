@@ -20,6 +20,11 @@ public class Constants {
     public static final int SERVICE_SESSION = 113;
     public static final int SERVICE_ITEM = 114;
     public static final int SERVICE_VIDEO_WATECHED_1 = 115;
+    public static final int SERVICE_DISCUSSION = 116;
+    public static final int SERVICE_QUESTION = 117;
+    public static final int SERVICE_ANSWERS = 118;
+    public static final int SERVICE_POSTANSWERS = 119;
+
 
     public static final String APP_PREF = "fast_class_preff";
     public static final String LNAME = "LNAME";

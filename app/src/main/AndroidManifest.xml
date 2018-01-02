@@ -67,9 +67,11 @@
         <activity
             android:name="com.versatile.fastclas.activities.DiscussionForumActivity"
             android:screenOrientation="portrait" />
-        <activity android:name="com.versatile.fastclas.activities.YoutubeVideoPlayer"
+        <activity
+            android:name="com.versatile.fastclas.activities.YoutubeVideoPlayer"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape" />
+        <activity android:name="com.versatile.fastclas.activities.AnswersActivity"></activity>
     </application>
 
 </manifest>

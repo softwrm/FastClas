@@ -152,6 +152,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
         if (id == R.id.nav_myprofile) {
             navigateActivity(new Intent(this, MyProfileActivity.class), false);
+
         } else if (id == R.id.nav_aboutus) {
             navigateActivity(new Intent(this, AboutFastclasActivity.class), false);
         } else if (id == R.id.nav_editProfile) {
@@ -163,7 +164,9 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         } else if (id == R.id.nav_help) {
             navigateActivity(new Intent(this, HelpActivity.class), false);
         } else if (id == R.id.nav_logout) {
+
             PopUtils.exitDialog(HomeActivity.this, "Are you sure.....you want to logout?", logoutClick);
+            HomeActivity.navigationView.getMenu().getItem(6).setChecked(false);
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

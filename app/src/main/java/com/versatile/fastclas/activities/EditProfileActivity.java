@@ -60,6 +60,9 @@ public class EditProfileActivity extends BaseActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
+
+        HomeActivity.navigationView.getMenu().getItem(2).setChecked(false);
+
         initViews();
 
     }

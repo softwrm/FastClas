@@ -22,6 +22,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 
+import com.versatile.fastclas.activities.HomeActivity;
 import com.versatilemobitech.fastclas.R;
 import com.versatile.fastclas.activities.RegisterActivity;
 import com.versatile.fastclas.interfaces.ReturnValue;
@@ -209,6 +210,7 @@ public class PopUtils {
 
 
     public static Dialog exitDialog(final Context mContext, String message, final View.OnClickListener yesClick) {
+
         TextView mTxtMessage;
         TextView mBtnYes, mBtnNo;
         dialog = new Dialog(mContext, R.style.AlertDialogCustom);
