@@ -2,6 +2,7 @@ package com.versatile.fastclas.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.widget.Toast;
 
 import com.google.android.youtube.player.YouTubeBaseActivity;
@@ -15,7 +16,7 @@ import com.versatilemobitech.fastclas.R;
 public class YoutubeVideoPlayer extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener, YouTubePlayer.PlayerStateChangeListener {
     private static final int RECOVERY_DIALOG_REQUEST = 1;
     YouTubePlayerView youtubePlayer;
-    String video_id,from;
+    String video_id, from;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,23 +28,16 @@ public class YoutubeVideoPlayer extends YouTubeBaseActivity implements YouTubePl
         if (intent.hasExtra("video_id_1")) {
             video_id = intent.getStringExtra("video_id_1");
             from = "first";
-        }else if(intent.hasExtra("video_id_2")){
+        } else if (intent.hasExtra("video_id_2")) {
             video_id = intent.getStringExtra("video_id_2");
             from = "second";
-        } else {
-            video_id = "vdNCQ6yg9h4";
-
         }
         youtubePlayer.initialize(Constants.YOUTUBE_API_KEY, this);
-
-
     }
-
 
     @Override
     public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean wasRestored) {
         if (!wasRestored) {
-
             // loadVideo() will auto play video
             // Use cueVideo() method, if you don't want to play it automatically
 //            youTubePlayer.loadVideo("HWrNzUCjbkk",20000);
@@ -60,16 +54,18 @@ public class YoutubeVideoPlayer extends YouTubeBaseActivity implements YouTubePl
         if (errorReason.isUserRecoverableError()) {
             errorReason.getErrorDialog(this, RECOVERY_DIALOG_REQUEST).show();
         } else {
-            String errorMessage = String.format(
-                    getString(R.string.error_player), errorReason.toString());
+            String errorMessage = String.format(getString(R.string.error_player), errorReason.toString());
             Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show();
         }
     }
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-//        youtubePlayer.getM
+        Intent intent = new Intent(this, SessionsInnerActivity.class);
+        intent.putExtra("isCompleted", "false");
+        intent.putExtra("from", from);
+        setResult(2, intent);
+        finish();
     }
 
     @Override
@@ -94,15 +90,17 @@ public class YoutubeVideoPlayer extends YouTubeBaseActivity implements YouTubePl
 
     @Override
     public void onVideoEnded() {
-        if(from.equals("first")) {
+        if (from.equals("first")) {
             Intent intent = new Intent(this, SessionsInnerActivity.class);
-            intent.putExtra("completed_1", "true");
-            setResult(2,intent);
+            intent.putExtra("isCompleted", "true");
+            intent.putExtra("from", from);
+            setResult(2, intent);
             finish();
-        }else if(from.equals("second")){
+        } else if (from.equals("second")) {
             Intent intent = new Intent(this, SessionsInnerActivity.class);
-            intent.putExtra("completed_2", "true");
-            setResult(4,intent);
+            intent.putExtra("isCompleted", "true");
+            intent.putExtra("from", from);
+            setResult(2, intent);
             finish();
         }
 
@@ -110,6 +108,22 @@ public class YoutubeVideoPlayer extends YouTubeBaseActivity implements YouTubePl
 
     @Override
     public void onError(YouTubePlayer.ErrorReason errorReason) {
-        this.finish();
+        Intent intent = new Intent(this, SessionsInnerActivity.class);
+        intent.putExtra("isCompleted", "false");
+        intent.putExtra("from", from);
+        setResult(2, intent);
+        finish();
     }
+
+//    @Override
+//    public boolean onKeyUp(int keyCode, KeyEvent event)
+//    {
+//        if (keyCode == KeyEvent.KEYCODE_BACK) {
+//            // Custom define what you want to happen
+//            Intent intent = new Intent(this, SessionsInnerActivity.class);
+//            setResult(6, intent);
+//            finish();
+//        }
+//        return true;
+//    }
 }

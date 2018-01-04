@@ -107,7 +107,7 @@
                 android:drawablePadding="@dimen/space_vsmall_5dp"
                 android:hint="@string/phoneno"
                 android:imeOptions="actionNext"
-                android:inputType="phone"
+                android:inputType="phone|number"
                 android:maxLength="10"
                 android:maxLines="1"
                 android:paddingLeft="@dimen/space_small_10dp"

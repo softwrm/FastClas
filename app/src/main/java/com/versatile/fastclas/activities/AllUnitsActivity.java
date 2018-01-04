@@ -111,6 +111,7 @@ public class AllUnitsActivity extends BaseActivity implements View.OnClickListen
         intent.putExtra("label", allUnitsModel.getUnitNumber());
         intent.putExtra("heading", allUnitsModel.getUnitTitle());
         intent.putExtra("unitId", allUnitsModel.getUnitId());
+//        intent.putExtra("noOfPages",allUnitsModel.getUnitId())
         navigateActivity(intent, false);
     }
 
@@ -135,8 +136,6 @@ public class AllUnitsActivity extends BaseActivity implements View.OnClickListen
                 JSONObject jsonObject = new JSONObject(response);
                 String status = jsonObject.optString("status");
                 String message = jsonObject.optString("message");
-                String subject_id = jsonObject.optString("subject_id");
-                String subject = jsonObject.optString("subject");
 
                 if (status.equals("200")) {
                     JSONArray jsonArray = jsonObject.getJSONArray("data");

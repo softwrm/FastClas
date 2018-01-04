@@ -46,15 +46,11 @@ public class TermsandconditionsActivity extends BaseActivity implements View.OnC
             case R.id.imgBack:
                 onBackPressed();
                 break;
-            default:
-                break;
         }
     }
 
     @Override
     public void onBackPressed() {
         finish();
-        overridePendingTransition(R.anim.trans_right_in, R.anim.trans_left_out);
-//        navigateActivityBack(new Intent(this, HomeActivity.class), false);
     }
 }

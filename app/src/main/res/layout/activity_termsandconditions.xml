@@ -7,29 +7,22 @@
 
     <include layout="@layout/toolbar1" />
 
-    <LinearLayout
+
+    <ScrollView
+        android:background="@color/color_white"
+        android:padding="@dimen/text_xmedium_16sp"
+        android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/space_medium_15dp"
-        android:background="@drawable/cardview_bg"
-        android:elevation="@dimen/space_vsmall_5dp"
-        android:orientation="vertical"
-        android:padding="@dimen/space_medium_15dp">
+        android:overScrollMode="never"
+        android:scrollbars="none">
 
-        <ScrollView
-            android:id="@+id/scroll"
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:overScrollMode="never"
-            android:scrollbars="none">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/space_8xlarge_80dp"
+            android:text="@string/termsandconditionstext"
+            android:textColor="@color/color_ash" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/space_8xlarge_80dp"
-                android:text="@string/termsandconditionstext"
-                android:textColor="@color/color_ash" />
-
-        </ScrollView>
-    </LinearLayout>
+    </ScrollView>
 </LinearLayout>

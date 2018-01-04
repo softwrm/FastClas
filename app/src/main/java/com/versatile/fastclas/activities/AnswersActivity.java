@@ -31,10 +31,11 @@ import java.util.ArrayList;
 public class AnswersActivity extends BaseActivity implements View.OnClickListener, IParseListener {
 
     RecyclerView recyclerViewAnswer;
-    String session_id, question_id;
+    String session_id, question_id, user_name, post_on, question;
     TextView txtPost;
     EditText edtComments;
     ArrayList<AnswersModel> answersModelArrayList = new ArrayList<>();
+    TextView textUserLetter, textName, textPostedTime, textQuestion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,10 @@ public class AnswersActivity extends BaseActivity implements View.OnClickListene
         Intent intent = getIntent();
         question_id = intent.getStringExtra("question_id");
         session_id = intent.getStringExtra("session_id");
+        user_name = intent.getStringExtra("user_name");
+        post_on = intent.getStringExtra("post_on");
+        question = intent.getStringExtra("question");
+
 
         initUI();
         callWebServiceForAnswers();
@@ -68,10 +73,23 @@ public class AnswersActivity extends BaseActivity implements View.OnClickListene
         recyclerViewAnswer.setHasFixedSize(true);
         recyclerViewAnswer.setItemAnimator(new DefaultItemAnimator());
 
+        textQuestion = findViewById(R.id.textQuestion);
+        textUserLetter = findViewById(R.id.textUserLetter);
+        textName = findViewById(R.id.textName);
+        textPostedTime = findViewById(R.id.textPostedTime);
+
         txtPost = findViewById(R.id.txtPost);
         edtComments = findViewById(R.id.edtComments);
 
         txtPost.setOnClickListener(this);
+
+        textQuestion.setText(question);
+        textName.setText(user_name);
+        textPostedTime.setText(post_on);
+        Character character = user_name.charAt(0);
+        textUserLetter.setText(character.toString());
+
+
 
     }
 

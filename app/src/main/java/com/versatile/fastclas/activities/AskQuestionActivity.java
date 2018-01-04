@@ -96,7 +96,6 @@ public class AskQuestionActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void onBackPressed() {
         finish();
-        overridePendingTransition(R.anim.trans_right_in, R.anim.trans_left_out);
     }
 
     @Override

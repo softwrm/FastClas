@@ -54,6 +54,9 @@ public class DiscussionForumAdapter extends RecyclerView.Adapter<DiscussionForum
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, AnswersActivity.class);
+                intent.putExtra("user_name", discussionForumModel.getUser_name());
+                intent.putExtra("post_on", discussionForumModel.getPost_on());
+                intent.putExtra("question", discussionForumModel.getQuestion());
                 intent.putExtra("question_id", discussionForumModel.getQuestion_id());
                 intent.putExtra("session_id", discussionForumModel.getSession_id());
                 context.startActivity(intent);

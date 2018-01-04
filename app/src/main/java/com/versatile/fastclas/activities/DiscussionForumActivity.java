@@ -27,7 +27,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class DiscussionForumActivity extends BaseActivity implements View.OnClickListener,IParseListener {
+public class DiscussionForumActivity extends BaseActivity implements View.OnClickListener, IParseListener {
 
     private static final String TAG = DiscussionForumActivity.class.getSimpleName();
     private Toolbar toolbar;
@@ -36,7 +36,7 @@ public class DiscussionForumActivity extends BaseActivity implements View.OnClic
     private ImageView mImgBack;
     private String heading, sessionId;
     private Button btnAskQuestion;
-
+    TextView txtNoDataFound;
     ArrayList<DiscussionForumModel> discussionForumModelArrayList = new ArrayList<>();
 
     @Override
@@ -66,51 +66,26 @@ public class DiscussionForumActivity extends BaseActivity implements View.OnClic
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        }else{
+        } else {
             PopUtils.alertDialog(this, getString(R.string.pls_check_internet), null);
         }
     }
 
 
     private void setReferences() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        txtToolbar = (TextView) findViewById(R.id.txtToolbar);
-
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        toolbar = findViewById(R.id.toolbar);
+        txtToolbar = findViewById(R.id.txtToolbar);
+        recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
+        txtNoDataFound = findViewById(R.id.txtNoDataFound);
+        mImgBack = findViewById(R.id.imgBack);
+        btnAskQuestion = findViewById(R.id.btnAskQuestion);
 
-        mImgBack = (ImageView) findViewById(R.id.imgBack);
-        btnAskQuestion = (Button) findViewById(R.id.btnAskQuestion);
-
-//        heading = getIntent().getStringExtra("heading");
         txtToolbar.setText("DISCUSSION FORUM");
 
         mImgBack.setOnClickListener(this);
         btnAskQuestion.setOnClickListener(this);
-    }
-
-    private void setData() {
-
-        ArrayList<String> userNameArraylist = new ArrayList<>();
-        ArrayList<String> answersArraylist = new ArrayList<>();
-
-        userNameArraylist.add("John Legend");
-        userNameArraylist.add("Guru Mann");
-
-        answersArraylist.add("When an unknown printer took a gallery of type and scrambled it to make a type specimen book.");
-        answersArraylist.add("This is answer.");
-
-
-//        for (int i = 0; i < 3; i++) {
-//            discussionForumModelArrayList.add(new DiscussionForumModel("Introduction", "1",
-//                    "Multidimensional Aspects of Food Consumption and Production ?", "Ray Parker",
-//                    "1 hour ago", "2", userNameArraylist, answersArraylist));
-//        }
-
-//        DiscussionForumAdapter discussionForumAdapter = new DiscussionForumAdapter(this, discussionForumModelArrayList);
-
-//        recyclerView.setAdapter(discussionForumAdapter);
     }
 
     @Override
@@ -121,12 +96,11 @@ public class DiscussionForumActivity extends BaseActivity implements View.OnClic
                 break;
             case R.id.btnAskQuestion:
                 Intent intent = new Intent(this, AskQuestionActivity.class);
-                intent.putExtra("sessionId",sessionId);
+                intent.putExtra("sessionId", sessionId);
                 startActivity(intent);
                 break;
         }
     }
-
 
 
     @Override
@@ -136,23 +110,22 @@ public class DiscussionForumActivity extends BaseActivity implements View.OnClic
 
     @Override
     public void ErrorResponse(VolleyError volleyError, int requestCode) {
-        if(requestCode == Constants.SERVICE_DISCUSSION){
+        if (requestCode == Constants.SERVICE_DISCUSSION) {
             hideLoadingDialog();
         }
     }
 
     @Override
     public void SuccessResponse(String response, int requestCode) {
-        if(requestCode == Constants.SERVICE_DISCUSSION){
+        if (requestCode == Constants.SERVICE_DISCUSSION) {
             hideLoadingDialog();
             try {
                 JSONObject jsonObject = new JSONObject(response);
                 String status = jsonObject.optString("status");
                 String message = jsonObject.optString("message");
-                if(status.equals("200")){
-                    JSONArray  jsonArray =jsonObject.getJSONArray("data");
-                    for(int i = 0;i<jsonArray.length();i++)
-                    {
+                if (status.equals("200")) {
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObjectData = jsonArray.getJSONObject(i);
                         String question_id = jsonObjectData.optString("question_id");
                         String user_id = jsonObjectData.optString("user_id");
@@ -163,7 +136,7 @@ public class DiscussionForumActivity extends BaseActivity implements View.OnClic
                         int number_of_answers = jsonObjectData.optInt("number_of_answers");
 
                         DiscussionForumModel discussionForumModel = new DiscussionForumModel();
-                        discussionForumModel.setNumber_of_answers(""+number_of_answers);
+                        discussionForumModel.setNumber_of_answers("" + number_of_answers);
                         discussionForumModel.setQuestion_id(question_id);
                         discussionForumModel.setQuestion(question);
                         discussionForumModel.setUser_name(user_name);
@@ -174,6 +147,8 @@ public class DiscussionForumActivity extends BaseActivity implements View.OnClic
                     }
                     DiscussionForumAdapter discussionForumAdapter = new DiscussionForumAdapter(this, discussionForumModelArrayList);
                     recyclerView.setAdapter(discussionForumAdapter);
+                }else{
+                    txtNoDataFound.setVisibility(View.VISIBLE);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

@@ -11,6 +11,90 @@
         android:layout_height="?android:attr/actionBarSize"
         android:layout_alignParentTop="true" />
 
+    <LinearLayout
+        android:id="@+id/lnrlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textUserLetter"
+            android:layout_width="@dimen/space_xxxlarge_40dp"
+            android:layout_height="@dimen/space_xxxlarge_40dp"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="@dimen/space_vsmall_5dp"
+            android:background="@drawable/circle_bg"
+            android:gravity="center"
+            android:padding="@dimen/space_vsmall_5dp"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/text_xxlarge_22sp" />
+
+        <TextView
+            android:id="@+id/textName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:maxLength="30"
+            android:text="rethrt"
+            android:textColor="@color/color_black"
+            android:textSize="@dimen/text_large_18sp" />
+
+
+        <TextView
+            android:id="@+id/textPostedTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:paddingEnd="@dimen/space_vsmall_5dp"
+            android:paddingLeft="@dimen/space_tiny_2dp"
+            android:paddingRight="@dimen/space_vsmall_5dp"
+            android:paddingStart="@dimen/space_tiny_2dp"
+            android:text="errth"
+            android:textColor="@color/color_ash"
+            android:textSize="@dimen/text_medium_14sp" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/lnrlayout"
+        android:layout_marginBottom="@dimen/space_vsmall_5dp"
+        android:layout_marginLeft="@dimen/_8dp"
+        android:layout_marginRight="@dimen/_8dp"
+        android:layout_marginTop="@dimen/space_vsmall_5dp"
+        android:background="@color/color_ash" />
+
+
+    <TextView
+        android:id="@+id/textQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view1"
+        android:layout_marginBottom="@dimen/space_small_10dp"
+        android:paddingLeft="@dimen/space_small_10dp"
+        android:paddingRight="@dimen/space_small_10dp"
+        android:textColor="@color/color_black"
+        android:textStyle="bold" />
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/textQuestion"
+        android:layout_marginBottom="@dimen/space_vsmall_5dp"
+        android:layout_marginLeft="@dimen/_8dp"
+        android:layout_marginRight="@dimen/_8dp"
+        android:layout_marginTop="@dimen/space_vsmall_5dp"
+        android:background="@color/color_ash" />
+
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,60 +103,60 @@
         android:text="@string/no_data_found"
         android:textColor="@color/color_blue"
         android:textSize="@dimen/text_xmedium_16sp"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerViewAnswer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/layoutComments"
-        android:layout_below="@+id/toolbar">
+        android:layout_below="@+id/view2">
 
     </android.support.v7.widget.RecyclerView>
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/layoutComments"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="@dimen/space_vsmall_5dp">
-
-        <ImageView
-            android:id="@+id/imgUser"
-            android:layout_width="@dimen/text_5xlarge_50dp"
-            android:layout_height="@dimen/text_5xlarge_50dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:contentDescription="@string/post"
-            android:padding="@dimen/space_vsmall_5dp"
-            android:src="@drawable/fastclasusericon" />
+        android:layout_marginTop="@dimen/space_vsmall_5dp"
+        android:orientation="horizontal">
 
         <EditText
             android:id="@+id/edtComments"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
             android:layout_margin="@dimen/space_small_10dp"
-            android:layout_toEndOf="@+id/imgUser"
-            android:layout_toRightOf="@+id/imgUser"
+            android:layout_toLeftOf="@+id/txtPost"
+            android:layout_toStartOf="@+id/txtPost"
+            android:layout_weight="2"
             android:background="@color/gray_dark"
+            android:gravity="top"
             android:hint="@string/add_a_comment"
             android:padding="@dimen/space_vsmall_5dp"
             android:textSize="@dimen/text_medium_14sp" />
-
+        <!--    <ImageView
+                android:id="@+id/imgUser"
+                android:layout_width="@dimen/text_5xlarge_50dp"
+                android:layout_height="@dimen/text_5xlarge_50dp"
+                android:contentDescription="@string/post"
+                android:padding="@dimen/space_vsmall_5dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_toEndOf="@+id/edtComments"
+                android:layout_toRightOf="@+id/edtComments"
+                android:src="@drawable/fastclasusericon" />-->
         <TextView
             android:id="@+id/txtPost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/edtComments"
-            android:layout_gravity="center_vertical"
-            android:layout_marginBottom="@dimen/space_small_10dp"
+            android:layout_gravity="bottom"
+            android:layout_margin="@dimen/space_vsmall_5dp"
+            android:background="@color/gray_dark"
             android:padding="@dimen/space_vsmall_5dp"
             android:text="@string/post"
-            android:textColor="@color/color_blue" />
+            android:textColor="@color/color_black" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
 </RelativeLayout>

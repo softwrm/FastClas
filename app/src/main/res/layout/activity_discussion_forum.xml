@@ -9,36 +9,47 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_gravity="center"
         android:background="@color/brown_light"
-        android:orientation="vertical"
-        android:layout_gravity="center">
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtNoDataFound"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_5xlarge_50dp"
+            android:gravity="center"
+            android:text="@string/no_data_found"
+            android:textColor="@color/color_blue"
+            android:textSize="@dimen/text_medium_14sp"
+            android:visibility="gone" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_above="@+id/btnAskQuestion"
             android:layout_marginLeft="@dimen/space_small_10dp"
             android:layout_marginRight="@dimen/space_small_10dp"
             android:layout_marginTop="@dimen/space_small_10dp"
             android:overScrollMode="never"
             android:scrollIndicators="none"
-            android:scrollbars="none"
-            android:layout_above="@+id/btnAskQuestion"/>
+            android:scrollbars="none" />
 
         <Button
             android:id="@+id/btnAskQuestion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/space_xmedium_20dp"
+            android:layout_marginTop="@dimen/space_small_10dp"
+            android:background="@drawable/btn_bg"
+            android:padding="@dimen/space_small_10dp"
             android:text="@string/ask_a_question"
             android:textAllCaps="false"
             android:textColor="@color/color_white"
-            android:textSize="@dimen/text_xmedium_16sp"
-            android:padding="@dimen/space_small_10dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/btn_bg"
-            android:layout_marginTop="@dimen/space_small_10dp"
-            android:layout_marginBottom="@dimen/space_xmedium_20dp"/>
+            android:textSize="@dimen/text_xmedium_16sp" />
 
     </RelativeLayout>
 </LinearLayout>

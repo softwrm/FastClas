@@ -21,7 +21,6 @@ import android.widget.Toast;
 import com.android.volley.VolleyError;
 import com.squareup.picasso.Picasso;
 import com.versatile.fastclas.BaseActivity;
-import com.versatile.fastclas.adapters.SessionsInnerAdapter;
 import com.versatile.fastclas.interfaces.IParseListener;
 import com.versatile.fastclas.models.SessionsInnerModel;
 import com.versatile.fastclas.utils.Constants;
@@ -44,7 +43,7 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
     TextView textTitle1, textTitle2, textTitle3, textTitle4, textTitle5, textTitle6, textTitle7, textTitle8, textTitle9, textTitle10;
     TextView textStatus, textStatus2;
     TextView txtToolbar;
-    String heading, unitId, sessionId;
+    String heading, unitId, sessionId, item_count, item_viewed;
     ArrayList<SessionsInnerModel> sessionsInnerModelArrayList = new ArrayList<>();
     ImageView imgYoutube, imgYoutube2;
     ImageView imgButton, imgButton2;
@@ -56,6 +55,7 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
     TextView textReadMore, textReadMore2;
     TextView txtPrevious;
     int pageCount = 1;
+    ImageView mImgBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,24 +84,23 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
         textTitle8 = findViewById(R.id.textTitle8);
         textTitle9 = findViewById(R.id.textTitle9);
         textTitle10 = findViewById(R.id.textTitle10);
-
         textStatus = findViewById(R.id.textStatus);
         textStatus2 = findViewById(R.id.textStatus2);
-
         txtxNoDataFound = findViewById(R.id.txtxNoDataFound);
-
         txtNext = findViewById(R.id.txtNext);
         txtPrevious = findViewById(R.id.txtPrevious);
         textReadMore = findViewById(R.id.textReadMore);
         textReadMore2 = findViewById(R.id.textReadMore2);
-
+        mImgBack = findViewById(R.id.imgBack);
         rl = findViewById(R.id.rl);
-
         scrollView = findViewById(R.id.scrollView);
 
         heading = getIntent().getStringExtra("heading");
         unitId = getIntent().getStringExtra("unit_id");
         sessionId = getIntent().getStringExtra("session_id");
+        item_count = getIntent().getStringExtra("item_count");
+        item_viewed = getIntent().getStringExtra("item_viewed");
+
         txtToolbar.setText(heading);
 
         imgOpenDialog.setOnClickListener(this);
@@ -111,7 +110,12 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
         txtPrevious.setOnClickListener(this);
         textReadMore.setOnClickListener(this);
         textReadMore2.setOnClickListener(this);
+        mImgBack.setOnClickListener(this);
+
+        checkPageCountEqualOrNot();
+
         callWebServiceForItems(pageCount);
+
     }
 
 
@@ -133,6 +137,7 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
                 jsonObject.put("unit_id", unitId);
                 jsonObject.put("session_id", sessionId);
                 jsonObject.put("page", "" + pageCountValue);
+                jsonObject.put("item_viewed", "" + item_viewed);
                 jsonObject.put("no_of_records", "2");
 
                 showLoadingDialog("Loading...", false);
@@ -144,6 +149,26 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
             }
         } else {
             PopUtils.alertDialog(this, getString(R.string.pls_check_internet), null);
+        }
+    }
+
+    private void callWebServiceVideo1(String item_id) {
+        if (PopUtils.checkInternetConnection(this)) {
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject.put("action", "video");
+                jsonObject.put("user_id", "" + Utility.getSharedPreference(this, Constants.USER_ID));
+                jsonObject.put("session_id", "" + sessionId);
+                jsonObject.put("item_id", "" + item_id);
+
+                showLoadingDialog("Loading...", false);
+
+                ServerResponse serverResponse = new ServerResponse();
+                serverResponse.serviceRequest(this, Constants.BASE_URL, jsonObject, this, Constants.SERVICE_VIDEO_WATECHED_1);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -166,7 +191,7 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
             case R.id.imgButton2: {
                 Intent intent = new Intent(this, YoutubeVideoPlayer.class);
                 intent.putExtra("video_id_2", sessionsInnerModelArrayList.get(1).youtubeId);
-                startActivityForResult(intent, 4);
+                startActivityForResult(intent, 2);
                 break;
             }
             case R.id.txtNext: {
@@ -191,116 +216,35 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
         }
     }
 
-    private void callDialogeDescription(String desc) {
-
-        final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-        LayoutInflater layoutInflater = this.getLayoutInflater();
-        View view = layoutInflater.inflate(R.layout.dialog_readmore, null);
-        alertDialog.setView(view);
-        alertDialog.setCancelable(true);
-        //alertDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimationexit;
-
-        TextView txtDescription = view.findViewById(R.id.txtDescription);
-        txtDescription.setText(desc);
-        alertDialog.show();
-    }
-
-    private void callWebServiceVideo1(String item_id) {
-        if (PopUtils.checkInternetConnection(this)) {
-            JSONObject jsonObject = new JSONObject();
-            try {
-                jsonObject.put("action", "video");
-                jsonObject.put("user_id", "" + Utility.getSharedPreference(this, Constants.USER_ID));
-                jsonObject.put("session_id", "" + sessionId);
-                jsonObject.put("item_id", "" + item_id);
-
-                showLoadingDialog("Loading...", false);
-
-                ServerResponse serverResponse = new ServerResponse();
-                serverResponse.serviceRequest(this, Constants.BASE_URL, jsonObject, this, Constants.SERVICE_VIDEO_WATECHED_1);
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         // check if the request code is same as what is passed  here it is 2
         if (requestCode == 2) {
-            textStatus.setVisibility(View.VISIBLE);
+            String from = data.getStringExtra("from");
+            String isCompleted = data.getStringExtra("isCompleted");
+            if (isCompleted.equals("true")) {
+                if (from.equals("first")) {
+                    textStatus.setVisibility(View.VISIBLE);
+                    callWebServiceVideo1(sessionsInnerModelArrayList.get(0).getItemId());
+                } else if (from.equals("second")) {
+                    textStatus2.setVisibility(View.VISIBLE);
+                    callWebServiceVideo1(sessionsInnerModelArrayList.get(1).getItemId());
+                }
+                checkAlreadyWatchedOrNot();
+            }
 
-
-            callWebServiceVideo1(sessionsInnerModelArrayList.get(0).getItemId());
-
-            checkAlreadyWatchedOrNot();
-
-        } else if (requestCode == 4) {
+        } /*else if (requestCode == 4) {
             textStatus2.setVisibility(View.VISIBLE);
 
             callWebServiceVideo1(sessionsInnerModelArrayList.get(1).getItemId());
 
             checkAlreadyWatchedOrNot();
-        }
+        } else if (requestCode == 6) {
+            Utility.showLog("Do Nothing", "Do Nothing");
+        }*/
     }
 
-
-    private void openDialog() {
-        final Dialog dialogShare = new Dialog(this);
-        dialogShare.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
-        dialogShare.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialogShare.setContentView(R.layout.dialog_sessions);
-        dialogShare.getWindow().setGravity(Gravity.BOTTOM);
-        dialogShare.setCanceledOnTouchOutside(true);
-        dialogShare.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        dialogShare.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialogShare.show();
-
-        TextView textDiscussionForum = dialogShare.findViewById(R.id.textDiscussionForum);
-//        TextView textAskQuestion = (TextView) dialogShare.findViewById(R.id.textAskQuestion);
-        TextView textCancel = dialogShare.findViewById(R.id.textCancel);
-
-        textCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialogShare.dismiss();
-            }
-        });
-
-        textDiscussionForum.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(SessionsInnerActivity.this, DiscussionForumActivity.class);
-                intent.putExtra("SessionId",sessionId);
-                startActivity(intent);
-                dialogShare.dismiss();
-            }
-        });
-
-        /*textAskQuestion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(SessionsInnerActivity.this, AskQuestionActivity.class);
-                navigateActivity(intent, false);
-                dialogShare.dismiss();
-            }
-        });*/
-    }
-
-//    @Override
-//    public void onItemClick(SessionsInnerModel sessionPojo, int Position) {
-//        final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-//        LayoutInflater layoutInflater = this.getLayoutInflater();
-//        View view = layoutInflater.inflate(R.layout.dialog_readmore, null);
-//        alertDialog.setView(view);
-//        alertDialog.setCancelable(true);
-//        //alertDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimationexit;
-//
-////        TextView txtDescription =  view.findViewById(R.id.txtDescription);
-//        alertDialog.show();
-//    }
 
     @Override
     public void onBackPressed() {
@@ -420,11 +364,19 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
             textTitle5.setText(sessionsInnerModelArrayList.get(0).getItemTitle5());
         }
 
-        Picasso.with(this)
-                .load(sessionsInnerModelArrayList.get(0).getThumbnailImage())
-                .placeholder(R.drawable.video_image1)
-                .into(imgYoutube);
+        if (!Utility.isValueNullOrEmpty(sessionsInnerModelArrayList.get(0).getYoutubeId())) {
 
+            imgButton.setVisibility(View.VISIBLE);
+            imgYoutube.setVisibility(View.VISIBLE);
+
+            Picasso.with(this)
+                    .load(sessionsInnerModelArrayList.get(0).getThumbnailImage())
+                    .placeholder(R.drawable.video_image1)
+                    .into(imgYoutube);
+        } else {
+            imgButton.setVisibility(View.GONE);
+            imgYoutube.setVisibility(View.GONE);
+        }
         if (sessionsInnerModelArrayList.get(0).getVideoStatus().equals("0")) {
             textStatus.setVisibility(View.GONE);
         } else {
@@ -464,11 +416,20 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
                 textTitle10.setText(sessionsInnerModelArrayList.get(1).getItemTitle5());
             }
             imgYoutube2.setVisibility(View.VISIBLE);
-            Picasso.with(this)
-                    .load(sessionsInnerModelArrayList.get(1).getThumbnailImage())
-                    .placeholder(R.drawable.video_image1)
-                    .into(imgYoutube2);
+            imgButton2.setVisibility(View.VISIBLE);
 
+            if (!Utility.isValueNullOrEmpty(sessionsInnerModelArrayList.get(1).getYoutubeId())) {
+                imgButton2.setVisibility(View.VISIBLE);
+                imgYoutube2.setVisibility(View.VISIBLE);
+
+                Picasso.with(this)
+                        .load(sessionsInnerModelArrayList.get(1).getThumbnailImage())
+                        .placeholder(R.drawable.video_image1)
+                        .into(imgYoutube2);
+            } else {
+                imgButton2.setVisibility(View.GONE);
+                imgYoutube2.setVisibility(View.GONE);
+            }
 
             if (sessionsInnerModelArrayList.get(1).getVideoStatus().equals("0")) {
                 textStatus2.setVisibility(View.GONE);
@@ -491,12 +452,112 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
         checkAlreadyWatchedOrNot();
     }
 
+    private void callDialogeDescription(String desc) {
+
+        final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        LayoutInflater layoutInflater = this.getLayoutInflater();
+        View view = layoutInflater.inflate(R.layout.dialog_readmore, null);
+        alertDialog.setView(view);
+        alertDialog.setCancelable(true);
+        //alertDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimationexit;
+
+        TextView txtDescription = view.findViewById(R.id.txtDescription);
+        txtDescription.setText(desc);
+        alertDialog.show();
+    }
+
+    private void openDialog() {
+        final Dialog dialogShare = new Dialog(this);
+        dialogShare.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        dialogShare.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogShare.setContentView(R.layout.dialog_sessions);
+        dialogShare.getWindow().setGravity(Gravity.BOTTOM);
+        dialogShare.setCanceledOnTouchOutside(true);
+        dialogShare.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        dialogShare.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialogShare.show();
+
+        TextView textDiscussionForum = dialogShare.findViewById(R.id.textDiscussionForum);
+//        TextView textAskQuestion = (TextView) dialogShare.findViewById(R.id.textAskQuestion);
+        TextView textCancel = dialogShare.findViewById(R.id.textCancel);
+
+        textCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogShare.dismiss();
+            }
+        });
+
+        textDiscussionForum.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SessionsInnerActivity.this, DiscussionForumActivity.class);
+                intent.putExtra("SessionId", sessionId);
+                startActivity(intent);
+                dialogShare.dismiss();
+            }
+        });
+
+    }
+
     private void checkAlreadyWatchedOrNot() {
-        if ((textStatus.getVisibility() == View.VISIBLE) && (textStatus2.getVisibility() == View.VISIBLE)) {
-            txtNext.setTextColor(getResources().getColor(R.color.color_blue));
-            txtNext.setVisibility(View.VISIBLE);
-//            txtNext.setDrawingCacheBackgroundColor(getResources().getColor(R.color.color_blue));
-        } else {
+        if(sessionsInnerModelArrayList.size() > 1){
+            if (Utility.isValueNullOrEmpty(sessionsInnerModelArrayList.get(0).getYoutubeId()) && Utility.isValueNullOrEmpty(sessionsInnerModelArrayList.get(1).getYoutubeId())) {
+                imgButton2.setVisibility(View.GONE);
+                imgYoutube2.setVisibility(View.GONE);
+                txtNext.setTextColor(getResources().getColor(R.color.color_blue));
+                txtNext.setVisibility(View.VISIBLE);
+                checkPageCountEqualOrNot();
+            } else if (Utility.isValueNullOrEmpty(sessionsInnerModelArrayList.get(0).getYoutubeId())) {
+                if ((textStatus2.getVisibility() == View.VISIBLE)) {
+                    txtNext.setTextColor(getResources().getColor(R.color.color_blue));
+                    txtNext.setVisibility(View.VISIBLE);
+                    checkPageCountEqualOrNot();
+                }else{
+                    txtNext.setVisibility(View.GONE);
+                }
+            } else if (Utility.isValueNullOrEmpty(sessionsInnerModelArrayList.get(1).getYoutubeId())) {
+                imgButton2.setVisibility(View.GONE);
+                imgYoutube2.setVisibility(View.GONE);
+                if ((textStatus.getVisibility() == View.VISIBLE)) {
+                    txtNext.setTextColor(getResources().getColor(R.color.color_blue));
+                    txtNext.setVisibility(View.VISIBLE);
+                    checkPageCountEqualOrNot();
+                }else{
+                    txtNext.setVisibility(View.GONE);
+                }
+            } else {
+                if ((textStatus.getVisibility() == View.VISIBLE) && (textStatus2.getVisibility() == View.VISIBLE)) {
+
+                    txtNext.setTextColor(getResources().getColor(R.color.color_blue));
+                    txtNext.setVisibility(View.VISIBLE);
+                    checkPageCountEqualOrNot();
+                } else {
+
+                    txtNext.setVisibility(View.GONE);
+                }
+            }
+        }else{
+            if (Utility.isValueNullOrEmpty(sessionsInnerModelArrayList.get(0).getYoutubeId())) {
+                txtNext.setTextColor(getResources().getColor(R.color.color_blue));
+                txtNext.setVisibility(View.VISIBLE);
+                checkPageCountEqualOrNot();
+            }else{
+                if ((textStatus.getVisibility() == View.VISIBLE)) {
+                    txtNext.setTextColor(getResources().getColor(R.color.color_blue));
+                    txtNext.setVisibility(View.VISIBLE);
+                    checkPageCountEqualOrNot();
+                }else{
+                    txtNext.setVisibility(View.GONE);
+                }
+            }
+        }
+
+    }
+
+    private void checkPageCountEqualOrNot() {
+        if (Integer.parseInt(item_count) <= pageCount) {
+            Utility.showLog("pageCount", "hide");
             txtNext.setVisibility(View.GONE);
         }
     }

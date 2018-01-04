@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/space_xmedium_20dp"
         android:gravity="center"
-        android:text="Notes"
+        android:text="@string/notes"
         android:textColor="@color/color_blue"
         android:textSize="@dimen/text_xmedium_16sp"
         android:textStyle="bold" />
@@ -24,10 +24,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scrollIndicators="none"
         android:scrollbars="none"
-        android:layout_marginTop="@dimen/space_xmedium_20dp"
-        android:layout_marginBottom="@dimen/space_xmedium_20dp">
+        android:layout_marginTop="@dimen/space_xmedium_20dp">
 
         <TextView
             android:id="@+id/txtDescription"

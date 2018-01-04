@@ -24,16 +24,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class SessionsActivity extends BaseActivity implements View.OnClickListener, SessionsAdapter.OnItemClickListener, IParseListener {
 
     private static final String TAG = SessionsActivity.class.getSimpleName();
-    private Toolbar toolbar;
-    private RecyclerView recyclerView;
-    private TextView txtToolbar, mTxtHeading, txtxNoDataFound;
-    private ImageView mImgBack;
-    private String label, heading, unitId;
+    Toolbar toolbar;
+    RecyclerView recyclerView;
+    TextView txtToolbar, mTxtHeading, txtxNoDataFound;
+    ImageView mImgBack;
+    String label, heading, unitId;
     ArrayList<SessionsModel> sessionsModelArrayList = new ArrayList<>();
 
     @Override
@@ -45,11 +46,6 @@ public class SessionsActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void initViews() {
-        setReferences();
-        setClickListeners();
-    }
-
-    private void setReferences() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         txtToolbar = (TextView) findViewById(R.id.txtToolbar);
         mTxtHeading = (TextView) findViewById(R.id.txtHeading);
@@ -66,16 +62,9 @@ public class SessionsActivity extends BaseActivity implements View.OnClickListen
         txtToolbar.setText(label);
         mTxtHeading.setText(heading);
 
-        callWebServiceSession();
-    }
-
-
-//        SessionsAdapter sessionsAdapter = new SessionsAdapter(this, sessionsModels, this);
-//        recyclerView.setAdapter(sessionsAdapter);
-
-
-    private void setClickListeners() {
         mImgBack.setOnClickListener(this);
+
+        callWebServiceSession();
     }
 
     private void callWebServiceSession() {
@@ -114,6 +103,8 @@ public class SessionsActivity extends BaseActivity implements View.OnClickListen
         intent.putExtra("heading", sessionPojo.getSessionTitle());
         intent.putExtra("unit_id", unitId);
         intent.putExtra("session_id", sessionPojo.getSessionId());
+        intent.putExtra("item_count", "" + sessionPojo.getItemCount());
+        intent.putExtra("item_viewed",""+sessionPojo.getItemsViewed());
         navigateActivity(intent, false);
     }
 
@@ -145,17 +136,18 @@ public class SessionsActivity extends BaseActivity implements View.OnClickListen
                         JSONObject jsonObjectData = jsonArray.getJSONObject(i);
 
                         String session_id = jsonObjectData.optString("session_id");
-                        String items_viewed = jsonObjectData.optString("items_viewed");
-                        String item_count = jsonObjectData.optString("item_count");
+                        int items_viewed = jsonObjectData.optInt("items_viewed");
+                        double item_count = jsonObjectData.optDouble("item_count");
                         String statusVal = jsonObjectData.optString("status");
                         String session_title = jsonObjectData.optString("session_title");
                         String session_number = jsonObjectData.optString("session_number");
 
-                        int item_count_int = Integer.parseInt(item_count);
+                        double calci = item_count / 2;
+
                         SessionsModel sessionsModel = new SessionsModel();
-                        sessionsModel.setItemCount("" + (int) (Math.ceil(item_count_int / 2)));
+                        sessionsModel.setItemCount("" + (int) (Math.ceil(calci)));
                         sessionsModel.setSessionId(session_id);
-                        sessionsModel.setItemsViewed(items_viewed);
+                        sessionsModel.setItemsViewed("" + items_viewed);
                         sessionsModel.setStatus(statusVal);
                         sessionsModel.setSessionTitle(session_title);
                         sessionsModel.setSessionNumber(session_number);
@@ -164,7 +156,7 @@ public class SessionsActivity extends BaseActivity implements View.OnClickListen
                     }
                     SessionsAdapter sessionsAdapter = new SessionsAdapter(this, sessionsModelArrayList, this);
                     recyclerView.setAdapter(sessionsAdapter);
-                }else {
+                } else {
                     txtxNoDataFound.setText("No Session's Found");
                     txtxNoDataFound.setVisibility(View.VISIBLE);
                     recyclerView.setVisibility(View.GONE);

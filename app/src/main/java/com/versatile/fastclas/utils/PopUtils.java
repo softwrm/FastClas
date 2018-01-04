@@ -229,12 +229,14 @@ public class PopUtils {
         mBtnNo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                HomeActivity.navigationView.getMenu().getItem(6).setChecked(false);
                 dialog.dismiss();
             }
         });
         mBtnYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                HomeActivity.navigationView.getMenu().getItem(6).setChecked(false);
                 if (yesClick != null) {
                     yesClick.onClick(v);
                 }

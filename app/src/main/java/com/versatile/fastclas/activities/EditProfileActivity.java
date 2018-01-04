@@ -63,6 +63,10 @@ public class EditProfileActivity extends BaseActivity implements View.OnClickLis
 
         HomeActivity.navigationView.getMenu().getItem(2).setChecked(false);
 
+        state_id = Utility.getSharedPreference(this, Constants.STATE_ID);
+        university_id = Utility.getSharedPreference(this, Constants.UNIVERSITY_ID);
+        course_id = Utility.getSharedPreference(this, Constants.COURSE_ID);
+        semester_id = Utility.getSharedPreference(this, Constants.SEMESTER_ID);
         initViews();
 
     }
