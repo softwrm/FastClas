@@ -28,41 +28,49 @@ import java.util.ArrayList;
 
 public class AllUnitsActivity extends BaseActivity implements View.OnClickListener, AllUnitsAdapter.OnItemClickListener, IParseListener {
 
-    private static final String TAG = AllUnitsActivity.class.getSimpleName();
-    private Toolbar toolbar;
-    private RecyclerView recyclerView;
-    private TextView txtToolbar, mTxtHeading, txtxNoDataFound;
-    private ImageView mImgBack;
-    private String id, subject_name;
+    Toolbar toolbar;
+    RecyclerView recyclerView;
+    TextView txtToolbar, mTxtHeading, txtxNoDataFound;
+    ImageView mImgBack;
+    String id, subject_name, amount, payment_status;
     ArrayList<AllUnitsModel> allUnitsModelArrayList = new ArrayList<>();
+    TextView txtSubject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_units);
 
-        initViews();
-    }
-
-    private void initViews() {
         setReferences();
-        setClickListeners();
-
     }
+
 
     private void setReferences() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        txtToolbar = (TextView) findViewById(R.id.txtToolbar);
-        mTxtHeading = (TextView) findViewById(R.id.txtHeading);
-        txtxNoDataFound = (TextView) findViewById(R.id.txtxNoDataFound);
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        toolbar = findViewById(R.id.toolbar);
+        txtToolbar = findViewById(R.id.txtToolbar);
+        mTxtHeading = findViewById(R.id.txtHeading);
+        txtxNoDataFound = findViewById(R.id.txtxNoDataFound);
+        mImgBack = findViewById(R.id.imgBack);
+        recyclerView = findViewById(R.id.recyclerView);
+        txtSubject = findViewById(R.id.txtSubject);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
-        mImgBack = (ImageView) findViewById(R.id.imgBack);
+
+        mImgBack.setOnClickListener(this);
+        txtSubject.setOnClickListener(this);
+
 
         id = getIntent().getStringExtra("id");
         subject_name = getIntent().getStringExtra("subject_name");
+        amount = getIntent().getStringExtra("amount");
+        payment_status = getIntent().getStringExtra("payment_status");
+
+        if (payment_status.equals("1")) {
+            txtSubject.setVisibility(View.GONE);
+        } else {
+            txtSubject.setVisibility(View.VISIBLE);
+        }
 
         mTxtHeading.setText(subject_name);
 
@@ -91,17 +99,19 @@ public class AllUnitsActivity extends BaseActivity implements View.OnClickListen
         }
     }
 
-
-    private void setClickListeners() {
-        mImgBack.setOnClickListener(this);
-    }
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.imgBack:
                 onBackPressed();
                 break;
+            case R.id.txtSubject: {
+                Intent intent = new Intent(this, PaymentActivity.class);
+                intent.putExtra("amount", amount);
+                intent.putExtra("subjectId", id);
+                startActivity(intent);
+                break;
+            }
         }
     }
 
@@ -135,7 +145,7 @@ public class AllUnitsActivity extends BaseActivity implements View.OnClickListen
                 allUnitsModelArrayList.clear();
                 JSONObject jsonObject = new JSONObject(response);
                 String status = jsonObject.optString("status");
-                String message = jsonObject.optString("message");
+//                String message = jsonObject.optString("message");
 
                 if (status.equals("200")) {
                     JSONArray jsonArray = jsonObject.getJSONArray("data");

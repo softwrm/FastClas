@@ -24,6 +24,9 @@ public class Constants {
     public static final int SERVICE_QUESTION = 117;
     public static final int SERVICE_ANSWERS = 118;
     public static final int SERVICE_POSTANSWERS = 119;
+    public static final int SERVICE_PAYMENT = 120;
+    public static final int SERVICE_SINGLEITEMVIEWD = 121;
+    public static final int SERVICE_NOTIFICATION = 122;
 
 
     public static final String APP_PREF = "fast_class_preff";

@@ -14,4 +14,8 @@
     <color name="gray">#35e4e4e4</color>
     <color name="gray_dark">#4acfcfcf</color>
 
+
+    <color name="persian_green_primary">#0DAC8F</color>
+    <color name="persian_green_dark">#0A927A</color>
+    <color name="persian_green_accent">#0A927A</color>
 </resources>

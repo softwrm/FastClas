@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.versatilemobitech.fastclas">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -11,7 +12,8 @@
         android:icon="@mipmap/app_icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:replace="android:allowBackup">
         <activity
             android:name="com.versatile.fastclas.activities.SplashActivity"
             android:screenOrientation="portrait">
@@ -71,7 +73,13 @@
             android:name="com.versatile.fastclas.activities.YoutubeVideoPlayer"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape" />
-        <activity android:name="com.versatile.fastclas.activities.AnswersActivity"></activity>
+        <activity
+            android:name="com.versatile.fastclas.activities.AnswersActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.versatile.fastclas.activities.PaymentActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.versatile.fastclas.activities.NotificationActivity"></activity>
     </application>
 
 </manifest>

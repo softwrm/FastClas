@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.versatile.fastclas.activities.NotificationActivity">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar1" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewNotification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar" />
+
+    <TextView
+        android:id="@+id/txtNoDataFound"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="@dimen/dimen_20dp"
+        android:gravity="center"
+        android:text="@string/no_data_found"
+        android:textColor="@color/color_blue"
+        android:textSize="@dimen/text_xmedium_16sp"
+        android:visibility="gone" />
+
+</RelativeLayout>

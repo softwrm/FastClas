@@ -74,5 +74,9 @@
     <string name="write_your_question_here">Write Your Question here</string>
     <string name="answer">Answer</string>
     <string name="notes">Notes</string>
+    <string name="payment">Payment</string>
+    <string name="buy_subject">Buy Subject</string>
+    <string name="back">back</string>
+    <string name="notification">notification</string>
 
 </resources>

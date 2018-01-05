@@ -9,7 +9,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_centerInParent="true"
+        android:contentDescription="@string/back"
         android:gravity="center"
         android:padding="@dimen/space_vsmall_5dp"
         android:src="@drawable/backarrowicon" />
@@ -18,17 +20,18 @@
         android:id="@+id/txtToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:gravity="center"
         android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
         android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/_70dp"
+        android:layout_marginStart="@dimen/_70dp"
+        android:gravity="center"
         android:maxLines="1"
         android:singleLine="true"
         android:text="@string/app_name"
         android:textAllCaps="true"
         android:textColor="@color/color_white"
-        android:textSize="@dimen/text_xmedium_16sp"
-        android:layout_marginLeft="@dimen/_70dp"/>
+        android:textSize="@dimen/text_xmedium_16sp" />
 
 </RelativeLayout>
 

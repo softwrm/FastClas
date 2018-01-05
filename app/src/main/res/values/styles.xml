@@ -16,4 +16,16 @@
         <item name="android:windowEnterAnimation">@anim/share_dialog_slide_up</item>
         <item name="android:windowExitAnimation">@anim/share_dialog_slide_down</item>
     </style>
+    <style name="AppTheme_Green" parent="PayumoneyAppTheme">
+        <item name="colorPrimary">@color/persian_green_primary</item>
+        <item name="colorPrimaryDark">@color/persian_green_dark</item>
+        <item name="colorAccent">@color/persian_green_accent</item>
+        <item name="colorButtonNormal">@color/persian_green_primary</item>
+        <item name="alertDialogTheme">@style/AlertDialogStyle_green</item>
+        <item name="actionMenuTextColor">@color/white</item>
+    </style>
+    <style name="AlertDialogStyle_green" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/persian_green_accent</item>
+        <item name="android:textColorPrimary">@color/payumoney_text_color</item>
+    </style>
 </resources>

@@ -101,6 +101,7 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
         item_count = getIntent().getStringExtra("item_count");
         item_viewed = getIntent().getStringExtra("item_viewed");
 
+        Utility.showLog("item_count", "" + item_count);
         txtToolbar.setText(heading);
 
         imgOpenDialog.setOnClickListener(this);
@@ -129,6 +130,9 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
             txtPrevious.setEnabled(true);
         }
 
+        if (pageCountValue == Integer.parseInt("" + item_count)) {
+            checkForItemsViewedOrNot();
+        }
         if (PopUtils.checkInternetConnection(this)) {
             JSONObject jsonObject = new JSONObject();
             try {
@@ -152,6 +156,7 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
         }
     }
 
+
     private void callWebServiceVideo1(String item_id) {
         if (PopUtils.checkInternetConnection(this)) {
             JSONObject jsonObject = new JSONObject();
@@ -166,6 +171,23 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
                 ServerResponse serverResponse = new ServerResponse();
                 serverResponse.serviceRequest(this, Constants.BASE_URL, jsonObject, this, Constants.SERVICE_VIDEO_WATECHED_1);
 
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void callWebServiceForItemViewed() {
+        if (PopUtils.checkInternetConnection(this)) {
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject.put("action", "pageviewed");
+                jsonObject.put("user_id", Utility.getSharedPreference(this, Constants.USER_ID));
+                jsonObject.put("session_id", "" + sessionId);
+
+                showLoadingDialog("Loading...", false);
+                ServerResponse serverResponse = new ServerResponse();
+                serverResponse.serviceRequest(this, Constants.BASE_URL, jsonObject, this, Constants.SERVICE_SINGLEITEMVIEWD);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -233,16 +255,7 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
                 }
                 checkAlreadyWatchedOrNot();
             }
-
-        } /*else if (requestCode == 4) {
-            textStatus2.setVisibility(View.VISIBLE);
-
-            callWebServiceVideo1(sessionsInnerModelArrayList.get(1).getItemId());
-
-            checkAlreadyWatchedOrNot();
-        } else if (requestCode == 6) {
-            Utility.showLog("Do Nothing", "Do Nothing");
-        }*/
+        }
     }
 
 
@@ -256,6 +269,8 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
         if (requestCode == Constants.SERVICE_ITEM) {
             hideLoadingDialog();
         } else if (requestCode == Constants.SERVICE_VIDEO_WATECHED_1) {
+            hideLoadingDialog();
+        } else if (requestCode == Constants.SERVICE_SINGLEITEMVIEWD) {
             hideLoadingDialog();
         }
     }
@@ -326,6 +341,17 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
                 if (status.equals("200")) {
                     Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
                 }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        } else if (requestCode == Constants.SERVICE_SINGLEITEMVIEWD) {
+            hideLoadingDialog();
+            try {
+                JSONObject jsonObject = new JSONObject(response);
+                String status = jsonObject.optString("status");
+                String message = jsonObject.optString("message");
+
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -497,11 +523,10 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
                 dialogShare.dismiss();
             }
         });
-
     }
 
     private void checkAlreadyWatchedOrNot() {
-        if(sessionsInnerModelArrayList.size() > 1){
+        if (sessionsInnerModelArrayList.size() > 1) {
             if (Utility.isValueNullOrEmpty(sessionsInnerModelArrayList.get(0).getYoutubeId()) && Utility.isValueNullOrEmpty(sessionsInnerModelArrayList.get(1).getYoutubeId())) {
                 imgButton2.setVisibility(View.GONE);
                 imgYoutube2.setVisibility(View.GONE);
@@ -513,7 +538,7 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
                     txtNext.setTextColor(getResources().getColor(R.color.color_blue));
                     txtNext.setVisibility(View.VISIBLE);
                     checkPageCountEqualOrNot();
-                }else{
+                } else {
                     txtNext.setVisibility(View.GONE);
                 }
             } else if (Utility.isValueNullOrEmpty(sessionsInnerModelArrayList.get(1).getYoutubeId())) {
@@ -523,7 +548,7 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
                     txtNext.setTextColor(getResources().getColor(R.color.color_blue));
                     txtNext.setVisibility(View.VISIBLE);
                     checkPageCountEqualOrNot();
-                }else{
+                } else {
                     txtNext.setVisibility(View.GONE);
                 }
             } else {
@@ -537,28 +562,55 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
                     txtNext.setVisibility(View.GONE);
                 }
             }
-        }else{
+        } else {
             if (Utility.isValueNullOrEmpty(sessionsInnerModelArrayList.get(0).getYoutubeId())) {
                 txtNext.setTextColor(getResources().getColor(R.color.color_blue));
                 txtNext.setVisibility(View.VISIBLE);
                 checkPageCountEqualOrNot();
-            }else{
+            } else {
                 if ((textStatus.getVisibility() == View.VISIBLE)) {
                     txtNext.setTextColor(getResources().getColor(R.color.color_blue));
                     txtNext.setVisibility(View.VISIBLE);
                     checkPageCountEqualOrNot();
-                }else{
+                } else {
                     txtNext.setVisibility(View.GONE);
                 }
             }
         }
-
     }
 
     private void checkPageCountEqualOrNot() {
         if (Integer.parseInt(item_count) <= pageCount) {
             Utility.showLog("pageCount", "hide");
             txtNext.setVisibility(View.GONE);
+        }
+    }
+
+    private void checkForItemsViewedOrNot() {
+        if (sessionsInnerModelArrayList.size() > 1) {
+            if (Utility.isValueNullOrEmpty(sessionsInnerModelArrayList.get(0).getYoutubeId()) && Utility.isValueNullOrEmpty(sessionsInnerModelArrayList.get(1).getYoutubeId())) {
+                callWebServiceForItemViewed();
+            } else if (Utility.isValueNullOrEmpty(sessionsInnerModelArrayList.get(0).getYoutubeId())) {
+                if ((textStatus2.getVisibility() == View.VISIBLE)) {
+                    callWebServiceForItemViewed();
+                }
+            } else if (Utility.isValueNullOrEmpty(sessionsInnerModelArrayList.get(1).getYoutubeId())) {
+                if ((textStatus.getVisibility() == View.VISIBLE)) {
+                    callWebServiceForItemViewed();
+                }
+            } else {
+                if ((textStatus.getVisibility() == View.VISIBLE) && (textStatus.getVisibility() == View.VISIBLE)) {
+                    callWebServiceForItemViewed();
+                }
+            }
+        } else {
+            if (Utility.isValueNullOrEmpty(sessionsInnerModelArrayList.get(0).getYoutubeId())) {
+                    callWebServiceForItemViewed();
+            } else {
+                if ((textStatus.getVisibility() == View.VISIBLE)) {
+                    callWebServiceForItemViewed();
+                }
+            }
         }
     }
 }

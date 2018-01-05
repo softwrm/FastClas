@@ -36,6 +36,7 @@ public class SessionsActivity extends BaseActivity implements View.OnClickListen
     ImageView mImgBack;
     String label, heading, unitId;
     ArrayList<SessionsModel> sessionsModelArrayList = new ArrayList<>();
+    TextView txtSubject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,7 @@ public class SessionsActivity extends BaseActivity implements View.OnClickListen
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
         mImgBack = (ImageView) findViewById(R.id.imgBack);
+        txtSubject = (TextView) findViewById(R.id.txtSubject);
 
         label = getIntent().getStringExtra("label");
         heading = getIntent().getStringExtra("heading");
@@ -63,6 +65,7 @@ public class SessionsActivity extends BaseActivity implements View.OnClickListen
         mTxtHeading.setText(heading);
 
         mImgBack.setOnClickListener(this);
+        txtSubject.setVisibility(View.GONE);
 
         callWebServiceSession();
     }
@@ -104,7 +107,7 @@ public class SessionsActivity extends BaseActivity implements View.OnClickListen
         intent.putExtra("unit_id", unitId);
         intent.putExtra("session_id", sessionPojo.getSessionId());
         intent.putExtra("item_count", "" + sessionPojo.getItemCount());
-        intent.putExtra("item_viewed",""+sessionPojo.getItemsViewed());
+        intent.putExtra("item_viewed", "" + sessionPojo.getItemsViewed());
         navigateActivity(intent, false);
     }
 

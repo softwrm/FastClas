@@ -1,9 +1,11 @@
 package com.versatile.fastclas.activities;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -37,12 +39,13 @@ import java.util.ArrayList;
 public class HomeActivity extends BaseActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener,
         HomeAdapter.OnItemClickListener, IParseListener {
 
-    private static final String TAG = HomeActivity.class.getSimpleName();
+    //    private static final String TAG = HomeActivity.class.getSimpleName();
     private Toolbar toolbar;
     private DrawerLayout drawer;
+    @SuppressLint("StaticFieldLeak")
     public static NavigationView navigationView;
     private RecyclerView recyclerView;
-    private TextView tvUserWelcomeHeader, tvUserEmailHeader, txtToolbar;
+    TextView tvUserWelcomeHeader, tvUserEmailHeader, txtToolbar;
     TextView txtSemester, txtCourse, txtxNoDataFound;
     private ImageView imgNotification;
     Dialog dialog;
@@ -63,23 +66,24 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     }
 
     private void setReferences() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        toolbar = findViewById(R.id.toolbar);
+        drawer = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.nav_view);
 
-        txtToolbar = (TextView) findViewById(R.id.txtToolbar);
-        txtxNoDataFound = (TextView) findViewById(R.id.txtxNoDataFound);
-        txtSemester = (TextView) findViewById(R.id.txtSemester);
-        txtCourse = (TextView) findViewById(R.id.txtCourse);
+        txtToolbar = findViewById(R.id.txtToolbar);
+        txtxNoDataFound = findViewById(R.id.txtxNoDataFound);
+        txtSemester = findViewById(R.id.txtSemester);
+        txtCourse = findViewById(R.id.txtCourse);
 
         txtSemester.setText(Utility.getSharedPreference(this, Constants.SEMESTER));
         txtCourse.setText(Utility.getSharedPreference(this, Constants.COURSE));
 
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         recyclerView.setHasFixedSize(true);
 
-        imgNotification = (ImageView) findViewById(R.id.imgNotification);
+        imgNotification = findViewById(R.id.imgNotification);
+
     }
 
     private void setNavigationDrawer() {
@@ -101,7 +105,6 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
     private void setClickListeners() {
         navigationView.setNavigationItemSelectedListener(this);
-//        tvEditImage.setOnClickListener(this);
         imgNotification.setOnClickListener(this);
     }
 
@@ -130,9 +133,10 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.imgNotification:
-                //navigateActivity(new Intent(this, NotificationMainActivity.class), false);
+                startActivity(new Intent(this, NotificationActivity.class));
                 break;
         }
+
     }
 
     //From RecyclerView
@@ -141,12 +145,13 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         Intent intent = new Intent(this, AllUnitsActivity.class);
         intent.putExtra("id", subjectModel.getId());
         intent.putExtra("subject_name", subjectModel.getSubjectName());
-//        intent.putExtra("heading", subjectModel.heading);
+        intent.putExtra("amount", "" + subjectModel.getAmount());
+        intent.putExtra("payment_status", "" + subjectModel.getPaymentStatus());
         navigateActivity(intent, false);
     }
 
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
@@ -166,7 +171,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         } else if (id == R.id.nav_logout) {
             PopUtils.exitDialog(HomeActivity.this, "Are you sure.....you want to logout?", logoutClick);
         }
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -198,7 +203,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -230,7 +235,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
             try {
                 JSONObject jsonObject = new JSONObject(response);
                 String status = jsonObject.optString("status");
-                String message = jsonObject.optString("message");
+//                String message = jsonObject.optString("message");
                 if (status.equals("200")) {
                     JSONArray jsonArray = jsonObject.getJSONArray("data");
                     for (int i = 0; i < jsonArray.length(); i++) {

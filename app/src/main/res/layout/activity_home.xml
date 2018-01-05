@@ -36,24 +36,24 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:maxLength="25"
                         android:id="@+id/txtCourse"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:maxLength="25"
                         android:text="@string/bsc_program"
                         android:textColor="@color/color_blue"
                         android:textSize="@dimen/text_large_18sp"
                         android:textStyle="bold" />
 
-                 <!--   <TextView
-                        android:id="@+id/txtSubjects"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toEndOf="@+id/txtCourse"
-                        android:layout_toRightOf="@+id/txtCourse"
-                        android:text="@string/subjects"
-                        android:textColor="@color/color_black"
-                        android:textSize="@dimen/text_large_18sp" />-->
+                    <!--   <TextView
+                           android:id="@+id/txtSubjects"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:layout_toEndOf="@+id/txtCourse"
+                           android:layout_toRightOf="@+id/txtCourse"
+                           android:text="@string/subjects"
+                           android:textColor="@color/color_black"
+                           android:textSize="@dimen/text_large_18sp" />-->
 
                     <TextView
                         android:id="@+id/txtSemester"
@@ -92,6 +92,7 @@
                 android:textSize="@dimen/text_medium_14sp"
                 android:textStyle="bold"
                 android:visibility="gone" />
+
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerView"
