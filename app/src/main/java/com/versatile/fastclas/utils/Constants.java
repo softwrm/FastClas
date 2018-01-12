@@ -44,6 +44,7 @@ public class Constants {
     public static final String SEMESTER = "SEMESTER";
     public static final String SEMESTER_ID = "SEMESTER_ID";
     public static final String USER_ID = "USER_ID";
+    public static final String NOTIFICATION_COUNT = "NOTIFICATION_COUNT";
 
 
     public static boolean logMessageOnOrOff = true;

@@ -90,7 +90,6 @@ public class AnswersActivity extends BaseActivity implements View.OnClickListene
         textUserLetter.setText(character.toString());
 
 
-
     }
 
     @Override
@@ -154,8 +153,20 @@ public class AnswersActivity extends BaseActivity implements View.OnClickListene
     public void ErrorResponse(VolleyError volleyError, int requestCode) {
         if (requestCode == Constants.SERVICE_ANSWERS) {
             Utility.showLog("Error", "" + volleyError);
+            PopUtils.alertDialog(this, "Please Check Internet Connection", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(AnswersActivity.this, HomeActivity.class));
+                }
+            });
         } else if (requestCode == Constants.SERVICE_POSTANSWERS) {
             hideLoadingDialog();
+            PopUtils.alertDialog(this, "Please Check Internet Connection", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(AnswersActivity.this, HomeActivity.class));
+                }
+            });
         }
 
     }
@@ -207,8 +218,7 @@ public class AnswersActivity extends BaseActivity implements View.OnClickListene
                     AnswersModel answersModel = new AnswersModel();
                     answersModel.setAnswer(edtComments.getText().toString().trim());
                     answersModel.setQuestion_id(question_id);
-                    Utility.showLog("Name", "" + Utility.getSharedPreference(this, Constants.FNAME + " " + Constants.LNAME));
-                    answersModel.setUser_name("Name");
+                    answersModel.setUser_name(Utility.getSharedPreference(this, Constants.FNAME)+" "+Utility.getSharedPreference(this, Constants.FNAME));
                     answersModel.setSession_id(session_id);
 
                     answersModelArrayList.add(answersModel);

@@ -418,14 +418,44 @@ public class EditProfileActivity extends BaseActivity implements View.OnClickLis
     public void ErrorResponse(VolleyError volleyError, int requestCode) {
         if (requestCode == Constants.SERVICE_EDITPROFILE) {
             hideLoadingDialog();
+            PopUtils.alertDialog(this, "Please Check Internet Connection", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(EditProfileActivity.this, HomeActivity.class));
+                }
+            });
         } else if (requestCode == Constants.Service_State) {
             hideLoadingDialog();
+            PopUtils.alertDialog(this, "Please Check Internet Connection", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(EditProfileActivity.this, HomeActivity.class));
+                }
+            });
         } else if (requestCode == Constants.Service_University) {
             hideLoadingDialog();
+            PopUtils.alertDialog(this, "Please Check Internet Connection", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(EditProfileActivity.this, HomeActivity.class));
+                }
+            });
         } else if (requestCode == Constants.Service_Course) {
             hideLoadingDialog();
+            PopUtils.alertDialog(this, "Please Check Internet Connection", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(EditProfileActivity.this, HomeActivity.class));
+                }
+            });
         } else if (requestCode == Constants.Service_Semester) {
             hideLoadingDialog();
+            PopUtils.alertDialog(this, "Please Check Internet Connection", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(EditProfileActivity.this, HomeActivity.class));
+                }
+            });
         }
     }
 

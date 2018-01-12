@@ -284,6 +284,8 @@
                 android:textColor="@color/color_silver"
                 android:textSize="@dimen/text_small_12sp" />
 
+
+
             <Button
                 android:id="@+id/btnRegister"
                 android:layout_width="match_parent"

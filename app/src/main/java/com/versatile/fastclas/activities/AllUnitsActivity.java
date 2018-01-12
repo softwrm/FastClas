@@ -95,7 +95,13 @@ public class AllUnitsActivity extends BaseActivity implements View.OnClickListen
                 e.printStackTrace();
             }
         } else {
-            PopUtils.alertDialog(this, getString(R.string.pls_check_internet), null);
+            PopUtils.alertDialog(this, getString(R.string.pls_check_internet), new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(AllUnitsActivity.this, HomeActivity.class));
+                    finish();
+                }
+            });
         }
     }
 
@@ -106,10 +112,20 @@ public class AllUnitsActivity extends BaseActivity implements View.OnClickListen
                 onBackPressed();
                 break;
             case R.id.txtSubject: {
-                Intent intent = new Intent(this, PaymentActivity.class);
-                intent.putExtra("amount", amount);
-                intent.putExtra("subjectId", id);
-                startActivity(intent);
+                if (PopUtils.checkInternetConnection(this)) {
+                    Intent intent = new Intent(this, PaymentActivity.class);
+                    intent.putExtra("amount", amount);
+                    intent.putExtra("subjectId", id);
+                    startActivity(intent);
+                } else {
+                    PopUtils.alertDialog(this, "Please Chack Internet Connection", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            startActivity(new Intent(AllUnitsActivity.this, HomeActivity.class));
+                            finish();
+                        }
+                    });
+                }
                 break;
             }
         }
@@ -117,12 +133,25 @@ public class AllUnitsActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void onItemClick(AllUnitsModel allUnitsModel, int Position) {
-        Intent intent = new Intent(this, SessionsActivity.class);
-        intent.putExtra("label", allUnitsModel.getUnitNumber());
-        intent.putExtra("heading", allUnitsModel.getUnitTitle());
-        intent.putExtra("unitId", allUnitsModel.getUnitId());
-//        intent.putExtra("noOfPages",allUnitsModel.getUnitId())
-        navigateActivity(intent, false);
+        if (Position != 0) {
+            if (!payment_status.equals("0")) {
+                Intent intent = new Intent(this, SessionsActivity.class);
+                intent.putExtra("label", allUnitsModel.getUnitNumber());
+                intent.putExtra("heading", allUnitsModel.getUnitTitle());
+                intent.putExtra("unitId", allUnitsModel.getUnitId());
+                intent.putExtra("payment_status", payment_status);
+                navigateActivity(intent, false);
+            } else {
+                PopUtils.alertDialog(this, "To Open Buy this Subject", null);
+            }
+        } else {
+            Intent intent = new Intent(this, SessionsActivity.class);
+            intent.putExtra("label", allUnitsModel.getUnitNumber());
+            intent.putExtra("heading", allUnitsModel.getUnitTitle());
+            intent.putExtra("unitId", allUnitsModel.getUnitId());
+            intent.putExtra("payment_status", payment_status);
+            navigateActivity(intent, false);
+        }
     }
 
     @Override
@@ -134,6 +163,12 @@ public class AllUnitsActivity extends BaseActivity implements View.OnClickListen
     public void ErrorResponse(VolleyError volleyError, int requestCode) {
         if (requestCode == Constants.SERVICE_UNITS) {
             hideLoadingDialog();
+            PopUtils.alertDialog(this, "Please Check Internet Connection", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(AllUnitsActivity.this, HomeActivity.class));
+                }
+            });
         }
     }
 

@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
@@ -50,6 +51,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     private ImageView imgNotification;
     Dialog dialog;
     ArrayList<SubjectModel> subjectModelArrayList = new ArrayList<>();
+    @SuppressLint("StaticFieldLeak")
+    static View viewNotificationIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +66,25 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         setNavigationDrawer();
         setClickListeners();
         callWedServiceForSubjects();
+        callWebServiceForNotificationCount();
+
+        if (PopUtils.checkInternetConnection(this)) {
+
+            final Handler handler = new Handler();
+            final int delay = 15000; //milliseconds
+
+
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    //do something
+                    if (PopUtils.checkInternetConnection(HomeActivity.this)) {
+                        callWebServiceForNotificationCount();
+                    }
+                    handler.postDelayed(this, delay);
+                }
+            }, delay);
+        }
+
     }
 
     private void setReferences() {
@@ -83,6 +105,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         recyclerView.setHasFixedSize(true);
 
         imgNotification = findViewById(R.id.imgNotification);
+        viewNotificationIcon = findViewById(R.id.viewNotificationIcon);
 
     }
 
@@ -124,10 +147,27 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                 e.printStackTrace();
             }
         } else {
-            PopUtils.alertDialog(this, getString(R.string.pls_check_internet), null);
+            PopUtils.alertDialog(this, getString(R.string.pls_check_internet), new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    finishAffinity();
+                }
+            });
         }
     }
 
+    private void callWebServiceForNotificationCount() {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("action", "notification");
+            jsonObject.put("user_id", "" + Utility.getSharedPreference(this, Constants.USER_ID));
+
+            ServerResponse serverResponse = new ServerResponse();
+            serverResponse.serviceRequest(this, Constants.BASE_URL, jsonObject, this, Constants.SERVICE_NOTIFICATION);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void onClick(View v) {
@@ -224,6 +264,14 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     public void ErrorResponse(VolleyError volleyError, int requestCode) {
         if (requestCode == Constants.SERVICE_SUBJECT) {
             hideLoadingDialog();
+            PopUtils.alertDialog(this, "Please Check Internet Connection", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    finishAffinity();
+                }
+            });
+        } else if (requestCode == Constants.SERVICE_NOTIFICATION) {
+            Utility.showLog("Error", "" + volleyError);
         }
     }
 
@@ -263,6 +311,21 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
+            }
+        } else if (requestCode == Constants.SERVICE_NOTIFICATION) {
+            try {
+                JSONObject jsonObject = new JSONObject(response);
+                if (jsonObject.optString("status").equals("200")) {
+                    int count = jsonObject.optInt("count");
+
+                    if (Integer.parseInt(Utility.getSharedPreference(this, Constants.NOTIFICATION_COUNT)) < count) {
+                        viewNotificationIcon.setVisibility(View.VISIBLE);
+                    } else {
+                        viewNotificationIcon.setVisibility(View.GONE);
+                    }
+                }
+            } catch (Exception e) {
+                Utility.showLog("Error", "" + e);
             }
         }
     }

@@ -472,16 +472,52 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     public void ErrorResponse(VolleyError volleyError, int requestCode) {
         if (requestCode == Constants.Service_State) {
             hideLoadingDialog();
+            PopUtils.alertDialog(this, "Please Check Internet Connection", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
+                }
+            });
         } else if (requestCode == Constants.Service_University) {
             hideLoadingDialog();
+            PopUtils.alertDialog(this, "Please Check Internet Connection", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
+                }
+            });
         } else if (requestCode == Constants.Service_Course) {
             hideLoadingDialog();
+            PopUtils.alertDialog(this, "Please Check Internet Connection", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
+                }
+            });
         } else if (requestCode == Constants.Service_Semester) {
             hideLoadingDialog();
+            PopUtils.alertDialog(this, "Please Check Internet Connection", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
+                }
+            });
         } else if (requestCode == Constants.SERVICE_REGISTER) {
             hideLoadingDialog();
+            PopUtils.alertDialog(this, "Please Check Internet Connection", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
+                }
+            });
         } else if (requestCode == Constants.SERVICE_OTP) {
             hideLoadingDialog();
+            PopUtils.alertDialog(this, "Please Check Internet Connection", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
+                }
+            });
         }
     }
 

@@ -42,10 +42,13 @@
             android:src="@drawable/notificationbellicon" />
 
         <View
+            android:id="@+id/viewNotificationIcon"
             android:layout_width="@dimen/dimen_16dp"
             android:layout_height="@dimen/dimen_16dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
+            android:layout_marginEnd="@dimen/dimen_16dp"
+            android:layout_marginRight="@dimen/dimen_16dp"
             android:layout_marginTop="@dimen/dimen_30dp"
             android:background="@drawable/notification_round"
             android:gravity="center" />

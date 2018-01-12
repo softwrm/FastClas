@@ -78,5 +78,6 @@
     <string name="buy_subject">Buy Subject</string>
     <string name="back">back</string>
     <string name="notification">notification</string>
+    <string name="colon">:</string>
 
 </resources>

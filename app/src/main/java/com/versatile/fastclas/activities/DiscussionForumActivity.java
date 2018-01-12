@@ -112,6 +112,12 @@ public class DiscussionForumActivity extends BaseActivity implements View.OnClic
     public void ErrorResponse(VolleyError volleyError, int requestCode) {
         if (requestCode == Constants.SERVICE_DISCUSSION) {
             hideLoadingDialog();
+            PopUtils.alertDialog(this, "Please Check Internet Connection", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(DiscussionForumActivity.this, HomeActivity.class));
+                }
+            });
         }
     }
 

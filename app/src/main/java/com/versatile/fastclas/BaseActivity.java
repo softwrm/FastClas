@@ -2,12 +2,8 @@ package com.versatile.fastclas;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-
-import com.versatilemobitech.fastclas.R;
 
 public class BaseActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
@@ -20,7 +16,6 @@ public class BaseActivity extends AppCompatActivity {
 
     public void navigateActivity(Intent intent, boolean finish) {
         startActivity(intent);
-        overridePendingTransition(R.anim.trans_left_in, R.anim.trans_right_out);
         if (finish) {
             finish();
         }

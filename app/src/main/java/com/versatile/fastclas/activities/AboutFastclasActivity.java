@@ -18,13 +18,8 @@ public class AboutFastclasActivity extends BaseActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_fastclas);
-        initViews();
-        HomeActivity.navigationView.getMenu().getItem(1).setChecked(false);
-    }
-
-    private void initViews() {
         setReferences();
-        setClickListeners();
+        HomeActivity.navigationView.getMenu().getItem(1).setChecked(false);
     }
 
     private void setReferences() {
@@ -32,11 +27,11 @@ public class AboutFastclasActivity extends BaseActivity implements View.OnClickL
         mTitle = (TextView) findViewById(R.id.txtToolbar);
         mTxtAbout = (TextView) findViewById(R.id.txtAbout);
         mTitle.setText("ABOUT FASTCLAS");
-    }
 
-    private void setClickListeners() {
+
         mImgBack.setOnClickListener(this);
     }
+
 
     @Override
     public void onClick(View view) {

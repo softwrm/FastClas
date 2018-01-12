@@ -31,9 +31,6 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Created by Excentd11 on 11/18/2016.
- */
 
 public class PopUtils {
     private static Dialog dialog;

@@ -95,6 +95,11 @@ public class NotificationActivity extends BaseActivity implements IParseListener
                 messageArrayList.clear();
                 JSONObject jsonObject = new JSONObject(response);
                 if (jsonObject.optString("status").equals("200")) {
+
+                    Utility.setSharedPrefStringData(this, Constants.NOTIFICATION_COUNT, "" + jsonObject.optInt("count"));
+
+                    HomeActivity.viewNotificationIcon.setVisibility(View.GONE);
+
                     JSONArray jsonArray = jsonObject.optJSONArray("data");
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObjectData = jsonArray.getJSONObject(i);

@@ -34,7 +34,7 @@ public class SessionsActivity extends BaseActivity implements View.OnClickListen
     RecyclerView recyclerView;
     TextView txtToolbar, mTxtHeading, txtxNoDataFound;
     ImageView mImgBack;
-    String label, heading, unitId;
+    String label, heading, unitId, payment_status;
     ArrayList<SessionsModel> sessionsModelArrayList = new ArrayList<>();
     TextView txtSubject;
 
@@ -60,6 +60,7 @@ public class SessionsActivity extends BaseActivity implements View.OnClickListen
         label = getIntent().getStringExtra("label");
         heading = getIntent().getStringExtra("heading");
         unitId = getIntent().getStringExtra("unitId");
+        payment_status = getIntent().getStringExtra("payment_status");
 
         txtToolbar.setText(label);
         mTxtHeading.setText(heading);
@@ -102,13 +103,31 @@ public class SessionsActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void onItemClick(SessionsModel sessionPojo, int Position) {
-        Intent intent = new Intent(this, SessionsInnerActivity.class);
-        intent.putExtra("heading", sessionPojo.getSessionTitle());
-        intent.putExtra("unit_id", unitId);
-        intent.putExtra("session_id", sessionPojo.getSessionId());
-        intent.putExtra("item_count", "" + sessionPojo.getItemCount());
-        intent.putExtra("item_viewed", "" + sessionPojo.getItemsViewed());
-        navigateActivity(intent, false);
+        if (Position >= 3) {
+            if (!payment_status.equals("0")) {
+                Intent intent = new Intent(this, SessionsInnerActivity.class);
+                intent.putExtra("heading", sessionPojo.getSessionTitle());
+                intent.putExtra("unit_id", unitId);
+                intent.putExtra("heading", heading);
+                intent.putExtra("label", label);
+                intent.putExtra("session_id", sessionPojo.getSessionId());
+                intent.putExtra("item_count", "" + sessionPojo.getItemCount());
+                intent.putExtra("item_viewed", "" + sessionPojo.getItemsViewed());
+                navigateActivity(intent, false);
+            } else {
+                PopUtils.alertDialog(this, "To Open Buy this Subject", null);
+            }
+        } else {
+            Intent intent = new Intent(this, SessionsInnerActivity.class);
+            intent.putExtra("heading", sessionPojo.getSessionTitle());
+            intent.putExtra("unit_id", unitId);
+            intent.putExtra("heading", heading);
+            intent.putExtra("label", label);
+            intent.putExtra("session_id", sessionPojo.getSessionId());
+            intent.putExtra("item_count", "" + sessionPojo.getItemCount());
+            intent.putExtra("item_viewed", "" + sessionPojo.getItemsViewed());
+            navigateActivity(intent, false);
+        }
     }
 
     @Override
@@ -120,6 +139,12 @@ public class SessionsActivity extends BaseActivity implements View.OnClickListen
     public void ErrorResponse(VolleyError volleyError, int requestCode) {
         if (requestCode == Constants.SERVICE_SESSION) {
             hideLoadingDialog();
+            PopUtils.alertDialog(this, "Please Check Internet Connection", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(SessionsActivity.this, HomeActivity.class));
+                }
+            });
         }
     }
 

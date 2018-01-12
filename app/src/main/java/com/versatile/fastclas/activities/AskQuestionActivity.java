@@ -102,6 +102,12 @@ public class AskQuestionActivity extends BaseActivity implements View.OnClickLis
     public void ErrorResponse(VolleyError volleyError, int requestCode) {
         if (requestCode == Constants.SERVICE_QUESTION) {
             hideLoadingDialog();
+            PopUtils.alertDialog(this, "Please Check Internet Connection", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(AskQuestionActivity.this, HomeActivity.class));
+                }
+            });
         }
     }
 

@@ -143,8 +143,20 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     public void ErrorResponse(VolleyError volleyError, int requestCode) {
         if (requestCode == Constants.SERVICE_FORGOTPASSWORD) {
             hideLoadingDialog();
+            PopUtils.alertDialog(this, "Please Check Internet Connection", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                }
+            });
         } else if (requestCode == Constants.SERVICE_LOGIN) {
             hideLoadingDialog();
+            PopUtils.alertDialog(this, "Please Check Internet Connection", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                }
+            });
         }
     }
 

@@ -12,9 +12,7 @@
         android:id="@+id/llLogin"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/space_small_10dp"
         android:background="@drawable/cardview_bg"
-        android:elevation="@dimen/space_vsmall_5dp"
         android:orientation="vertical"
         android:padding="@dimen/space_medium_15dp">
 
@@ -24,6 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/space_vsmall_5dp"
             android:drawableLeft="@drawable/askaquestionicon"
+            android:drawableStart="@drawable/askaquestionicon"
             android:drawablePadding="@dimen/space_vsmall_5dp"
             android:text="@string/question"
             android:textColor="@color/color_blue" />

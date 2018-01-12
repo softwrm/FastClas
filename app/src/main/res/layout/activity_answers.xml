@@ -120,15 +120,15 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="@dimen/space_vsmall_5dp"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <EditText
             android:id="@+id/edtComments"
-            android:layout_width="wrap_content"
-            android:layout_height="100dp"
-            android:layout_margin="@dimen/space_small_10dp"
-            android:layout_toLeftOf="@+id/txtPost"
-            android:layout_toStartOf="@+id/txtPost"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_8xlarge_80dp"
+            android:layout_marginTop="@dimen/space_small_10dp"
+            android:layout_marginLeft="@dimen/space_small_10dp"
+            android:layout_marginRight="@dimen/space_small_10dp"
             android:layout_weight="2"
             android:background="@color/gray_dark"
             android:gravity="top"
@@ -150,12 +150,12 @@
             android:id="@+id/txtPost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_margin="@dimen/space_vsmall_5dp"
-            android:background="@color/gray_dark"
+            android:layout_margin="@dimen/space_small_10dp"
+            android:background="@color/color_blue"
             android:padding="@dimen/space_vsmall_5dp"
             android:text="@string/post"
-            android:textColor="@color/color_black" />
+            android:layout_gravity="end"
+            android:textColor="@color/white" />
 
     </LinearLayout>
 

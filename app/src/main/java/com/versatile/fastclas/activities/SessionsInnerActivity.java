@@ -43,7 +43,7 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
     TextView textTitle1, textTitle2, textTitle3, textTitle4, textTitle5, textTitle6, textTitle7, textTitle8, textTitle9, textTitle10;
     TextView textStatus, textStatus2;
     TextView txtToolbar;
-    String heading, unitId, sessionId, item_count, item_viewed;
+    String heading, unitId, sessionId, item_count, item_viewed, label, headingVal;
     ArrayList<SessionsInnerModel> sessionsInnerModelArrayList = new ArrayList<>();
     ImageView imgYoutube, imgYoutube2;
     ImageView imgButton, imgButton2;
@@ -100,6 +100,8 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
         sessionId = getIntent().getStringExtra("session_id");
         item_count = getIntent().getStringExtra("item_count");
         item_viewed = getIntent().getStringExtra("item_viewed");
+        label = getIntent().getStringExtra("label");
+        headingVal = getIntent().getStringExtra("heading");
 
         Utility.showLog("item_count", "" + item_count);
         txtToolbar.setText(heading);
@@ -121,7 +123,6 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
 
 
     private void callWebServiceForItems(int pageCountValue) {
-
         if (pageCountValue == 1) {
             txtPrevious.setVisibility(View.GONE);
         } else {
@@ -130,9 +131,7 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
             txtPrevious.setEnabled(true);
         }
 
-        if (pageCountValue == Integer.parseInt("" + item_count)) {
-            checkForItemsViewedOrNot();
-        }
+
         if (PopUtils.checkInternetConnection(this)) {
             JSONObject jsonObject = new JSONObject();
             try {
@@ -182,6 +181,7 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
             JSONObject jsonObject = new JSONObject();
             try {
                 jsonObject.put("action", "pageviewed");
+                jsonObject.put("pagecount", "" + pageCount);
                 jsonObject.put("user_id", Utility.getSharedPreference(this, Constants.USER_ID));
                 jsonObject.put("session_id", "" + sessionId);
 
@@ -261,17 +261,40 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void onBackPressed() {
-        finish();
+//        finish();
+        Intent intent = new Intent(this, SessionsActivity.class);
+        intent.putExtra("heading", heading);
+        intent.putExtra("label", label);
+        intent.putExtra("unitId", "" + unitId);
+        navigateActivity(intent, true);
     }
 
     @Override
     public void ErrorResponse(VolleyError volleyError, int requestCode) {
         if (requestCode == Constants.SERVICE_ITEM) {
             hideLoadingDialog();
+            PopUtils.alertDialog(this, "Please Check Internet Connection", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(SessionsInnerActivity.this, HomeActivity.class));
+                }
+            });
         } else if (requestCode == Constants.SERVICE_VIDEO_WATECHED_1) {
             hideLoadingDialog();
+            PopUtils.alertDialog(this, "Please Check Internet Connection", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(SessionsInnerActivity.this, HomeActivity.class));
+                }
+            });
         } else if (requestCode == Constants.SERVICE_SINGLEITEMVIEWD) {
             hideLoadingDialog();
+            PopUtils.alertDialog(this, "Please Check Internet Connection", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(SessionsInnerActivity.this, HomeActivity.class));
+                }
+            });
         }
     }
 
@@ -476,6 +499,10 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
             imgButton2.setVisibility(View.GONE);
         }
         checkAlreadyWatchedOrNot();
+
+        if (pageCount == Integer.parseInt("" + item_count)) {
+            checkForItemsViewedOrNot();
+        }
     }
 
     private void callDialogeDescription(String desc) {
@@ -587,6 +614,8 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
     }
 
     private void checkForItemsViewedOrNot() {
+        Utility.showLog("ArrayList.size", "" + sessionsInnerModelArrayList.size());
+        Utility.showLog("Id1", "" + sessionsInnerModelArrayList.get(0).getYoutubeId());
         if (sessionsInnerModelArrayList.size() > 1) {
             if (Utility.isValueNullOrEmpty(sessionsInnerModelArrayList.get(0).getYoutubeId()) && Utility.isValueNullOrEmpty(sessionsInnerModelArrayList.get(1).getYoutubeId())) {
                 callWebServiceForItemViewed();
@@ -604,8 +633,9 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
                 }
             }
         } else {
+            Utility.showLog("Id", "" + sessionsInnerModelArrayList.get(0).getYoutubeId());
             if (Utility.isValueNullOrEmpty(sessionsInnerModelArrayList.get(0).getYoutubeId())) {
-                    callWebServiceForItemViewed();
+                callWebServiceForItemViewed();
             } else {
                 if ((textStatus.getVisibility() == View.VISIBLE)) {
                     callWebServiceForItemViewed();

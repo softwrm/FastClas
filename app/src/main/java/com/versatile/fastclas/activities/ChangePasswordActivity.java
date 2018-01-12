@@ -122,6 +122,12 @@ public class ChangePasswordActivity extends BaseActivity implements View.OnClick
     public void ErrorResponse(VolleyError volleyError, int requestCode) {
         if (requestCode == Constants.SERVICE_CHANGEPASSWORD) {
             hideLoadingDialog();
+            PopUtils.alertDialog(this, "Please Check Internet Connection", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(ChangePasswordActivity.this, HomeActivity.class));
+                }
+            });
         }
     }
 
