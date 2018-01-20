@@ -66,9 +66,11 @@ public class PaymentActivity extends BaseActivity implements IParseListener {
                     PayUmoneyFlowManager.logoutUser(getApplicationContext());
 
 
+
                 } else {
                     //Failure Transaction
                     PayUmoneyFlowManager.logoutUser(getApplicationContext());
+
                 }
 
                 // Response from Payumoney
@@ -94,6 +96,8 @@ public class PaymentActivity extends BaseActivity implements IParseListener {
             } else {
                 Log.d("", "Both objects are null!");
             }
+        }else{
+            finish();
         }
     }
 
@@ -126,6 +130,7 @@ public class PaymentActivity extends BaseActivity implements IParseListener {
             }
         } catch (JSONException e) {
             e.printStackTrace();
+            finish();
         }
 
 

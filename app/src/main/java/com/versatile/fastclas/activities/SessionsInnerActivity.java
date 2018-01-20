@@ -43,7 +43,7 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
     TextView textTitle1, textTitle2, textTitle3, textTitle4, textTitle5, textTitle6, textTitle7, textTitle8, textTitle9, textTitle10;
     TextView textStatus, textStatus2;
     TextView txtToolbar;
-    String heading, unitId, sessionId, item_count, item_viewed, label, headingVal;
+    String heading, unitId, sessionId, item_count, item_viewed, label, headingVal, payment_status;
     ArrayList<SessionsInnerModel> sessionsInnerModelArrayList = new ArrayList<>();
     ImageView imgYoutube, imgYoutube2;
     ImageView imgButton, imgButton2;
@@ -95,16 +95,15 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
         rl = findViewById(R.id.rl);
         scrollView = findViewById(R.id.scrollView);
 
-        heading = getIntent().getStringExtra("heading");
+//        heading = getIntent().getStringExtra("heading");
         unitId = getIntent().getStringExtra("unit_id");
         sessionId = getIntent().getStringExtra("session_id");
         item_count = getIntent().getStringExtra("item_count");
         item_viewed = getIntent().getStringExtra("item_viewed");
         label = getIntent().getStringExtra("label");
         headingVal = getIntent().getStringExtra("heading");
-
-        Utility.showLog("item_count", "" + item_count);
-        txtToolbar.setText(heading);
+        payment_status = getIntent().getStringExtra("payment_status");
+        txtToolbar.setText(headingVal);
 
         imgOpenDialog.setOnClickListener(this);
         imgButton.setOnClickListener(this);
@@ -223,8 +222,8 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
             }
             case R.id.txtPrevious: {
                 pageCount--;
-                Utility.showLog("Count", "" + pageCount);
                 callWebServiceForItems(pageCount);
+                txtNext.setVisibility(View.VISIBLE);
                 break;
             }
             case R.id.textReadMore: {
@@ -266,6 +265,7 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
         intent.putExtra("heading", heading);
         intent.putExtra("label", label);
         intent.putExtra("unitId", "" + unitId);
+        intent.putExtra("payment_status", "" + payment_status);
         navigateActivity(intent, true);
     }
 
@@ -507,14 +507,14 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
 
     private void callDialogeDescription(String desc) {
 
-        final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-        LayoutInflater layoutInflater = this.getLayoutInflater();
-        View view = layoutInflater.inflate(R.layout.dialog_readmore, null);
-        alertDialog.setView(view);
+        final Dialog alertDialog = new Dialog(this);
+        alertDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        alertDialog.setContentView(R.layout.dialog_readmore);
+        alertDialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         alertDialog.setCancelable(true);
         //alertDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimationexit;
 
-        TextView txtDescription = view.findViewById(R.id.txtDescription);
+        TextView txtDescription = alertDialog.findViewById(R.id.txtDescription);
         txtDescription.setText(desc);
         alertDialog.show();
     }
@@ -558,49 +558,62 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
                 imgButton2.setVisibility(View.GONE);
                 imgYoutube2.setVisibility(View.GONE);
                 txtNext.setTextColor(getResources().getColor(R.color.color_blue));
-                txtNext.setVisibility(View.VISIBLE);
+//                txtNext.setVisibility(View.VISIBLE);
                 checkPageCountEqualOrNot();
             } else if (Utility.isValueNullOrEmpty(sessionsInnerModelArrayList.get(0).getYoutubeId())) {
                 if ((textStatus2.getVisibility() == View.VISIBLE)) {
                     txtNext.setTextColor(getResources().getColor(R.color.color_blue));
-                    txtNext.setVisibility(View.VISIBLE);
+//                    txtNext.setVisibility(View.VISIBLE);
+                    txtNext.setEnabled(true);
                     checkPageCountEqualOrNot();
                 } else {
-                    txtNext.setVisibility(View.GONE);
+//                    txtNext.setVisibility(View.GONE);
+                    txtNext.setTextColor(getResources().getColor(R.color.color_silver));
+                    txtNext.setEnabled(false);
                 }
             } else if (Utility.isValueNullOrEmpty(sessionsInnerModelArrayList.get(1).getYoutubeId())) {
                 imgButton2.setVisibility(View.GONE);
                 imgYoutube2.setVisibility(View.GONE);
                 if ((textStatus.getVisibility() == View.VISIBLE)) {
                     txtNext.setTextColor(getResources().getColor(R.color.color_blue));
-                    txtNext.setVisibility(View.VISIBLE);
+//                    txtNext.setVisibility(View.VISIBLE);
+                    txtNext.setEnabled(true);
                     checkPageCountEqualOrNot();
                 } else {
-                    txtNext.setVisibility(View.GONE);
+//                    txtNext.setVisibility(View.GONE);
+                    txtNext.setTextColor(getResources().getColor(R.color.color_silver));
+                    txtNext.setEnabled(false);
                 }
             } else {
                 if ((textStatus.getVisibility() == View.VISIBLE) && (textStatus2.getVisibility() == View.VISIBLE)) {
 
                     txtNext.setTextColor(getResources().getColor(R.color.color_blue));
-                    txtNext.setVisibility(View.VISIBLE);
+//                    txtNext.setVisibility(View.VISIBLE);
+                    txtNext.setEnabled(true);
                     checkPageCountEqualOrNot();
                 } else {
 
-                    txtNext.setVisibility(View.GONE);
+//                    txtNext.setVisibility(View.GONE);
+                    txtNext.setTextColor(getResources().getColor(R.color.color_silver));
+                    txtNext.setEnabled(false);
                 }
             }
         } else {
             if (Utility.isValueNullOrEmpty(sessionsInnerModelArrayList.get(0).getYoutubeId())) {
                 txtNext.setTextColor(getResources().getColor(R.color.color_blue));
-                txtNext.setVisibility(View.VISIBLE);
+//                txtNext.setVisibility(View.VISIBLE);
+                txtNext.setEnabled(true);
                 checkPageCountEqualOrNot();
             } else {
                 if ((textStatus.getVisibility() == View.VISIBLE)) {
                     txtNext.setTextColor(getResources().getColor(R.color.color_blue));
-                    txtNext.setVisibility(View.VISIBLE);
+//                    txtNext.setVisibility(View.VISIBLE);
+                    txtNext.setEnabled(true);
                     checkPageCountEqualOrNot();
                 } else {
-                    txtNext.setVisibility(View.GONE);
+//                    txtNext.setVisibility(View.GONE);
+                    txtNext.setTextColor(getResources().getColor(R.color.color_silver));
+                    txtNext.setEnabled(false);
                 }
             }
         }
@@ -608,14 +621,14 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
 
     private void checkPageCountEqualOrNot() {
         if (Integer.parseInt(item_count) <= pageCount) {
-            Utility.showLog("pageCount", "hide");
             txtNext.setVisibility(View.GONE);
+            txtNext.setTextColor(getResources().getColor(R.color.color_silver));
+            txtNext.setEnabled(false);
+
         }
     }
 
     private void checkForItemsViewedOrNot() {
-        Utility.showLog("ArrayList.size", "" + sessionsInnerModelArrayList.size());
-        Utility.showLog("Id1", "" + sessionsInnerModelArrayList.get(0).getYoutubeId());
         if (sessionsInnerModelArrayList.size() > 1) {
             if (Utility.isValueNullOrEmpty(sessionsInnerModelArrayList.get(0).getYoutubeId()) && Utility.isValueNullOrEmpty(sessionsInnerModelArrayList.get(1).getYoutubeId())) {
                 callWebServiceForItemViewed();
@@ -633,7 +646,6 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
                 }
             }
         } else {
-            Utility.showLog("Id", "" + sessionsInnerModelArrayList.get(0).getYoutubeId());
             if (Utility.isValueNullOrEmpty(sessionsInnerModelArrayList.get(0).getYoutubeId())) {
                 callWebServiceForItemViewed();
             } else {

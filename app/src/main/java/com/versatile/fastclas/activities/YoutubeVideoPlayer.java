@@ -44,7 +44,8 @@ public class YoutubeVideoPlayer extends YouTubeBaseActivity implements YouTubePl
             youTubePlayer.loadVideo(video_id);
 
             // Hiding player controls
-            youTubePlayer.setPlayerStyle(YouTubePlayer.PlayerStyle.MINIMAL);
+//            youTubePlayer.setPlayerStyle(YouTubePlayer.PlayerStyle.MINIMAL);
+            youTubePlayer.setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT);
             youTubePlayer.setPlayerStateChangeListener(this);
         }
     }

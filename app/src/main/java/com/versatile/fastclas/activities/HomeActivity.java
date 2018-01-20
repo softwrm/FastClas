@@ -66,24 +66,24 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         setNavigationDrawer();
         setClickListeners();
         callWedServiceForSubjects();
-        callWebServiceForNotificationCount();
+//        callWebServiceForNotificationCount();
 
-        if (PopUtils.checkInternetConnection(this)) {
-
-            final Handler handler = new Handler();
-            final int delay = 15000; //milliseconds
-
-
-            handler.postDelayed(new Runnable() {
-                public void run() {
-                    //do something
-                    if (PopUtils.checkInternetConnection(HomeActivity.this)) {
-                        callWebServiceForNotificationCount();
-                    }
-                    handler.postDelayed(this, delay);
-                }
-            }, delay);
-        }
+//        if (PopUtils.checkInternetConnection(this)) {
+//
+//            final Handler handler = new Handler();
+//            final int delay = 15000; //milliseconds
+//
+//
+//            handler.postDelayed(new Runnable() {
+//                public void run() {
+//                    //do something
+//                    if (PopUtils.checkInternetConnection(HomeActivity.this)) {
+//                        callWebServiceForNotificationCount();
+//                    }
+//                    handler.postDelayed(this, delay);
+//                }
+//            }, delay);
+//        }
 
     }
 
@@ -156,18 +156,18 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         }
     }
 
-    private void callWebServiceForNotificationCount() {
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("action", "notification");
-            jsonObject.put("user_id", "" + Utility.getSharedPreference(this, Constants.USER_ID));
-
-            ServerResponse serverResponse = new ServerResponse();
-            serverResponse.serviceRequest(this, Constants.BASE_URL, jsonObject, this, Constants.SERVICE_NOTIFICATION);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
+//    private void callWebServiceForNotificationCount() {
+//        JSONObject jsonObject = new JSONObject();
+//        try {
+//            jsonObject.put("action", "notification");
+//            jsonObject.put("user_id", "" + Utility.getSharedPreference(this, Constants.USER_ID));
+//
+//            ServerResponse serverResponse = new ServerResponse();
+//            serverResponse.serviceRequest(this, Constants.BASE_URL, jsonObject, this, Constants.SERVICE_NOTIFICATION);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     @Override
     public void onClick(View v) {
@@ -270,9 +270,10 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                     finishAffinity();
                 }
             });
-        } else if (requestCode == Constants.SERVICE_NOTIFICATION) {
-            Utility.showLog("Error", "" + volleyError);
         }
+//        else if (requestCode == Constants.SERVICE_NOTIFICATION) {
+//            Utility.showLog("Error", "" + volleyError);
+//        }
     }
 
     @Override
@@ -283,7 +284,21 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
             try {
                 JSONObject jsonObject = new JSONObject(response);
                 String status = jsonObject.optString("status");
+                int count = jsonObject.optInt("count");
+
+                if (!Utility.isValueNullOrEmpty(Utility.getSharedPreference(this, Constants.NOTIFICATION_COUNT))) {
+                    if (Integer.parseInt(Utility.getSharedPreference(this, Constants.NOTIFICATION_COUNT)) < count) {
+                        viewNotificationIcon.setVisibility(View.VISIBLE);
+                    } else {
+                        viewNotificationIcon.setVisibility(View.GONE);
+                    }
+                }else{
+                    viewNotificationIcon.setVisibility(View.GONE);
+                }
+
 //                String message = jsonObject.optString("message");
+
+
                 if (status.equals("200")) {
                     JSONArray jsonArray = jsonObject.getJSONArray("data");
                     for (int i = 0; i < jsonArray.length(); i++) {
@@ -306,27 +321,28 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                     HomeAdapter homeAdapter = new HomeAdapter(this, subjectModelArrayList, this);
                     recyclerView.setAdapter(homeAdapter);
                 } else {
-                    txtxNoDataFound.setText("No Subjects Found");
+                    txtxNoDataFound.setText("Thank you for your patience, Uploading in Progress");
                     txtxNoDataFound.setVisibility(View.VISIBLE);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        } else if (requestCode == Constants.SERVICE_NOTIFICATION) {
-            try {
-                JSONObject jsonObject = new JSONObject(response);
-                if (jsonObject.optString("status").equals("200")) {
-                    int count = jsonObject.optInt("count");
-
-                    if (Integer.parseInt(Utility.getSharedPreference(this, Constants.NOTIFICATION_COUNT)) < count) {
-                        viewNotificationIcon.setVisibility(View.VISIBLE);
-                    } else {
-                        viewNotificationIcon.setVisibility(View.GONE);
-                    }
-                }
-            } catch (Exception e) {
-                Utility.showLog("Error", "" + e);
-            }
         }
+//        else if (requestCode == Constants.SERVICE_NOTIFICATION) {
+//            try {
+//                JSONObject jsonObject = new JSONObject(response);
+//                if (jsonObject.optString("status").equals("200")) {
+//                    int count = jsonObject.optInt("count");
+//
+//                    if (Integer.parseInt(Utility.getSharedPreference(this, Constants.NOTIFICATION_COUNT)) < count) {
+//                        viewNotificationIcon.setVisibility(View.VISIBLE);
+//                    } else {
+//                        viewNotificationIcon.setVisibility(View.GONE);
+//                    }
+//                }
+//            } catch (Exception e) {
+//                Utility.showLog("Error", "" + e);
+//            }
+//        }
     }
 }

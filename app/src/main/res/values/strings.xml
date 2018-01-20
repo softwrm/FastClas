@@ -64,7 +64,7 @@
     <string name="no">No</string>
     <string name="note_without_pay_you_will_be_able_to_access_only_3_sessions">* Note: Without pay you will be able to access only 3 sessions</string>
     <string name="semester_i">SEMESTER: I</string>
-    <string name="subjects"><font color="#3F51B5">:</font>Subjects</string>
+    <string name="subjects">Subject : </string>
     <string name="bsc_program">BSC PROGRAM:</string>
     <string name="no_data_found">No Data Found</string>
     <string name="error_player">There was an error initializing the YouTubePlayer (%1$s)</string>

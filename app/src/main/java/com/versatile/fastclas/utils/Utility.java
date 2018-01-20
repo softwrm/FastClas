@@ -19,12 +19,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.versatilemobitech.fastclas.R;
 import com.versatile.fastclas.customviews.SnackBar;
-
-
 
 
 public class Utility {
@@ -33,6 +32,7 @@ public class Utility {
 
     private static final int NO_INTERNET_CONNECTION = 1;
     private static final int NO_GPS_ACCESS = 2;
+
 
     public static boolean isNetworkAvailable(Context context) {
         try {

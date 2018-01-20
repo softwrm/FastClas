@@ -136,7 +136,7 @@ public class EditProfileActivity extends BaseActivity implements View.OnClickLis
             case R.id.edtUniversity: {
                 if (!Utility.isValueNullOrEmpty(mEdtState.getText().toString().trim())) {
                     if (universityArrayList.size() <= 0) {
-                        PopUtils.alertDialog(EditProfileActivity.this, "No Universities Found", null);
+                        PopUtils.alertDialog(EditProfileActivity.this, "Please Select State", null);
                     } else {
                         selectUniversity();
                     }
@@ -148,7 +148,7 @@ public class EditProfileActivity extends BaseActivity implements View.OnClickLis
             case R.id.edtCourse: {
                 if (!Utility.isValueNullOrEmpty(mEdtUniversity.getText().toString().trim())) {
                     if (courseArrayList.size() <= 0) {
-                        PopUtils.alertDialog(EditProfileActivity.this, "No Courses Found", null);
+                        PopUtils.alertDialog(EditProfileActivity.this, "Please Select University", null);
                     } else {
                         selectCourse();
                     }
@@ -160,7 +160,7 @@ public class EditProfileActivity extends BaseActivity implements View.OnClickLis
             case R.id.edtSemester: {
                 if (!Utility.isValueNullOrEmpty(mEdtCourse.getText().toString().trim())) {
                     if (semesterArrayList.size() <= 0) {
-                        PopUtils.alertDialog(EditProfileActivity.this, "No Semester's Found", null);
+                        PopUtils.alertDialog(EditProfileActivity.this, "Please Select Course", null);
                     } else {
                         selectSemester();
                     }
@@ -194,13 +194,13 @@ public class EditProfileActivity extends BaseActivity implements View.OnClickLis
                 mEdtSemester.setText("");
 
                 for (int i = 0; i < stateModelArrayList.size(); i++) {
-                    if (mEdtState.getText().toString().trim().equals(stateModelArrayList.get(i).getState_name())) {
+                    if (mEdtState.getText().toString().trim().equals(stateModelArrayList.get(i).getState_name().trim())) {
                         state_id = stateModelArrayList.get(i).getState_id();
                     }
                 }
 
                 for (int i = 0; i < universityModelArrayList.size(); i++) {
-                    if (value.equals(universityModelArrayList.get(i).getUniversity_name())) {
+                    if (value.equals(universityModelArrayList.get(i).getUniversity_name().trim())) {
                         university_id = universityModelArrayList.get(i).getUniversity_id();
                     }
                 }
@@ -218,19 +218,19 @@ public class EditProfileActivity extends BaseActivity implements View.OnClickLis
                 mEdtSemester.setText("");
 
                 for (int i = 0; i < stateModelArrayList.size(); i++) {
-                    if (mEdtState.getText().toString().trim().equals(stateModelArrayList.get(i).getState_name())) {
+                    if (mEdtState.getText().toString().trim().equals(stateModelArrayList.get(i).getState_name().trim())) {
                         state_id = stateModelArrayList.get(i).getState_id();
                     }
                 }
 
                 for (int i = 0; i < universityModelArrayList.size(); i++) {
-                    if (mEdtUniversity.getText().toString().trim().equals(universityModelArrayList.get(i).getUniversity_name())) {
+                    if (mEdtUniversity.getText().toString().trim().equals(universityModelArrayList.get(i).getUniversity_name().trim())) {
                         university_id = universityModelArrayList.get(i).getUniversity_id();
                     }
                 }
 
                 for (int i = 0; i < courseModelArrayList.size(); i++) {
-                    if (value.equals(courseModelArrayList.get(i).getCourseName())) {
+                    if (value.equals(courseModelArrayList.get(i).getCourseName().trim())) {
                         course_id = courseModelArrayList.get(i).getCourseId();
                     }
                 }
@@ -244,7 +244,7 @@ public class EditProfileActivity extends BaseActivity implements View.OnClickLis
             @Override
             public void returnValues(String value, int positionValue) {
                 for (int i = 0; i < semesterModelArrayList.size(); i++) {
-                    if (value.equals(semesterModelArrayList.get(i).getSemester_name())) {
+                    if (value.equals(semesterModelArrayList.get(i).getSemester_name().trim())) {
                         semester_id = semesterModelArrayList.get(i).getSemester_id();
                     }
                 }
@@ -537,7 +537,7 @@ public class EditProfileActivity extends BaseActivity implements View.OnClickLis
                             mEdtCourse.setText("");
                             mEdtSemester.setText("");
                             for (int i = 0; i < stateModelArrayList.size(); i++) {
-                                String stateValue = stateModelArrayList.get(i).getState_name();
+                                String stateValue = stateModelArrayList.get(i).getState_name().trim();
                                 if (stateValue.equals(value)) {
                                     callServiceForUniversity(stateModelArrayList.get(i).getState_id());
                                 }

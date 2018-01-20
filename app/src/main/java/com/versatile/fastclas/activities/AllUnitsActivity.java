@@ -140,6 +140,11 @@ public class AllUnitsActivity extends BaseActivity implements View.OnClickListen
                 intent.putExtra("heading", allUnitsModel.getUnitTitle());
                 intent.putExtra("unitId", allUnitsModel.getUnitId());
                 intent.putExtra("payment_status", payment_status);
+
+                intent.putExtra("subject_id", id);
+                intent.putExtra("subject_name", subject_name);
+                intent.putExtra("amount",amount);
+
                 navigateActivity(intent, false);
             } else {
                 PopUtils.alertDialog(this, "To Open Buy this Subject", null);
@@ -156,6 +161,7 @@ public class AllUnitsActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void onBackPressed() {
+        startActivity(new Intent(this, HomeActivity.class));
         finish();
     }
 

@@ -64,9 +64,9 @@ public class SessionsActivity extends BaseActivity implements View.OnClickListen
 
         txtToolbar.setText(label);
         mTxtHeading.setText(heading);
+        txtSubject.setVisibility(View.GONE);
 
         mImgBack.setOnClickListener(this);
-        txtSubject.setVisibility(View.GONE);
 
         callWebServiceSession();
     }
@@ -104,29 +104,35 @@ public class SessionsActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void onItemClick(SessionsModel sessionPojo, int Position) {
         if (Position >= 3) {
-            if (!payment_status.equals("0")) {
-                Intent intent = new Intent(this, SessionsInnerActivity.class);
-                intent.putExtra("heading", sessionPojo.getSessionTitle());
-                intent.putExtra("unit_id", unitId);
-                intent.putExtra("heading", heading);
-                intent.putExtra("label", label);
-                intent.putExtra("session_id", sessionPojo.getSessionId());
-                intent.putExtra("item_count", "" + sessionPojo.getItemCount());
-                intent.putExtra("item_viewed", "" + sessionPojo.getItemsViewed());
-                navigateActivity(intent, false);
-            } else {
-                PopUtils.alertDialog(this, "To Open Buy this Subject", null);
+            try {
+                if (!payment_status.equals("0")) {
+                    Intent intent = new Intent(this, SessionsInnerActivity.class);
+                    intent.putExtra("heading", sessionPojo.getSessionTitle());
+                    intent.putExtra("unit_id", unitId);
+//                    intent.putExtra("heading", heading);
+                    intent.putExtra("label", label);
+                    intent.putExtra("session_id", sessionPojo.getSessionId());
+                    intent.putExtra("item_count", "" + sessionPojo.getItemCount());
+                    intent.putExtra("item_viewed", "" + sessionPojo.getItemsViewed());
+                    intent.putExtra("payment_status", "" + payment_status);
+                    navigateActivity(intent, true);
+                } else {
+                    PopUtils.alertDialog(this, "To Open Buy this Subject", null);
+                }
+            } catch (Exception e) {
+                Utility.showLog("Error", "" + e);
             }
         } else {
             Intent intent = new Intent(this, SessionsInnerActivity.class);
             intent.putExtra("heading", sessionPojo.getSessionTitle());
             intent.putExtra("unit_id", unitId);
-            intent.putExtra("heading", heading);
+//            intent.putExtra("heading", heading);
             intent.putExtra("label", label);
             intent.putExtra("session_id", sessionPojo.getSessionId());
             intent.putExtra("item_count", "" + sessionPojo.getItemCount());
             intent.putExtra("item_viewed", "" + sessionPojo.getItemsViewed());
-            navigateActivity(intent, false);
+            intent.putExtra("payment_status", "" + payment_status);
+            navigateActivity(intent, true);
         }
     }
 

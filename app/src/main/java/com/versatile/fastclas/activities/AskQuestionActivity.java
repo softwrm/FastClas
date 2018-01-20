@@ -95,6 +95,9 @@ public class AskQuestionActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void onBackPressed() {
+        Intent intent = new Intent(this, DiscussionForumActivity.class);
+        intent.putExtra("SessionId", sessionId);
+        startActivity(intent);
         finish();
     }
 
@@ -121,6 +124,9 @@ public class AskQuestionActivity extends BaseActivity implements View.OnClickLis
                 String message = jsonObject.optString("message");
                 if (status.equals("200")) {
                     Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(this, DiscussionForumActivity.class);
+                    intent.putExtra("SessionId", sessionId);
+                    startActivity(intent);
                     finish();
                 }
             } catch (JSONException e) {

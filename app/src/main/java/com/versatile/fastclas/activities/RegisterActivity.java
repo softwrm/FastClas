@@ -206,16 +206,17 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 mEdtSemester.setText("");
 
                 for (int i = 0; i < stateModelArrayList.size(); i++) {
-                    if (mEdtState.getText().toString().trim().equals(stateModelArrayList.get(i).getState_name())) {
+                    if (mEdtState.getText().toString().trim().contains(stateModelArrayList.get(i).getState_name().trim())) {
                         state_id = stateModelArrayList.get(i).getState_id();
                     }
                 }
 
                 for (int i = 0; i < universityModelArrayList.size(); i++) {
-                    if (value.equals(universityModelArrayList.get(i).getUniversity_name())) {
+                    if (value.equals(universityModelArrayList.get(i).getUniversity_name().trim())) {
                         university_id = universityModelArrayList.get(i).getUniversity_id();
                     }
                 }
+
                 callServiceForCourse(state_id, university_id);
             }
         });
@@ -230,19 +231,19 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 mEdtSemester.setText("");
 
                 for (int i = 0; i < stateModelArrayList.size(); i++) {
-                    if (mEdtState.getText().toString().trim().equals(stateModelArrayList.get(i).getState_name())) {
+                    if (mEdtState.getText().toString().trim().equals(stateModelArrayList.get(i).getState_name().trim())) {
                         state_id = stateModelArrayList.get(i).getState_id();
                     }
                 }
 
                 for (int i = 0; i < universityModelArrayList.size(); i++) {
-                    if (mEdtUniversity.getText().toString().trim().equals(universityModelArrayList.get(i).getUniversity_name())) {
+                    if (mEdtUniversity.getText().toString().trim().equals(universityModelArrayList.get(i).getUniversity_name().trim())) {
                         university_id = universityModelArrayList.get(i).getUniversity_id();
                     }
                 }
 
                 for (int i = 0; i < courseModelArrayList.size(); i++) {
-                    if (value.equals(courseModelArrayList.get(i).getCourseName())) {
+                    if (value.equals(courseModelArrayList.get(i).getCourseName().trim())) {
                         course_id = courseModelArrayList.get(i).getCourseId();
                     }
                 }
@@ -256,7 +257,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void returnValues(String value, int positionValue) {
                 for (int i = 0; i < semesterModelArrayList.size(); i++) {
-                    if (value.equals(semesterModelArrayList.get(i).getSemester_name())) {
+                    if (value.equals(semesterModelArrayList.get(i).getSemester_name().trim())) {
                         semester_id = semesterModelArrayList.get(i).getSemester_id();
                     }
                 }
@@ -373,6 +374,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             JSONObject jsonObject = new JSONObject();
             try {
                 jsonObject.put("action", "university");
+                Utility.showLog("statesid", "" + positionValue);
                 jsonObject.put("state_id", positionValue);
 
                 showLoadingDialog("Loading...", false);
@@ -552,7 +554,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                             mEdtCourse.setText("");
                             mEdtSemester.setText("");
                             for (int i = 0; i < stateModelArrayList.size(); i++) {
-                                String stateValue = stateModelArrayList.get(i).getState_name();
+                                String stateValue = stateModelArrayList.get(i).getState_name().trim();
                                 if (stateValue.equals(value)) {
                                     callServiceForUniversity(stateModelArrayList.get(i).getState_id());
                                 }
@@ -693,7 +695,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                         @Override
                         public void onClick(View view) {
                             Utility.showLog("value", view.getTag().toString());
-                            if (otp.equals(view.getTag().toString())) {
+                            if (otp.equals(view.getTag().toString().trim())) {
                                 callServiceForOTP();
                             } else {
                                 PopUtils.alertDialog(RegisterActivity.this, "Otp Mismatch. Try Again", null);

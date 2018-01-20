@@ -143,6 +143,8 @@ public class ChangePasswordActivity extends BaseActivity implements View.OnClick
                 if (status.equals("200")) {
                     Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(this, HomeActivity.class));
+                } else {
+                    PopUtils.alertDialog(this, message, null);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

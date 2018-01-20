@@ -1,5 +1,6 @@
 package com.versatile.fastclas.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -7,7 +8,9 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +39,7 @@ public class AnswersActivity extends BaseActivity implements View.OnClickListene
     EditText edtComments;
     ArrayList<AnswersModel> answersModelArrayList = new ArrayList<>();
     TextView textUserLetter, textName, textPostedTime, textQuestion;
+    ImageView imgBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +85,10 @@ public class AnswersActivity extends BaseActivity implements View.OnClickListene
         txtPost = findViewById(R.id.txtPost);
         edtComments = findViewById(R.id.edtComments);
 
+        imgBack = findViewById(R.id.imgBack);
+
         txtPost.setOnClickListener(this);
+        imgBack.setOnClickListener(this);
 
         textQuestion.setText(question);
         textName.setText(user_name);
@@ -96,7 +103,12 @@ public class AnswersActivity extends BaseActivity implements View.OnClickListene
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.txtPost: {
+                hideKeyBoard();
                 callWebServiceToPostAnswer();
+                break;
+            }
+            case R.id.imgBack: {
+                finish();
                 break;
             }
         }
@@ -157,6 +169,7 @@ public class AnswersActivity extends BaseActivity implements View.OnClickListene
                 @Override
                 public void onClick(View view) {
                     startActivity(new Intent(AnswersActivity.this, HomeActivity.class));
+                    finish();
                 }
             });
         } else if (requestCode == Constants.SERVICE_POSTANSWERS) {
@@ -165,6 +178,7 @@ public class AnswersActivity extends BaseActivity implements View.OnClickListene
                 @Override
                 public void onClick(View view) {
                     startActivity(new Intent(AnswersActivity.this, HomeActivity.class));
+                    finish();
                 }
             });
         }
@@ -218,7 +232,7 @@ public class AnswersActivity extends BaseActivity implements View.OnClickListene
                     AnswersModel answersModel = new AnswersModel();
                     answersModel.setAnswer(edtComments.getText().toString().trim());
                     answersModel.setQuestion_id(question_id);
-                    answersModel.setUser_name(Utility.getSharedPreference(this, Constants.FNAME)+" "+Utility.getSharedPreference(this, Constants.FNAME));
+                    answersModel.setUser_name(Utility.getSharedPreference(this, Constants.FNAME) + " " + Utility.getSharedPreference(this, Constants.LNAME));
                     answersModel.setSession_id(session_id);
 
                     answersModelArrayList.add(answersModel);
@@ -236,5 +250,12 @@ public class AnswersActivity extends BaseActivity implements View.OnClickListene
     private void setAdapterToRecyclerView() {
         AnswersAdapter answersAdapter = new AnswersAdapter(this, answersModelArrayList);
         recyclerViewAnswer.setAdapter(answersAdapter);
+    }
+
+    public void hideKeyBoard() {
+
+        InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
     }
 }
