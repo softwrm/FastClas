@@ -21,22 +21,11 @@
             android:layout_margin="@dimen/space_medium_15dp"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/space_medium_15dp"
-                android:text="@string/registration"
-                android:textColor="@color/color_black"
-                android:textSize="@dimen/text_xlarge_20sp" />
-
             <EditText
                 android:id="@+id/edtFirstname"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_5xlarge_50dp"
-                android:layout_marginTop="@dimen/space_xmedium_20dp"
                 android:background="@drawable/edittext_bg"
-                android:digits="qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"
                 android:drawableLeft="@drawable/fastclasusericon"
                 android:drawablePadding="@dimen/space_vsmall_5dp"
                 android:hint="@string/firstname"
@@ -285,7 +274,6 @@
                 android:textSize="@dimen/text_small_12sp" />
 
 
-
             <Button
                 android:id="@+id/btnRegister"
                 android:layout_width="match_parent"
@@ -295,7 +283,7 @@
                 android:background="@drawable/btn_bg"
                 android:gravity="center"
                 android:text="@string/register"
-                android:textColor="#ffffff"
+                android:textColor="@color/white"
                 android:textSize="@dimen/text_xmedium_16sp" />
 
             <TextView

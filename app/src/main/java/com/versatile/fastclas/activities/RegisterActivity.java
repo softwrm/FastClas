@@ -1,5 +1,6 @@
 package com.versatile.fastclas.activities;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -9,7 +10,10 @@ import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.RelativeSizeSpan;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -18,6 +22,8 @@ import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.versatile.fastclas.BaseActivity;
+import com.versatile.fastclas.interfaces.SmsListener;
+import com.versatile.fastclas.receiver.IncomingSms;
 import com.versatilemobitech.fastclas.R;
 import com.versatile.fastclas.interfaces.IParseListener;
 import com.versatile.fastclas.interfaces.ReturnValue;
@@ -62,6 +68,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     ArrayList<String> semesterArrayList = new ArrayList<>();
 
     String deviceId;
+    EditText mEdtOtp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,8 +76,17 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         setContentView(R.layout.activity_register);
 
         mTxtTitle = (TextView) findViewById(R.id.txtToolbar);
-        mTxtTitle.setText(R.string.app_name_caps);
+        mTxtTitle.setText("Registration");
         initComponents();
+
+           /*This is important because this will be called every time you receive
+     any sms */
+        IncomingSms.bindListener(new SmsListener() {
+            @Override
+            public void messageReceived(String messageText) {
+                mEdtOtp.setText(messageText);
+            }
+        });
     }
 
     private void initComponents() {
@@ -477,7 +493,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             PopUtils.alertDialog(this, "Please Check Internet Connection", new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
+                    startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                 }
             });
         } else if (requestCode == Constants.Service_University) {
@@ -485,7 +501,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             PopUtils.alertDialog(this, "Please Check Internet Connection", new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
+                    startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                 }
             });
         } else if (requestCode == Constants.Service_Course) {
@@ -493,7 +509,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             PopUtils.alertDialog(this, "Please Check Internet Connection", new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
+                    startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                 }
             });
         } else if (requestCode == Constants.Service_Semester) {
@@ -501,7 +517,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             PopUtils.alertDialog(this, "Please Check Internet Connection", new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
+                    startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                 }
             });
         } else if (requestCode == Constants.SERVICE_REGISTER) {
@@ -509,7 +525,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             PopUtils.alertDialog(this, "Please Check Internet Connection", new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
+                    startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                 }
             });
         } else if (requestCode == Constants.SERVICE_OTP) {
@@ -517,7 +533,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             PopUtils.alertDialog(this, "Please Check Internet Connection", new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
+                    startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                 }
             });
         }
@@ -691,22 +707,22 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                     otp = jsonObjectData.optString("otp");
 
 
-                    PopUtils.otpPasswordDialog(this, new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Utility.showLog("value", view.getTag().toString());
-                            if (otp.equals(view.getTag().toString().trim())) {
-                                callServiceForOTP();
-                            } else {
-                                PopUtils.alertDialog(RegisterActivity.this, "Otp Mismatch. Try Again", null);
-                            }
-                        }
-                    }, new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            callServiceForRegistration();
-                        }
-                    });
+                    callOtpDialog(otp);
+//                    PopUtils.otpPasswordDialog(this, new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View view) {
+//                            if (otp.equals(view.getTag().toString().trim())) {
+//                                callServiceForOTP();
+//                            } else {
+//                                PopUtils.alertDialog(RegisterActivity.this, "Otp Mismatch. Try Again", null);
+//                            }
+//                        }
+//                    }, new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View view) {
+//                            callServiceForRegistration();
+//                        }
+//                    });
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -762,5 +778,60 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 e.printStackTrace();
             }
         }
+    }
+
+    private void callOtpDialog(final String otpValue) {
+        Button mBtnSubmit;
+
+        final TextView mTxtOtpagain;
+
+        final Dialog dialog = new Dialog(this, R.style.AlertDialogCustom);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        View v = LayoutInflater.from(this).inflate(R.layout.alert_otp_password, null);
+        mBtnSubmit = (Button) v.findViewById(R.id.btnSubmit);
+        mTxtOtpagain = (TextView) v.findViewById(R.id.txtOtpagain);
+        mEdtOtp = (EditText) v.findViewById(R.id.edtOtp);
+
+        dialog.getWindow().getAttributes().windowAnimations = R.style.AlertDialogCustom;
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        Window window = dialog.getWindow();
+        lp.copyFrom(window.getAttributes());
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+
+        mBtnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (mEdtOtp.getText().toString().trim().length() == 0) {
+                    PopUtils.alertDialog(RegisterActivity.this, "Please Enter OTP", null);
+                } else {
+                    if (otpValue.equals(mEdtOtp.getText().toString().trim())) {
+                        callServiceForOTP();
+                        dialog.dismiss();
+                    } else {
+                        PopUtils.alertDialog(RegisterActivity.this, "Otp Mismatch. Try Again", null);
+                    }
+                }
+            }
+        });
+
+        mTxtOtpagain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                callServiceForRegistration();
+            }
+        });
+
+        dialog.setContentView(v);
+        dialog.setCancelable(true);
+
+        int width = (int) (this.getResources().getDisplayMetrics().widthPixels * 0.90);
+        int height = (int) (this.getResources().getDisplayMetrics().heightPixels * 0.30);
+        dialog.getWindow().setLayout(width, lp.height);
+
+        dialog.show();
     }
 }

@@ -37,6 +37,53 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyHolder> {
     @Override
     public void onBindViewHolder(final MyHolder holder, final int position) {
         final SubjectModel subjectModel = subjectModels.get(position);
+        switch (position) {
+            case 0:
+                holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.blue));
+                break;
+            case 1:
+                holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.indigo));
+                break;
+            case 2:
+                holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.deeppurple));
+                break;
+            case 3:
+                holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.lightblue));
+                break;
+            case 4:
+                holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.cyan));
+                break;
+            case 5:
+                holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.teal));
+                break;
+            case 6:
+                holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.green));
+                break;
+            case 7:
+                holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.blue));
+                break;
+            case 8:
+                holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.yellow));
+                break;
+            case 9:
+                holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.teal));
+                break;
+            case 10:
+                holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.lightblue));
+                break;
+            case 11:
+                holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.cyan));
+                break;
+            case 12:
+                holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.teal));
+                break;
+            case 13:
+                holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.green));
+                break;
+            default:
+                holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.color_blue));
+
+        }
         holder.bind(subjectModel, listener);
 
         holder.mTextSubject.setText(subjectModel.getSubjectName());

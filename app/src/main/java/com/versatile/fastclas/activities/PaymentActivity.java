@@ -3,6 +3,7 @@ package com.versatile.fastclas.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
@@ -66,7 +67,6 @@ public class PaymentActivity extends BaseActivity implements IParseListener {
                     PayUmoneyFlowManager.logoutUser(getApplicationContext());
 
 
-
                 } else {
                     //Failure Transaction
                     PayUmoneyFlowManager.logoutUser(getApplicationContext());
@@ -96,7 +96,7 @@ public class PaymentActivity extends BaseActivity implements IParseListener {
             } else {
                 Log.d("", "Both objects are null!");
             }
-        }else{
+        } else {
             finish();
         }
     }
@@ -294,7 +294,8 @@ public class PaymentActivity extends BaseActivity implements IParseListener {
         if (requestCode == Constants.SERVICE_PAYMENT) {
             hideLoadingDialog();
             Utility.showLog("Error", "" + volleyError);
-            this.finish();
+            startActivity(new Intent(this, HomeActivity.class));
+            finish();
         }
     }
 
@@ -304,8 +305,9 @@ public class PaymentActivity extends BaseActivity implements IParseListener {
             hideLoadingDialog();
             JSONObject jsonObject = new JSONObject();
             String message = jsonObject.optString("message");
-            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(PaymentActivity.this, HomeActivity.class));
             finish();
+
         }
     }
 }

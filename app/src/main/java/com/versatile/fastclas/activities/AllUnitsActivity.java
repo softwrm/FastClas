@@ -118,7 +118,7 @@ public class AllUnitsActivity extends BaseActivity implements View.OnClickListen
                     intent.putExtra("subjectId", id);
                     startActivity(intent);
                 } else {
-                    PopUtils.alertDialog(this, "Please Chack Internet Connection", new View.OnClickListener() {
+                    PopUtils.alertDialog(this, "Please Check Internet Connection", new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             startActivity(new Intent(AllUnitsActivity.this, HomeActivity.class));
@@ -147,7 +147,7 @@ public class AllUnitsActivity extends BaseActivity implements View.OnClickListen
 
                 navigateActivity(intent, false);
             } else {
-                PopUtils.alertDialog(this, "To Open Buy this Subject", null);
+                PopUtils.alertDialog(this, "Please complete the payment procedure", null);
             }
         } else {
             Intent intent = new Intent(this, SessionsActivity.class);

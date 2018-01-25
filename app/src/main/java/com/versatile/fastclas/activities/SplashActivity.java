@@ -27,13 +27,15 @@ public class SplashActivity extends BaseActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (Utility.isValueNullOrEmpty(Utility.getSharedPreference(SplashActivity.this, Constants.USER_ID))) {
-                    Intent splash = new Intent(SplashActivity.this, LoginActivity.class);
-                    navigateActivity(splash, true);
-                } else {
-                    Intent splash = new Intent(SplashActivity.this, HomeActivity.class);
-                    navigateActivity(splash, true);
-                }
+                startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                finish();
+//                if (Utility.isValueNullOrEmpty(Utility.getSharedPreference(SplashActivity.this, Constants.USER_ID))) {
+//                    Intent splash = new Intent(SplashActivity.this, LoginActivity.class);
+//                    navigateActivity(splash, true);
+//                } else {
+//                    Intent splash = new Intent(SplashActivity.this, HomeActivity.class);
+//                    navigateActivity(splash, true);
+//                }
             }
         }, 3000);
 

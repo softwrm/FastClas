@@ -6,6 +6,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
 
     <application
         android:allowBackup="true"
@@ -79,7 +82,19 @@
         <activity
             android:name="com.versatile.fastclas.activities.PaymentActivity"
             android:screenOrientation="portrait" />
-        <activity android:name="com.versatile.fastclas.activities.NotificationActivity"></activity>
+        <activity android:name="com.versatile.fastclas.activities.NotificationActivity" />
+
+        <receiver android:name="com.versatile.fastclas.receiver.IncomingSms">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+
+        <activity android:name="com.versatile.fastclas.activities.DashBoardActivity"></activity>
     </application>
 
 </manifest>

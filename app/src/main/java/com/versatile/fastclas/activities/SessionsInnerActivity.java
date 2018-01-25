@@ -5,10 +5,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
@@ -61,7 +59,6 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sessions_inner);
-
         setReferences();
 
     }
@@ -95,7 +92,7 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
         rl = findViewById(R.id.rl);
         scrollView = findViewById(R.id.scrollView);
 
-//        heading = getIntent().getStringExtra("heading");
+        heading = getIntent().getStringExtra("session_heading");
         unitId = getIntent().getStringExtra("unit_id");
         sessionId = getIntent().getStringExtra("session_id");
         item_count = getIntent().getStringExtra("item_count");
@@ -361,8 +358,9 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
                 JSONObject jsonObject = new JSONObject(response);
                 String status = jsonObject.optString("status");
                 String message = jsonObject.optString("message");
-                if (status.equals("200")) {
+                if (!status.equals("200")) {
                     Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -624,7 +622,9 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
             txtNext.setVisibility(View.GONE);
             txtNext.setTextColor(getResources().getColor(R.color.color_silver));
             txtNext.setEnabled(false);
-
+            if(txtPrevious.getVisibility() == View.VISIBLE){
+                PopUtils.alertDialog(this, "Congrats You have successfully completed the Unit", null);
+            }
         }
     }
 

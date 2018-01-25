@@ -34,7 +34,7 @@ import java.util.regex.Pattern;
 
 public class PopUtils {
     private static Dialog dialog;
-
+    public static EditText mEdtOtp;
     public static void alertDialog(final Context mContext, String message, final View.OnClickListener okClick) {
         TextView mTxtOk, mTxtMessage;
         final Dialog dialog = new Dialog(mContext, R.style.AlertDialogCustom);
@@ -123,11 +123,12 @@ public class PopUtils {
 
     public static void otpPasswordDialog(final Context mContext, final View.OnClickListener submitClick, final View.OnClickListener sendOtpAgainClick) {
         Button mBtnSubmit;
-        final EditText mEdtOtp;
+
         final TextView mTxtOtpagain;
 
         final Dialog dialog = new Dialog(mContext, R.style.AlertDialogCustom);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
         View v = LayoutInflater.from(mContext).inflate(R.layout.alert_otp_password, null);
         mBtnSubmit = (Button) v.findViewById(R.id.btnSubmit);
         mTxtOtpagain = (TextView) v.findViewById(R.id.txtOtpagain);
@@ -145,12 +146,12 @@ public class PopUtils {
             public void onClick(View v) {
 
                 if (mEdtOtp.getText().toString().trim().length() == 0) {
-                    PopUtils.alertDialog(mContext, "Please enter  OTP.", null);
+                    PopUtils.alertDialog(mContext, "Please Enter OTP", null);
                 } else {
-                    dialog.dismiss();
                     if (submitClick != null) {
                         v.setTag(mEdtOtp.getText().toString().trim());
                         submitClick.onClick(v);
+                        dialog.dismiss();
                     }
                 }
             }
@@ -226,14 +227,14 @@ public class PopUtils {
         mBtnNo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HomeActivity.navigationView.getMenu().getItem(6).setChecked(false);
+//                HomeActivity.navigationView.getMenu().getItem(6).setChecked(false);
                 dialog.dismiss();
             }
         });
         mBtnYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HomeActivity.navigationView.getMenu().getItem(6).setChecked(false);
+//                HomeActivity.navigationView.getMenu().getItem(6).setChecked(false);
                 if (yesClick != null) {
                     yesClick.onClick(v);
                 }

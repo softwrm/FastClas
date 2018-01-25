@@ -27,7 +27,8 @@ public class Constants {
     public static final int SERVICE_PAYMENT = 120;
     public static final int SERVICE_SINGLEITEMVIEWD = 121;
     public static final int SERVICE_NOTIFICATION = 122;
-
+    public static final int SERVICE_DEVICEID = 123;
+    public static final int SERVICE_DASHBOARD = 124;
 
     public static final String APP_PREF = "fast_class_preff";
     public static final String LNAME = "LNAME";

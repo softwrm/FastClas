@@ -5,6 +5,7 @@
     android:background="@drawable/fastclasbg">
 
     <ImageView
+        android:contentDescription="@string/app_name"
         android:layout_width="@dimen/space_15xlarge_150dp"
         android:layout_height="@dimen/space_15xlarge_150dp"
         android:src="@drawable/fastclasfinallogo"

@@ -109,7 +109,7 @@ public class SessionsActivity extends BaseActivity implements View.OnClickListen
                     Intent intent = new Intent(this, SessionsInnerActivity.class);
                     intent.putExtra("heading", sessionPojo.getSessionTitle());
                     intent.putExtra("unit_id", unitId);
-//                    intent.putExtra("heading", heading);
+                    intent.putExtra("session_heading", heading);
                     intent.putExtra("label", label);
                     intent.putExtra("session_id", sessionPojo.getSessionId());
                     intent.putExtra("item_count", "" + sessionPojo.getItemCount());
@@ -117,7 +117,7 @@ public class SessionsActivity extends BaseActivity implements View.OnClickListen
                     intent.putExtra("payment_status", "" + payment_status);
                     navigateActivity(intent, true);
                 } else {
-                    PopUtils.alertDialog(this, "To Open Buy this Subject", null);
+                    PopUtils.alertDialog(this, "Please complete the payment procedure", null);
                 }
             } catch (Exception e) {
                 Utility.showLog("Error", "" + e);
@@ -126,7 +126,7 @@ public class SessionsActivity extends BaseActivity implements View.OnClickListen
             Intent intent = new Intent(this, SessionsInnerActivity.class);
             intent.putExtra("heading", sessionPojo.getSessionTitle());
             intent.putExtra("unit_id", unitId);
-//            intent.putExtra("heading", heading);
+            intent.putExtra("session_heading", heading);
             intent.putExtra("label", label);
             intent.putExtra("session_id", sessionPojo.getSessionId());
             intent.putExtra("item_count", "" + sessionPojo.getItemCount());

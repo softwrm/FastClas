@@ -35,7 +35,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class EditProfileActivity extends BaseActivity implements View.OnClickListener, IParseListener {
-
     TextView mTitle;
     ImageView mImgBack;
     EditText mEdtFirstname, mEdtLastname,
@@ -43,7 +42,6 @@ public class EditProfileActivity extends BaseActivity implements View.OnClickLis
             mEdtEmail, mEdtState,
             mEdtUniversity, mEdtCourse, mEdtSemester;
     Button mBtnSave;
-
 
     ArrayList<StateModel> stateModelArrayList = new ArrayList<>();
     ArrayList<UniversityModel> universityModelArrayList = new ArrayList<>();
@@ -80,18 +78,18 @@ public class EditProfileActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void setReferences() {
-        mEdtFirstname = (EditText) findViewById(R.id.edtFirstname);
-        mEdtLastname = (EditText) findViewById(R.id.edtLastname);
-        mEdtGender = (EditText) findViewById(R.id.edtGender);
-        mEdtPhoneno = (EditText) findViewById(R.id.edtPhoneno);
-        mEdtEmail = (EditText) findViewById(R.id.edtEmail);
-        mEdtState = (EditText) findViewById(R.id.edtState);
-        mEdtUniversity = (EditText) findViewById(R.id.edtUniversity);
-        mEdtCourse = (EditText) findViewById(R.id.edtCourse);
-        mEdtSemester = (EditText) findViewById(R.id.edtSemester);
-        mBtnSave = (Button) findViewById(R.id.btnSave);
-        mImgBack = (ImageView) findViewById(R.id.imgBack);
-        mTitle = (TextView) findViewById(R.id.txtToolbar);
+        mEdtFirstname = findViewById(R.id.edtFirstname);
+        mEdtLastname = findViewById(R.id.edtLastname);
+        mEdtGender = findViewById(R.id.edtGender);
+        mEdtPhoneno = findViewById(R.id.edtPhoneno);
+        mEdtEmail = findViewById(R.id.edtEmail);
+        mEdtState = findViewById(R.id.edtState);
+        mEdtUniversity = findViewById(R.id.edtUniversity);
+        mEdtCourse = findViewById(R.id.edtCourse);
+        mEdtSemester = findViewById(R.id.edtSemester);
+        mBtnSave = findViewById(R.id.btnSave);
+        mImgBack = findViewById(R.id.imgBack);
+        mTitle = findViewById(R.id.txtToolbar);
         mTitle.setText("EDIT PROFILE");
 
         mEdtFirstname.setText(Utility.getSharedPreference(this, Constants.FNAME));
@@ -135,11 +133,12 @@ public class EditProfileActivity extends BaseActivity implements View.OnClickLis
             }
             case R.id.edtUniversity: {
                 if (!Utility.isValueNullOrEmpty(mEdtState.getText().toString().trim())) {
-                    if (universityArrayList.size() <= 0) {
-                        PopUtils.alertDialog(EditProfileActivity.this, "Please Select State", null);
-                    } else {
-                        selectUniversity();
-                    }
+//                    if (universityArrayList.size() <= 0) {
+//                        PopUtils.alertDialog(EditProfileActivity.this, "Please Select State", null);
+                        callServiceForUniversity(state_id);
+//                    } else {
+//                        selectUniversity();
+//                    }
                 } else {
                     PopUtils.alertDialog(EditProfileActivity.this, "Please Select State", null);
                 }
@@ -147,11 +146,12 @@ public class EditProfileActivity extends BaseActivity implements View.OnClickLis
             }
             case R.id.edtCourse: {
                 if (!Utility.isValueNullOrEmpty(mEdtUniversity.getText().toString().trim())) {
-                    if (courseArrayList.size() <= 0) {
-                        PopUtils.alertDialog(EditProfileActivity.this, "Please Select University", null);
-                    } else {
-                        selectCourse();
-                    }
+//                    if (courseArrayList.size() <= 0) {
+//                        PopUtils.alertDialog(EditProfileActivity.this, "Please Select University", null);
+                        callServiceForCourse(state_id, university_id);
+//                    } else {
+//                        selectCourse();
+//                    }
                 } else {
                     PopUtils.alertDialog(EditProfileActivity.this, "Please Select University", null);
                 }
@@ -159,11 +159,12 @@ public class EditProfileActivity extends BaseActivity implements View.OnClickLis
             }
             case R.id.edtSemester: {
                 if (!Utility.isValueNullOrEmpty(mEdtCourse.getText().toString().trim())) {
-                    if (semesterArrayList.size() <= 0) {
-                        PopUtils.alertDialog(EditProfileActivity.this, "Please Select Course", null);
-                    } else {
-                        selectSemester();
-                    }
+//                    if (semesterArrayList.size() <= 0) {
+//                        PopUtils.alertDialog(EditProfileActivity.this, "Please Select Course", null);
+                        callServiceForSemester(state_id, university_id, course_id);
+//                    } else {
+//                        selectSemester();
+//                    }
                 } else {
                     PopUtils.alertDialog(EditProfileActivity.this, "Please Select Course", null);
                 }
@@ -204,7 +205,7 @@ public class EditProfileActivity extends BaseActivity implements View.OnClickLis
                         university_id = universityModelArrayList.get(i).getUniversity_id();
                     }
                 }
-                callServiceForCourse(state_id, university_id);
+//                callServiceForCourse(state_id, university_id);
             }
         });
     }
@@ -234,7 +235,7 @@ public class EditProfileActivity extends BaseActivity implements View.OnClickLis
                         course_id = courseModelArrayList.get(i).getCourseId();
                     }
                 }
-                callServiceForSemester(state_id, university_id, course_id);
+//                callServiceForSemester(state_id, university_id, course_id);
             }
         });
     }
@@ -539,7 +540,8 @@ public class EditProfileActivity extends BaseActivity implements View.OnClickLis
                             for (int i = 0; i < stateModelArrayList.size(); i++) {
                                 String stateValue = stateModelArrayList.get(i).getState_name().trim();
                                 if (stateValue.equals(value)) {
-                                    callServiceForUniversity(stateModelArrayList.get(i).getState_id());
+                                    state_id = stateModelArrayList.get(i).getState_id();
+//                                    callServiceForUniversity(stateModelArrayList.get(i).getState_id());
                                 }
                             }
                         }
@@ -580,6 +582,9 @@ public class EditProfileActivity extends BaseActivity implements View.OnClickLis
                         universityModelArrayList.add(universityModel);
                         universityArrayList.add(university);
                     }
+                    selectUniversity();
+                } else {
+                    PopUtils.alertDialog(this, "No Universities Found", null);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -612,6 +617,7 @@ public class EditProfileActivity extends BaseActivity implements View.OnClickLis
                         courseArrayList.add(course);
 
                     }
+                    selectCourse();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -644,6 +650,9 @@ public class EditProfileActivity extends BaseActivity implements View.OnClickLis
                         semesterModelArrayList.add(semesterModel);
 
                     }
+                    selectSemester();
+                } else {
+                    PopUtils.alertDialog(this, "No Semester's Found", null);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

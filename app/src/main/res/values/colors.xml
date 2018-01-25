@@ -18,4 +18,13 @@
     <color name="persian_green_primary">#0DAC8F</color>
     <color name="persian_green_dark">#0A927A</color>
     <color name="persian_green_accent">#0A927A</color>
+
+    <color name="deeppurple">#7E57C2</color>
+    <color name="indigo">#3F51B5</color>
+    <color name="blue">#2196F3</color>
+    <color name="lightblue">#03A9F4</color>
+    <color name="cyan">#00BCD4</color>
+    <color name="teal">#009688</color>
+    <color name="green">#4CAF50</color>
+    <color name="yellow">#FFEB3B</color>
 </resources>

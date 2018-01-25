@@ -11,8 +11,10 @@ import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -38,7 +40,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class HomeActivity extends BaseActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener,
-        HomeAdapter.OnItemClickListener, IParseListener {
+        HomeAdapter.OnItemClickListener, IParseListener, SwipeRefreshLayout.OnRefreshListener {
 
     //    private static final String TAG = HomeActivity.class.getSimpleName();
     private Toolbar toolbar;
@@ -53,6 +55,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     ArrayList<SubjectModel> subjectModelArrayList = new ArrayList<>();
     @SuppressLint("StaticFieldLeak")
     static View viewNotificationIcon;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,8 +104,11 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         txtCourse.setText(Utility.getSharedPreference(this, Constants.COURSE));
 
         recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
+
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(this);
 
         imgNotification = findViewById(R.id.imgNotification);
         viewNotificationIcon = findViewById(R.id.viewNotificationIcon);
@@ -119,7 +125,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         View headerLayout = navigationView.getHeaderView(0);
         tvUserWelcomeHeader = headerLayout.findViewById(R.id.tvUserWelcome);
         tvUserEmailHeader = headerLayout.findViewById(R.id.tvUserEmailHeader);
-        tvUserEmailHeader.setText(Utility.getSharedPreference(this, Constants.EMAIL));
+        tvUserEmailHeader.setText(Utility.getSharedPreference(this, Constants.FNAME) + " " + Utility.getSharedPreference(this, Constants.LNAME));
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.menubaricon1);
         // txtToolbar3.setText(R.string.home);
@@ -208,8 +214,9 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
             navigateActivity(new Intent(this, TermsandconditionsActivity.class), false);
         } else if (id == R.id.nav_help) {
             navigateActivity(new Intent(this, HelpActivity.class), false);
-        } else if (id == R.id.nav_logout) {
-            PopUtils.exitDialog(HomeActivity.this, "Are you sure.....you want to logout?", logoutClick);
+        } else if (id == R.id.nav_dashboard) {
+//            PopUtils.exitDialog(HomeActivity.this, "Are you sure.....you want to logout?", logoutClick);
+            navigateActivity(new Intent(this, DashBoardActivity.class), false);
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -262,6 +269,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
     @Override
     public void ErrorResponse(VolleyError volleyError, int requestCode) {
+        swipeRefreshLayout.setRefreshing(false);
         if (requestCode == Constants.SERVICE_SUBJECT) {
             hideLoadingDialog();
             PopUtils.alertDialog(this, "Please Check Internet Connection", new View.OnClickListener() {
@@ -278,6 +286,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 
     @Override
     public void SuccessResponse(String response, int requestCode) {
+        swipeRefreshLayout.setRefreshing(false);
         if (requestCode == Constants.SERVICE_SUBJECT) {
             hideLoadingDialog();
             subjectModelArrayList.clear();
@@ -292,7 +301,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                     } else {
                         viewNotificationIcon.setVisibility(View.GONE);
                     }
-                }else{
+                } else {
                     viewNotificationIcon.setVisibility(View.GONE);
                 }
 
@@ -344,5 +353,10 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
 //                Utility.showLog("Error", "" + e);
 //            }
 //        }
+    }
+
+    @Override
+    public void onRefresh() {
+        initViews();
     }
 }

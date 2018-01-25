@@ -47,9 +47,9 @@
             android:layout_height="@dimen/dimen_16dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginEnd="@dimen/dimen_16dp"
-            android:layout_marginRight="@dimen/dimen_16dp"
-            android:layout_marginTop="@dimen/dimen_30dp"
+            android:layout_marginEnd="@dimen/space_vsmall_5dp"
+            android:layout_marginRight="@dimen/space_vsmall_5dp"
+            android:layout_marginTop="@dimen/space_small_10dp"
             android:background="@drawable/notification_round"
             android:gravity="center" />
 

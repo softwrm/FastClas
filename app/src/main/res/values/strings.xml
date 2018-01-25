@@ -2,7 +2,7 @@
     <string name="app_name">FastClas</string>
     <string name="app_name_caps">FASTCLASS</string>
     <string name="login">LOGIN</string>
-    <string name="emailphone">Enter Email/Phone Number</string>
+    <string name="emailphone">Enter Email</string>
     <string name="password">Enter Password</string>
     <string name="forgotpassword">Forgot Password?</string>
     <string name="donthaveanaccount">Don"'"t have an account?</string>
@@ -19,6 +19,8 @@
     <string name="state">State</string>
     <string name="university">University</string>
     <string name="course">Course</string>
+    <string name="courses">Course : </string>
+    <string name="semesters">Semester : </string>
     <string name="semester">Semester</string>
     <string name="termsandconditions">By Clicking Register , You Are Agree To The Fastclas \n <u><font color="#4756A0">Terms And Conditions Policy</font></u></string>
     <string name="alreadyhaveanaccount">Already Have An Account? <b>Log In</b></string>
@@ -57,6 +59,7 @@
     <string name="alert_dialog_ok">OK</string>
     <string name="alert_dialog_setting">Settings</string>
     <string name="pls_check_internet">Please Check Internet Connection</string>
+    <string name="some_thing_went_wrong">Something went wrong... Please try again</string>
     <string name="education">Education</string>
     <string name="send_otp_again">Send OTP again</string>
     <string name="please_enter_one_time_password_otp">Please Enter One Time Password(OTP)</string>
@@ -65,6 +68,7 @@
     <string name="note_without_pay_you_will_be_able_to_access_only_3_sessions">* Note: Without pay you will be able to access only 3 sessions</string>
     <string name="semester_i">SEMESTER: I</string>
     <string name="subjects">Subject : </string>
+    <string name="subject">Subjects </string>
     <string name="bsc_program">BSC PROGRAM:</string>
     <string name="no_data_found">No Data Found</string>
     <string name="error_player">There was an error initializing the YouTubePlayer (%1$s)</string>
@@ -75,9 +79,11 @@
     <string name="answer">Answer</string>
     <string name="notes">Notes</string>
     <string name="payment">Payment</string>
-    <string name="buy_subject">Buy Subject</string>
+    <string name="buy_subject">Pay</string>
     <string name="back">back</string>
     <string name="notification">notification</string>
     <string name="colon">:</string>
+    <string name="welcome_to">Welcome to</string>
+    <string name="user">User</string>
 
 </resources>

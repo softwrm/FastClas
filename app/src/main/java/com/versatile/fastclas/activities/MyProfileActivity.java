@@ -53,7 +53,7 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
         mTxtUseremail.setText(Utility.getSharedPreference(this, Constants.EMAIL));
         mTxtUserphoneno.setText(Utility.getSharedPreference(this, Constants.MOBILE));
 
-        mTxtUsername.setText(Utility.getSharedPreference(this,Constants.FNAME));
+        mTxtUsername.setText(Utility.getSharedPreference(this,Constants.FNAME) + " " + Utility.getSharedPreference(this, Constants.LNAME));
         mTxtUsergender.setText(Utility.getSharedPreference(this,Constants.GENDER));
 
         mTxtAddress.setText(Utility.getSharedPreference(this, Constants.SEMESTER) + "\n" +
