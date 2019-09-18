@@ -8,7 +8,47 @@ public class SessionsInnerModel {
 
 
     public String itemId, itemTitle1, itemTitle2, itemTitle3, itemTitle4, itemTitle5, video, description, status, videoStatus,
-            youtubeId,thumbnailImage;
+            youtubeId, thumbnailImage, image_one, image_two, image_three, image_four, image_five;
+
+    public String getImage_one() {
+        return image_one;
+    }
+
+    public void setImage_one(String image_one) {
+        this.image_one = image_one;
+    }
+
+    public String getImage_two() {
+        return image_two;
+    }
+
+    public void setImage_two(String image_two) {
+        this.image_two = image_two;
+    }
+
+    public String getImage_three() {
+        return image_three;
+    }
+
+    public void setImage_three(String image_three) {
+        this.image_three = image_three;
+    }
+
+    public String getImage_four() {
+        return image_four;
+    }
+
+    public void setImage_four(String image_four) {
+        this.image_four = image_four;
+    }
+
+    public String getImage_five() {
+        return image_five;
+    }
+
+    public void setImage_five(String image_five) {
+        this.image_five = image_five;
+    }
 
     public String getItemId() {
         return itemId;

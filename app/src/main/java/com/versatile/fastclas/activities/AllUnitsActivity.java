@@ -32,9 +32,9 @@ public class AllUnitsActivity extends BaseActivity implements View.OnClickListen
     RecyclerView recyclerView;
     TextView txtToolbar, mTxtHeading, txtxNoDataFound;
     ImageView mImgBack;
-    String id, subject_name, amount, payment_status;
+    String id, subject_name, amount, payment_status, from;
     ArrayList<AllUnitsModel> allUnitsModelArrayList = new ArrayList<>();
-    TextView txtSubject;
+    TextView txtPayment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,24 +52,23 @@ public class AllUnitsActivity extends BaseActivity implements View.OnClickListen
         txtxNoDataFound = findViewById(R.id.txtxNoDataFound);
         mImgBack = findViewById(R.id.imgBack);
         recyclerView = findViewById(R.id.recyclerView);
-        txtSubject = findViewById(R.id.txtSubject);
+        txtPayment = findViewById(R.id.txtPayment);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
-
         mImgBack.setOnClickListener(this);
-        txtSubject.setOnClickListener(this);
-
+        txtPayment.setOnClickListener(this);
 
         id = getIntent().getStringExtra("id");
         subject_name = getIntent().getStringExtra("subject_name");
         amount = getIntent().getStringExtra("amount");
         payment_status = getIntent().getStringExtra("payment_status");
+        from = getIntent().getStringExtra("from");
 
         if (payment_status.equals("1")) {
-            txtSubject.setVisibility(View.GONE);
+            txtPayment.setVisibility(View.GONE);
         } else {
-            txtSubject.setVisibility(View.VISIBLE);
+            //txtPayment.setVisibility(View.VISIBLE);
         }
 
         mTxtHeading.setText(subject_name);
@@ -111,8 +110,12 @@ public class AllUnitsActivity extends BaseActivity implements View.OnClickListen
             case R.id.imgBack:
                 onBackPressed();
                 break;
-            case R.id.txtSubject: {
-                if (PopUtils.checkInternetConnection(this)) {
+            case R.id.txtPayment:
+                Intent intent = new Intent(this, PackagesActivity.class);
+                intent.putExtra("amount", amount);
+                intent.putExtra("subjectId", id);
+                startActivity(intent);
+               /* if (PopUtils.checkInternetConnection(this)) {
                     Intent intent = new Intent(this, PaymentActivity.class);
                     intent.putExtra("amount", amount);
                     intent.putExtra("subjectId", id);
@@ -125,15 +128,14 @@ public class AllUnitsActivity extends BaseActivity implements View.OnClickListen
                             finish();
                         }
                     });
-                }
+                }*/
                 break;
-            }
         }
     }
 
     @Override
     public void onItemClick(AllUnitsModel allUnitsModel, int Position) {
-        if (Position != 0) {
+       /* if (Position != 0) {
             if (!payment_status.equals("0")) {
                 Intent intent = new Intent(this, SessionsActivity.class);
                 intent.putExtra("label", allUnitsModel.getUnitNumber());
@@ -143,7 +145,7 @@ public class AllUnitsActivity extends BaseActivity implements View.OnClickListen
 
                 intent.putExtra("subject_id", id);
                 intent.putExtra("subject_name", subject_name);
-                intent.putExtra("amount",amount);
+                intent.putExtra("amount", amount);
 
                 navigateActivity(intent, false);
             } else {
@@ -156,25 +158,35 @@ public class AllUnitsActivity extends BaseActivity implements View.OnClickListen
             intent.putExtra("unitId", allUnitsModel.getUnitId());
             intent.putExtra("payment_status", payment_status);
             navigateActivity(intent, false);
-        }
+        }*/
+
+        Intent intent = new Intent(this, SessionsActivity.class);
+        intent.putExtra("label", allUnitsModel.getUnitNumber());
+        intent.putExtra("heading", allUnitsModel.getUnitTitle());
+        intent.putExtra("unitId", allUnitsModel.getUnitId());
+        intent.putExtra("payment_status", payment_status);
+        navigateActivity(intent, false);
+
     }
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(this, HomeActivity.class));
-        finish();
+        if (from.equals("MyOrdersActivity")) {
+            startActivity(new Intent(this, MyOrdersActivity.class));
+            finish();
+        } else {
+            startActivity(new Intent(this, HomeActivity.class));
+            finish();
+        }
     }
 
     @Override
     public void ErrorResponse(VolleyError volleyError, int requestCode) {
         if (requestCode == Constants.SERVICE_UNITS) {
             hideLoadingDialog();
-            PopUtils.alertDialog(this, "Please Check Internet Connection", new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    startActivity(new Intent(AllUnitsActivity.this, HomeActivity.class));
-                }
-            });
+            Utility.showSettingDialog(this,
+                    this.getResources().getString(R.string.some_thing_went_wrong),
+                    this.getResources().getString(R.string.error), Constants.SERVER_ERROR).show();
         }
     }
 
@@ -197,12 +209,76 @@ public class AllUnitsActivity extends BaseActivity implements View.OnClickListen
                         String unit_number = jsonObjectData.optString("unit_number");
                         String unit_title = jsonObjectData.optString("unit_title");
                         String description = jsonObjectData.optString("description");
+                        String due_date = jsonObjectData.optString("due_date");
 
                         AllUnitsModel allUnitsModel = new AllUnitsModel();
                         allUnitsModel.setDescription(description);
                         allUnitsModel.setUnitId(unit_id);
                         allUnitsModel.setUnitNumber("Unit - " + unit_number);
                         allUnitsModel.setUnitTitle(unit_title);
+
+                        //2018-02-22
+
+                        if (!Utility.isValueNullOrEmpty(due_date)) {
+                            String dateVal[] = due_date.split("-");
+                            String month = "Jan";
+                            switch (dateVal[1]) {
+                                case "01": {
+                                    month = "Jan";
+                                    break;
+                                }
+                                case "02": {
+                                    month = "Feb";
+                                    break;
+                                }
+                                case "03": {
+                                    month = "Mar";
+                                    break;
+                                }
+                                case "04": {
+                                    month = "Aprl";
+                                    break;
+                                }
+                                case "05": {
+                                    month = "May";
+                                    break;
+                                }
+                                case "06": {
+                                    month = "June";
+                                    break;
+                                }
+
+                                case "07": {
+                                    month = "July";
+                                    break;
+                                }
+                                case "08": {
+                                    month = "Aug";
+                                    break;
+                                }
+                                case "09": {
+                                    month = "Sept";
+                                    break;
+                                }
+                                case "10": {
+                                    month = "Oct";
+                                    break;
+                                }
+                                case "11": {
+                                    month = "Nov";
+                                    break;
+                                }
+                                case "12": {
+                                    month = "Dec";
+                                    break;
+                                }
+                            }
+                            allUnitsModel.setDueDate(dateVal[2] + "-" + month + "-" + dateVal[0]);
+                        } else {
+                            allUnitsModel.setDueDate("");
+                        }
+
+//                        allUnitsModel.setDueDate(due_date);
 
                         allUnitsModelArrayList.add(allUnitsModel);
 
@@ -211,7 +287,6 @@ public class AllUnitsActivity extends BaseActivity implements View.OnClickListen
                     AllUnitsAdapter allUnitsAdapter = new AllUnitsAdapter(this, allUnitsModelArrayList, this);
                     recyclerView.setAdapter(allUnitsAdapter);
                 } else {
-                    txtxNoDataFound.setText("No Unit's Found");
                     txtxNoDataFound.setVisibility(View.VISIBLE);
                     recyclerView.setVisibility(View.GONE);
                 }

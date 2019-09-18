@@ -12,7 +12,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.versatile.fastclas.BaseActivity;
@@ -40,6 +39,7 @@ public class AnswersActivity extends BaseActivity implements View.OnClickListene
     ArrayList<AnswersModel> answersModelArrayList = new ArrayList<>();
     TextView textUserLetter, textName, textPostedTime, textQuestion;
     ImageView imgBack;
+    boolean callService = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,18 +57,34 @@ public class AnswersActivity extends BaseActivity implements View.OnClickListene
         initUI();
         callWebServiceForAnswers();
 
-        final Handler handler = new Handler();
-        final int delay = 15000; //milliseconds
+        if (callService) {
+            Utility.showLog("Pause",""+callService);
+            final Handler handler = new Handler();
+            final int delay = 15000; //milliseconds
 
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                //do something
-                callWebServiceForAnswers();
-                handler.postDelayed(this, delay);
-            }
-        }, delay);
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    //do something
+                    callWebServiceForAnswers();
+                    handler.postDelayed(this, delay);
+                }
+            }, delay);
+        }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Utility.showLog("Resume",""+callService);
+        callService = true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        callService = false;
+        Utility.showLog("Pause",""+callService);
+    }
 
     private void initUI() {
 
@@ -108,10 +124,18 @@ public class AnswersActivity extends BaseActivity implements View.OnClickListene
                 break;
             }
             case R.id.imgBack: {
-                finish();
+                onBackPressed();
                 break;
             }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, DiscussionForumActivity.class);
+        intent.putExtra("SessionId", session_id);
+        startActivity(intent);
+        finish();
     }
 
     private void callWebServiceForAnswers() {
@@ -165,22 +189,12 @@ public class AnswersActivity extends BaseActivity implements View.OnClickListene
     public void ErrorResponse(VolleyError volleyError, int requestCode) {
         if (requestCode == Constants.SERVICE_ANSWERS) {
             Utility.showLog("Error", "" + volleyError);
-            PopUtils.alertDialog(this, "Please Check Internet Connection", new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    startActivity(new Intent(AnswersActivity.this, HomeActivity.class));
-                    finish();
-                }
-            });
+//            PopUtils.alertDialog(this, getResources().getString(R.string.some_thing_went_wrong), null);
         } else if (requestCode == Constants.SERVICE_POSTANSWERS) {
             hideLoadingDialog();
-            PopUtils.alertDialog(this, "Please Check Internet Connection", new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    startActivity(new Intent(AnswersActivity.this, HomeActivity.class));
-                    finish();
-                }
-            });
+            Utility.showSettingDialog(this,
+                    this.getResources().getString(R.string.some_thing_went_wrong),
+                    this.getResources().getString(R.string.error), Constants.SERVER_ERROR).show();
         }
 
     }
@@ -202,14 +216,19 @@ public class AnswersActivity extends BaseActivity implements View.OnClickListene
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObjectData = jsonArray.getJSONObject(i);
                         String question_id = jsonObjectData.optString("question_id");
+                        String user_id = jsonObjectData.optString("user_id");
                         String user_name = jsonObjectData.optString("user_name");
                         String session_id = jsonObjectData.optString("session_id");
                         String answer = jsonObjectData.optString("answer");
 
                         AnswersModel answersModel = new AnswersModel();
                         answersModel.setAnswer(answer);
+                        if (user_id.equals("0")) {
+                            answersModel.setUser_name("Admin");
+                        } else {
+                            answersModel.setUser_name(user_name);
+                        }
                         answersModel.setQuestion_id(question_id);
-                        answersModel.setUser_name(user_name);
                         answersModel.setSession_id(session_id);
 
                         answersModelArrayList.add(answersModel);

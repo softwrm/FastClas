@@ -17,12 +17,13 @@
     <string name="password1">Password</string>
     <string name="confirmpassword">Confirm Password</string>
     <string name="state">State</string>
-    <string name="university">University</string>
+    <string name="university">University / Board</string>
     <string name="course">Course</string>
     <string name="courses">Course : </string>
-    <string name="semesters">Semester : </string>
-    <string name="semester">Semester</string>
+    <string name="semesters">Semester / Year : </string>
+    <string name="semester">Semester / Year</string>
     <string name="termsandconditions">By Clicking Register , You Are Agree To The Fastclas \n <u><font color="#4756A0">Terms And Conditions Policy</font></u></string>
+    <string name="termsandconditions_payment">By Selecting, You Are Agree To The Fastclas \n <u><font color="#4756A0">Terms And Conditions Policy</font></u></string>
     <string name="alreadyhaveanaccount">Already Have An Account? <b>Log In</b></string>
     <string name="powered_by">Powered by - Versatile Mobitech Pvt. Ltd.</string>
     <string name="otptext">One Time Password(OTP) has been sent to your mobile , Please Enter the same here to complete your registration</string>
@@ -33,10 +34,17 @@
     <string name="changepassword">Change Password</string>
     <string name="termsconditions">Terms and Conditions</string>
     <string name="help">Help</string>
+    <string name="share">Share</string>
     <string name="logout">Logout</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="abouttext">His holiness Jaimahavibhoshri was born on 3rd December in Telangana, India. We call him out of love as Mahavibhoshri ( The Great Beloved Master ). Mahavibhoshri is born enlightened one and is the ultimate peak of supreme consciousness in beyondness to beyondness. There is no other beyondness to his experience of wisdom.\n\nMaster says, Man is the greatest miracle in the universe. The very porpose of human birth is to become a light unto himself and to the universe.\n\nBut today we have forgotten completely the original nature. We are living an incomplete life. We are living only one side of the life i.e. materialistic life.\n\nWe never try to know, why  we have come to this earth, where we go after death.His holiness Jaimahavibhoshri was born on 3rd December in Telangana, India. We call him out of love as Mahavibhoshri ( The Great Beloved Master ). Mahavibhoshri is born enlightened one and is the ultimate peak of supreme consciousness in beyondness to beyondness. There is no other beyondness to his experience of wisdom.\n\nMaster says, Man is the greatest miracle in the universe. The very porpose of human birth is to become a light unto himself and to the universe.\n\nBut today we have forgotten completely the original nature. We are living an incomplete life. We are living only one side of the life i.e. materialistic life.\n\nWe never try to know, why  we have come to this earth, where we go after death.</string>
+    <string name="abouttext"><i>"Learning gives creativity, Creativity leads to thinking, Thinking provides knowledge, Knowledge makes you great"</i>
+        \n\n<b>WE ARE A GROUP OF PASSIONATE TUTORS</b>
+        \n\nTeaching is our passion which is contributing to someone’s life by sharing knowledge and experiencing pure joy of giving. We improve your concentration, confidence and interest in studies through engaging contents interactive discussions and personalised coaching, which will add a depth dimension to student’s educational experience.
+        \n\n“A few hours with fastclas, you will learn more than you did in your class”
+        \n\nCurrently we are launching our programs for graduate students of odisha, which has courses affiliated under UTKAL university, BERHAMPUR university, FAKIR MOHAN university and SAMBALPUR university. The desired courses can be directly learn from our learning FASTCLAS mobile application.
+        \n\nFastclas learning mobile application will help students to access courses easily any time anywhere. We believe effective learning at individual place give learners an opportunity for self study and also give chance of self evaluation.
+        </string>
     <string name="termsandconditionstext">Contrary to the popular belief Lorem Ipsum is not simply random. It has roots in a piece of classical Latin literature.Contrary to the popular belief Lorem Ipsum is not simply random. It has roots in a piece of classical Latin literature.Contrary to the popular belief Lorem Ipsum is not simply random. It has roots in a piece of classical Latin literature.</string>
     <string name="helptext">Contrary to the popular belief Lorem Ipsum is not simply random. It has roots in a piece of classical Latin literature.Contrary to the popular belief Lorem Ipsum is not simply random. It has roots in a piece of classical Latin literature.Contrary to the popular belief Lorem Ipsum is not simply random. It has roots in a piece of classical Latin literature.</string>
     <string name="currentpassword">Current Password</string>
@@ -79,11 +87,20 @@
     <string name="answer">Answer</string>
     <string name="notes">Notes</string>
     <string name="payment">Payment</string>
-    <string name="buy_subject">Pay</string>
+    <string name="buy_subject">Payment</string>
     <string name="back">back</string>
     <string name="notification">notification</string>
     <string name="colon">:</string>
     <string name="welcome_to">Welcome to</string>
     <string name="user">User</string>
+    <string name="dashboard">Courses Offering</string>
+    <string name="order">My Subjects</string>
+    <string name="please_check_internet">Please Check Internet Connection</string>
+    <string name="internet_connection">Internet Connection</string>
+    <string name="error">Error</string>
+    <string name="tq_home"><b>Thank you for your patience</b>\n Uploading in Progress...</string>
+    <string name="open_text">Opentext e-learning \nPrivate Limited</string>
+    <string name="click_me">Click Me</string>
+    <string name="proceed">Proceed</string>
 
 </resources>

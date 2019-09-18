@@ -5,10 +5,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.versatile.fastclas.activities.AnswersActivity;
 import com.versatile.fastclas.models.AnswersModel;
+import com.versatile.fastclas.utils.Utility;
 import com.versatilemobitech.fastclas.R;
 
 import java.util.ArrayList;
@@ -38,8 +40,17 @@ public class AnswersAdapter extends RecyclerView.Adapter<AnswersAdapter.MyHolder
 
         holder.textUserName.setText(answersModel.getUser_name());
         holder.textAnswer.setText(answersModel.getAnswer());
-        Character character = answersModel.getUser_name().charAt(0);
-        holder.textUserLetter.setText(character.toString());
+
+
+        if (answersModel.getUser_name().equals("Admin")) {
+            holder.iv_admin.setVisibility(View.VISIBLE);
+            holder.textUserLetter.setVisibility(View.GONE);
+        } else {
+            holder.iv_admin.setVisibility(View.GONE);
+            holder.textUserLetter.setVisibility(View.VISIBLE);
+            Character character = answersModel.getUser_name().charAt(0);
+            holder.textUserLetter.setText(character.toString());
+        }
 
     }
 
@@ -49,11 +60,12 @@ public class AnswersAdapter extends RecyclerView.Adapter<AnswersAdapter.MyHolder
     }
 
     public class MyHolder extends RecyclerView.ViewHolder {
-        TextView textUserName, textAnswer,textUserLetter;
+        TextView textUserName, textAnswer, textUserLetter;
+        ImageView iv_admin;
 
         public MyHolder(View itemView) {
             super(itemView);
-
+            iv_admin = itemView.findViewById(R.id.iv_admin);
             textAnswer = itemView.findViewById(R.id.textAnswer);
             textUserName = itemView.findViewById(R.id.textUserName);
             textUserLetter = itemView.findViewById(R.id.textUserLetter);

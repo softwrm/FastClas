@@ -69,8 +69,8 @@
                 android:background="@drawable/edittext_bg"
                 android:clickable="true"
                 android:drawableLeft="@drawable/gendericon"
-                android:drawablePadding="@dimen/space_vsmall_5dp"
                 android:drawableRight="@drawable/dropdownicon"
+                android:drawablePadding="@dimen/space_vsmall_5dp"
                 android:editable="false"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
@@ -174,8 +174,8 @@
                 android:background="@drawable/edittext_bg"
                 android:clickable="true"
                 android:drawableLeft="@drawable/stateicon"
-                android:drawablePadding="@dimen/space_vsmall_5dp"
                 android:drawableRight="@drawable/dropdownicon"
+                android:drawablePadding="@dimen/space_vsmall_5dp"
                 android:editable="false"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
@@ -198,8 +198,8 @@
                 android:background="@drawable/edittext_bg"
                 android:clickable="true"
                 android:drawableLeft="@drawable/universityicon"
-                android:drawablePadding="@dimen/space_vsmall_5dp"
                 android:drawableRight="@drawable/dropdownicon"
+                android:drawablePadding="@dimen/space_vsmall_5dp"
                 android:editable="false"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
@@ -222,8 +222,8 @@
                 android:background="@drawable/edittext_bg"
                 android:clickable="true"
                 android:drawableLeft="@drawable/courseicon"
-                android:drawablePadding="@dimen/space_vsmall_5dp"
                 android:drawableRight="@drawable/dropdownicon"
+                android:drawablePadding="@dimen/space_vsmall_5dp"
                 android:editable="false"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
@@ -246,8 +246,8 @@
                 android:background="@drawable/edittext_bg"
                 android:clickable="true"
                 android:drawableLeft="@drawable/semestericon"
-                android:drawablePadding="@dimen/space_vsmall_5dp"
                 android:drawableRight="@drawable/dropdownicon"
+                android:drawablePadding="@dimen/space_vsmall_5dp"
                 android:editable="false"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
@@ -262,40 +262,40 @@
                 android:textCursorDrawable="@null"
                 android:textSize="@dimen/text_xmedium_16sp" />
 
-            <CheckBox
-                android:id="@+id/chTerms"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_vsmall_5dp"
-                android:gravity="center"
-                android:paddingRight="@dimen/space_medium_15dp"
-                android:text="@string/termsandconditions"
-                android:textColor="@color/color_silver"
-                android:textSize="@dimen/text_small_12sp" />
+                android:orientation="horizontal">
 
+                <CheckBox
+                    android:id="@+id/chTerms"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_vsmall_5dp"
+                    android:gravity="center"
+                    android:paddingRight="@dimen/space_medium_15dp"
+                    android:textColor="@color/color_silver" />
+
+                <TextView
+                    android:id="@+id/txtTerms"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/termsandconditions"
+                    android:textSize="@dimen/text_small_12sp" />
+            </LinearLayout>
 
             <Button
                 android:id="@+id/btnRegister"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="@dimen/space_xlarge_30dp"
+                android:layout_marginTop="@dimen/space_small_10dp"
+                android:layout_marginBottom="@dimen/space_xmedium_20dp"
                 android:background="@drawable/btn_bg"
                 android:gravity="center"
                 android:text="@string/register"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_xmedium_16sp" />
-
-            <TextView
-                android:id="@+id/txtAlready"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/space_xxlarge_35dp"
-                android:layout_marginTop="@dimen/space_xxlarge_35dp"
-                android:gravity="center"
-                android:text="@string/alreadyhaveanaccount"
-                android:textColor="@color/color_black"
-                android:textSize="@dimen/text_vsmall_10sp" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

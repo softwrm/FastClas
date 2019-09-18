@@ -135,7 +135,7 @@ public class EditProfileActivity extends BaseActivity implements View.OnClickLis
                 if (!Utility.isValueNullOrEmpty(mEdtState.getText().toString().trim())) {
 //                    if (universityArrayList.size() <= 0) {
 //                        PopUtils.alertDialog(EditProfileActivity.this, "Please Select State", null);
-                        callServiceForUniversity(state_id);
+                    callServiceForUniversity(state_id);
 //                    } else {
 //                        selectUniversity();
 //                    }
@@ -148,12 +148,12 @@ public class EditProfileActivity extends BaseActivity implements View.OnClickLis
                 if (!Utility.isValueNullOrEmpty(mEdtUniversity.getText().toString().trim())) {
 //                    if (courseArrayList.size() <= 0) {
 //                        PopUtils.alertDialog(EditProfileActivity.this, "Please Select University", null);
-                        callServiceForCourse(state_id, university_id);
+                    callServiceForCourse(state_id, university_id);
 //                    } else {
 //                        selectCourse();
 //                    }
                 } else {
-                    PopUtils.alertDialog(EditProfileActivity.this, "Please Select University", null);
+                    PopUtils.alertDialog(EditProfileActivity.this, "Please Select University / Board", null);
                 }
                 break;
             }
@@ -161,7 +161,7 @@ public class EditProfileActivity extends BaseActivity implements View.OnClickLis
                 if (!Utility.isValueNullOrEmpty(mEdtCourse.getText().toString().trim())) {
 //                    if (semesterArrayList.size() <= 0) {
 //                        PopUtils.alertDialog(EditProfileActivity.this, "Please Select Course", null);
-                        callServiceForSemester(state_id, university_id, course_id);
+                    callServiceForSemester(state_id, university_id, course_id);
 //                    } else {
 //                        selectSemester();
 //                    }
@@ -187,7 +187,7 @@ public class EditProfileActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void selectUniversity() {
-        PopUtils.showListItems(this, universityArrayList, mEdtUniversity, "Select University", new ReturnValue() {
+        PopUtils.showListItems(this, universityArrayList, mEdtUniversity, "Select University / Board", new ReturnValue() {
             @Override
             public void returnValues(String value, int positionValue) {
 
@@ -241,7 +241,7 @@ public class EditProfileActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void selectSemester() {
-        PopUtils.showListItems(this, semesterArrayList, mEdtSemester, "Select Semester", new ReturnValue() {
+        PopUtils.showListItems(this, semesterArrayList, mEdtSemester, "Select Semester / Year", new ReturnValue() {
             @Override
             public void returnValues(String value, int positionValue) {
                 for (int i = 0; i < semesterModelArrayList.size(); i++) {
@@ -401,7 +401,7 @@ public class EditProfileActivity extends BaseActivity implements View.OnClickLis
             Utility.setSnackBarEnglish(EditProfileActivity.this, mEdtCourse, "Select Course");
             mEdtCourse.requestFocus();
         } else if (Utility.isValueNullOrEmpty(mEdtSemester.getText().toString().trim())) {
-            Utility.setSnackBarEnglish(EditProfileActivity.this, mEdtSemester, "Select Semester");
+            Utility.setSnackBarEnglish(EditProfileActivity.this, mEdtSemester, "Select Semester / Year");
             mEdtSemester.requestFocus();
         } else {
             validation = true;
@@ -419,44 +419,29 @@ public class EditProfileActivity extends BaseActivity implements View.OnClickLis
     public void ErrorResponse(VolleyError volleyError, int requestCode) {
         if (requestCode == Constants.SERVICE_EDITPROFILE) {
             hideLoadingDialog();
-            PopUtils.alertDialog(this, "Please Check Internet Connection", new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    startActivity(new Intent(EditProfileActivity.this, HomeActivity.class));
-                }
-            });
+            Utility.showSettingDialog(this,
+                    this.getResources().getString(R.string.some_thing_went_wrong),
+                    this.getResources().getString(R.string.error), Constants.SERVER_ERROR).show();
         } else if (requestCode == Constants.Service_State) {
             hideLoadingDialog();
-            PopUtils.alertDialog(this, "Please Check Internet Connection", new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    startActivity(new Intent(EditProfileActivity.this, HomeActivity.class));
-                }
-            });
+            Utility.showSettingDialog(this,
+                    this.getResources().getString(R.string.some_thing_went_wrong),
+                    this.getResources().getString(R.string.error), Constants.SERVER_ERROR).show();
         } else if (requestCode == Constants.Service_University) {
             hideLoadingDialog();
-            PopUtils.alertDialog(this, "Please Check Internet Connection", new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    startActivity(new Intent(EditProfileActivity.this, HomeActivity.class));
-                }
-            });
+            Utility.showSettingDialog(this,
+                    this.getResources().getString(R.string.some_thing_went_wrong),
+                    this.getResources().getString(R.string.error), Constants.SERVER_ERROR).show();
         } else if (requestCode == Constants.Service_Course) {
             hideLoadingDialog();
-            PopUtils.alertDialog(this, "Please Check Internet Connection", new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    startActivity(new Intent(EditProfileActivity.this, HomeActivity.class));
-                }
-            });
+            Utility.showSettingDialog(this,
+                    this.getResources().getString(R.string.some_thing_went_wrong),
+                    this.getResources().getString(R.string.error), Constants.SERVER_ERROR).show();
         } else if (requestCode == Constants.Service_Semester) {
             hideLoadingDialog();
-            PopUtils.alertDialog(this, "Please Check Internet Connection", new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    startActivity(new Intent(EditProfileActivity.this, HomeActivity.class));
-                }
-            });
+            Utility.showSettingDialog(this,
+                    this.getResources().getString(R.string.some_thing_went_wrong),
+                    this.getResources().getString(R.string.error), Constants.SERVER_ERROR).show();
         }
     }
 
@@ -584,7 +569,7 @@ public class EditProfileActivity extends BaseActivity implements View.OnClickLis
                     }
                     selectUniversity();
                 } else {
-                    PopUtils.alertDialog(this, "No Universities Found", null);
+                    PopUtils.alertDialog(this, "No University / Board Found", null);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -618,6 +603,8 @@ public class EditProfileActivity extends BaseActivity implements View.OnClickLis
 
                     }
                     selectCourse();
+                }else{
+                    PopUtils.alertDialog(this, "No Courses Found", null);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -652,7 +639,7 @@ public class EditProfileActivity extends BaseActivity implements View.OnClickLis
                     }
                     selectSemester();
                 } else {
-                    PopUtils.alertDialog(this, "No Semester's Found", null);
+                    PopUtils.alertDialog(this, "No Semester / Year Found", null);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

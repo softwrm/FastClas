@@ -48,7 +48,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyHolder> {
                 holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.deeppurple));
                 break;
             case 3:
-                holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.lightblue));
+                holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.color_silver));
                 break;
             case 4:
                 holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.cyan));
@@ -66,7 +66,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyHolder> {
                 holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.yellow));
                 break;
             case 9:
-                holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.teal));
+                holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.color_silver));
                 break;
             case 10:
                 holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.lightblue));

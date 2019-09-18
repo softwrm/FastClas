@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 
 public class BaseActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
-    public String[] inspectionFormArray = new String[139];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,14 +15,6 @@ public class BaseActivity extends AppCompatActivity {
 
     public void navigateActivity(Intent intent, boolean finish) {
         startActivity(intent);
-        if (finish) {
-            finish();
-        }
-    }
-
-    public void navigateActivityBack(Intent intent, boolean finish) {
-        startActivity(intent);
-//        overridePendingTransition(R.anim.trans_right_in, R.anim.trans_left_out);
         if (finish) {
             finish();
         }

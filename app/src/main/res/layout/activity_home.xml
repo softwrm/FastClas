@@ -122,10 +122,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_xlarge_30dp"
                     android:gravity="center"
-                    android:text="@string/no_data_found"
+                    android:text="@string/tq_home"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/text_medium_14sp"
-                    android:textStyle="bold"
+                    android:textSize="@dimen/text_xmedium_16sp"
                     android:visibility="gone" />
 
                 <android.support.v7.widget.RecyclerView

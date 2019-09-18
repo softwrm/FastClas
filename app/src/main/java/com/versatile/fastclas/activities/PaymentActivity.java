@@ -3,7 +3,6 @@ package com.versatile.fastclas.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
@@ -33,7 +32,7 @@ public class PaymentActivity extends BaseActivity implements IParseListener {
 
     PayUmoneySdkInitializer.PaymentParam mPaymentParams;
     public static int selectedTheme = R.style.AppTheme_Green;
-    String amountVal, subjectId;
+    private String amountVal = "", subjectId = "", packageId = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +40,13 @@ public class PaymentActivity extends BaseActivity implements IParseListener {
         setContentView(R.layout.activity_payment);
 
         Intent intent = getIntent();
-        amountVal = intent.getStringExtra("amount");
-        subjectId = intent.getStringExtra("subjectId");
-        launchPayUMoneyFlow();
+        if (intent != null) {
+            amountVal = intent.getStringExtra("amount");
+            subjectId = intent.getStringExtra("subjectId");
+            packageId = intent.getStringExtra("packageId");
+        }
 
+        launchPayUMoneyFlow();
     }
 
     @Override
@@ -65,36 +67,23 @@ public class PaymentActivity extends BaseActivity implements IParseListener {
                 if (transactionResponse.getTransactionStatus().equals(TransactionResponse.TransactionStatus.SUCCESSFUL)) {
                     //Success Transaction
                     PayUmoneyFlowManager.logoutUser(getApplicationContext());
-
-
                 } else {
                     //Failure Transaction
                     PayUmoneyFlowManager.logoutUser(getApplicationContext());
-
                 }
-
                 // Response from Payumoney
                 String payuResponse = transactionResponse.getPayuResponse();
                 Utility.showLog("payuResponse", "" + payuResponse);
-
                 // Response from SURl and FURL
                 String merchantResponse = transactionResponse.getTransactionDetails();
                 Utility.showLog("merchantResponse", "" + merchantResponse);
 
+                /*calling service for payment status*/
                 callServiceForPaymentStatus(payuResponse);
-//                new AlertDialog.Builder(this)
-//                        .setCancelable(false)
-//                        .setMessage("Payu's Data : " + payuResponse + "\n\n\n Merchant's Data: " + merchantResponse)
-//                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-//                            public void onClick(DialogInterface dialog, int whichButton) {
-//                                dialog.dismiss();
-//                            }
-//                        }).show();
-
             } else if (resultModel != null && resultModel.getError() != null) {
-                Log.d("", "Error response : " + resultModel.getError().getTransactionResponse());
+                Utility.showLog("", "Error response : " + resultModel.getError().getTransactionResponse());
             } else {
-                Log.d("", "Both objects are null!");
+                Utility.showLog("", "Both objects are null!");
             }
         } else {
             finish();
@@ -102,7 +91,6 @@ public class PaymentActivity extends BaseActivity implements IParseListener {
     }
 
     private void callServiceForPaymentStatus(String payuResponse) {
-
         try {
             JSONObject jsonObject = new JSONObject(payuResponse);
             JSONObject jsonObjectResult = jsonObject.optJSONObject("result");
@@ -116,6 +104,7 @@ public class PaymentActivity extends BaseActivity implements IParseListener {
                 jsonObjectInsert.put("action", "payment");
                 jsonObjectInsert.put("user_id", Utility.getSharedPreference(this, Constants.USER_ID));
                 jsonObjectInsert.put("subject_id", "" + subjectId);
+                jsonObjectInsert.put("pkg_id", "" + packageId);
                 jsonObjectInsert.put("paymentid", "" + paymentId);
                 jsonObjectInsert.put("txnid", "" + txnid);
                 jsonObjectInsert.put("amount", "" + amount);
@@ -132,8 +121,6 @@ public class PaymentActivity extends BaseActivity implements IParseListener {
             e.printStackTrace();
             finish();
         }
-
-
     }
 
     @Override
@@ -143,21 +130,15 @@ public class PaymentActivity extends BaseActivity implements IParseListener {
     }
 
     private void launchPayUMoneyFlow() {
-
         PayUmoneyConfig payUmoneyConfig = PayUmoneyConfig.getInstance();
-
         //Use this to set your custom text on result screen button
         payUmoneyConfig.setDoneButtonText("Payment Status");
-
         //Use this to set your custom title for the activity
         payUmoneyConfig.setPayUmoneyActivityTitle("Pay U Money");
-
         PayUmoneySdkInitializer.PaymentParam.Builder builder = new PayUmoneySdkInitializer.PaymentParam.Builder();
-
         double amount = 1;
         try {
             amount = Double.parseDouble(amountVal);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -293,8 +274,9 @@ public class PaymentActivity extends BaseActivity implements IParseListener {
     public void ErrorResponse(VolleyError volleyError, int requestCode) {
         if (requestCode == Constants.SERVICE_PAYMENT) {
             hideLoadingDialog();
-            Utility.showLog("Error", "" + volleyError);
-            startActivity(new Intent(this, HomeActivity.class));
+            Utility.showSettingDialog(this,
+                    this.getResources().getString(R.string.some_thing_went_wrong),
+                    this.getResources().getString(R.string.error), Constants.SERVER_ERROR).show();
             finish();
         }
     }

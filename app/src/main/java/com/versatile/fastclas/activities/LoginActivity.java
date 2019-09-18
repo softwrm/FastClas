@@ -23,7 +23,7 @@ import org.json.JSONObject;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener, IParseListener {
 
-//    EditText mEdtUseremail, mEdtPassword;
+    //    EditText mEdtUseremail, mEdtPassword;
 //    TextView mTxtForgotpassword;
 //    Button mBtnLogin, mBtnRegister;
     String device_id;
@@ -61,7 +61,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         } else {
             PopUtils.alertDialog(LoginActivity.this, getString(R.string.pls_check_internet), null);
         }
-
     }
 
     private void setReferences() {
@@ -164,20 +163,18 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     public void ErrorResponse(VolleyError volleyError, int requestCode) {
         if (requestCode == Constants.SERVICE_FORGOTPASSWORD) {
             hideLoadingDialog();
-            PopUtils.alertDialog(this, "Please Check Internet Connection", new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-                }
-            });
+            Utility.showSettingDialog(this,
+                    this.getResources().getString(R.string.some_thing_went_wrong),
+                    this.getResources().getString(R.string.error), Constants.SERVER_ERROR).show();
         } else if (requestCode == Constants.SERVICE_LOGIN) {
             hideLoadingDialog();
-            PopUtils.alertDialog(this, "Please Check Internet Connection", new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-                }
-            });
+            Utility.showSettingDialog(this,
+                    this.getResources().getString(R.string.some_thing_went_wrong),
+                    this.getResources().getString(R.string.error), Constants.SERVER_ERROR).show();
+        } else if (requestCode == Constants.SERVICE_DEVICEID) {
+            hideLoadingDialog();
+            startActivity(new Intent(this, RegisterActivity.class));
+            finish();
         }
     }
 

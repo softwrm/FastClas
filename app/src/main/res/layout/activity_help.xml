@@ -8,20 +8,102 @@
     <include layout="@layout/toolbar1" />
 
     <ScrollView
-        android:background="@color/color_white"
-        android:padding="@dimen/text_xmedium_16sp"
         android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/color_white"
         android:overScrollMode="never"
+        android:padding="@dimen/text_xmedium_16sp"
         android:scrollbars="none">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/space_8xlarge_80dp"
-            android:text="@string/termsandconditionstext"
-            android:textColor="@color/color_ash" />
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name :"
+                android:textSize="@dimen/text_medium_14sp" />
+
+            <EditText
+                android:id="@+id/edtName"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_xxxlarge_40dp"
+                android:layout_marginTop="@dimen/space_small_10dp"
+                android:background="@drawable/edittext_bg"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/space_small_10dp"
+                android:paddingRight="@dimen/space_small_10dp"
+                android:singleLine="true"
+                android:textColor="@color/color_black"
+                android:textColorHint="@color/color_silver"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/text_medium_14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_small_10dp"
+                android:text="Phone Number :"
+                android:textSize="@dimen/text_medium_14sp" />
+
+            <EditText
+                android:id="@+id/edtPhoneNumber"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_xxxlarge_40dp"
+                android:layout_marginTop="@dimen/space_small_10dp"
+                android:background="@drawable/edittext_bg"
+                android:imeOptions="actionNext"
+                android:inputType="phone"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/space_small_10dp"
+                android:paddingRight="@dimen/space_small_10dp"
+                android:singleLine="true"
+                android:textColor="@color/color_black"
+                android:textColorHint="@color/color_silver"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/text_medium_14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_small_10dp"
+                android:text="Message : "
+                android:textSize="@dimen/text_medium_14sp" />
+
+            <EditText
+                android:id="@+id/edtDescription"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_10xlarge_100dp"
+                android:layout_marginTop="@dimen/space_small_10dp"
+                android:background="@drawable/edittext_bg"
+                android:gravity="top"
+                android:paddingTop="@dimen/space_vsmall_5dp"
+                android:inputType="textMultiLine"
+                android:paddingLeft="@dimen/space_small_10dp"
+                android:paddingRight="@dimen/space_small_10dp"
+                android:textColor="@color/color_black"
+                android:textColorHint="@color/color_silver"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/text_medium_14sp" />
+
+            <Button
+                android:id="@+id/btnSubmit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/space_xmedium_20dp"
+                android:layout_marginTop="@dimen/space_xmedium_20dp"
+                android:background="@drawable/btn_bg"
+                android:gravity="center"
+                android:text="@string/submit"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_xmedium_16sp" />
+        </LinearLayout>
 
     </ScrollView>
 </LinearLayout>

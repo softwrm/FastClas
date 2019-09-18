@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
@@ -13,7 +12,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -24,7 +22,6 @@ import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.versatile.fastclas.BaseActivity;
-import com.versatilemobitech.fastclas.R;
 import com.versatile.fastclas.adapters.HomeAdapter;
 import com.versatile.fastclas.interfaces.IParseListener;
 import com.versatile.fastclas.models.SubjectModel;
@@ -32,6 +29,8 @@ import com.versatile.fastclas.utils.Constants;
 import com.versatile.fastclas.utils.PopUtils;
 import com.versatile.fastclas.utils.ServerResponse;
 import com.versatile.fastclas.utils.Utility;
+import com.versatilemobitech.fastclas.BuildConfig;
+import com.versatilemobitech.fastclas.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -68,6 +67,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         setReferences();
         setNavigationDrawer();
         setClickListeners();
+
         callWedServiceForSubjects();
 //        callWebServiceForNotificationCount();
 
@@ -145,7 +145,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                 jsonObject.put("action", "subjects");
                 jsonObject.put("user_id", Utility.getSharedPreference(this, Constants.USER_ID));
 
-                showLoadingDialog("Loaing...", false);
+                showLoadingDialog("Loading...", false);
 
                 ServerResponse serverResponse = new ServerResponse();
                 serverResponse.serviceRequest(this, Constants.BASE_URL, jsonObject, this, Constants.SERVICE_SUBJECT);
@@ -193,6 +193,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         intent.putExtra("subject_name", subjectModel.getSubjectName());
         intent.putExtra("amount", "" + subjectModel.getAmount());
         intent.putExtra("payment_status", "" + subjectModel.getPaymentStatus());
+        intent.putExtra("from", "HomeActivity");
         navigateActivity(intent, false);
     }
 
@@ -208,8 +209,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
             navigateActivity(new Intent(this, AboutFastclasActivity.class), false);
         } else if (id == R.id.nav_editProfile) {
             navigateActivity(new Intent(this, EditProfileActivity.class), false);
-        } else if (id == R.id.nav_changepassword) {
-            navigateActivity(new Intent(this, ChangePasswordActivity.class), false);
+//        } else if (id == R.id.nav_changepassword) {
+//            navigateActivity(new Intent(this, ChangePasswordActivity.class), false);
         } else if (id == R.id.nav_termsandconditions) {
             navigateActivity(new Intent(this, TermsandconditionsActivity.class), false);
         } else if (id == R.id.nav_help) {
@@ -217,6 +218,11 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         } else if (id == R.id.nav_dashboard) {
 //            PopUtils.exitDialog(HomeActivity.this, "Are you sure.....you want to logout?", logoutClick);
             navigateActivity(new Intent(this, DashBoardActivity.class), false);
+        } else if (id == R.id.nav_orders) {
+            navigateActivity(new Intent(this, MyOrdersActivity.class), false);
+        }
+        else if(id == R.id.nav_share){
+            share();
         }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -272,12 +278,11 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         swipeRefreshLayout.setRefreshing(false);
         if (requestCode == Constants.SERVICE_SUBJECT) {
             hideLoadingDialog();
-            PopUtils.alertDialog(this, "Please Check Internet Connection", new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    finishAffinity();
-                }
-            });
+            Utility.showSettingDialog(this,
+                    this.getResources().getString(R.string.some_thing_went_wrong),
+                    this.getResources().getString(R.string.error), Constants.SERVER_ERROR).show();
+
+
         }
 //        else if (requestCode == Constants.SERVICE_NOTIFICATION) {
 //            Utility.showLog("Error", "" + volleyError);
@@ -305,9 +310,6 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                     viewNotificationIcon.setVisibility(View.GONE);
                 }
 
-//                String message = jsonObject.optString("message");
-
-
                 if (status.equals("200")) {
                     JSONArray jsonArray = jsonObject.getJSONArray("data");
                     for (int i = 0; i < jsonArray.length(); i++) {
@@ -330,11 +332,10 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                     HomeAdapter homeAdapter = new HomeAdapter(this, subjectModelArrayList, this);
                     recyclerView.setAdapter(homeAdapter);
                 } else {
-                    txtxNoDataFound.setText("Thank you for your patience, Uploading in Progress");
                     txtxNoDataFound.setVisibility(View.VISIBLE);
                 }
             } catch (JSONException e) {
-                e.printStackTrace();
+                Utility.showLog("Error", "" + e);
             }
         }
 //        else if (requestCode == Constants.SERVICE_NOTIFICATION) {
@@ -358,5 +359,19 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     @Override
     public void onRefresh() {
         initViews();
+    }
+
+    public void share(){
+        try {
+            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+            shareIntent.setType("text/plain");
+            shareIntent.putExtra(Intent.EXTRA_SUBJECT, "FastClass");
+            String shareMessage= "\nLet me recommend you this application\n\n";
+            shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID +"\n\n";
+            shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+            startActivity(Intent.createChooser(shareIntent, "choose one"));
+        } catch(Exception e) {
+            //e.toString();
+        }
     }
 }

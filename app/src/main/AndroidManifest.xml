@@ -12,8 +12,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/app_icon"
+        android:icon="@drawable/app_icon"
         android:label="@string/app_name"
+        android:roundIcon="@drawable/app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:allowBackup">
@@ -78,11 +79,15 @@
             android:screenOrientation="landscape" />
         <activity
             android:name="com.versatile.fastclas.activities.AnswersActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.versatile.fastclas.activities.PaymentActivity"
             android:screenOrientation="portrait" />
-        <activity android:name="com.versatile.fastclas.activities.NotificationActivity" />
+        <activity
+            android:name="com.versatile.fastclas.activities.NotificationActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait" />
 
         <receiver android:name="com.versatile.fastclas.receiver.IncomingSms">
             <intent-filter>
@@ -94,7 +99,29 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name="com.versatile.fastclas.activities.DashBoardActivity"></activity>
+        <activity
+            android:name="com.versatile.fastclas.activities.DashBoardActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.versatile.fastclas.activities.DashBoardCourseActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.versatile.fastclas.activities.MyOrdersActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.versatile.fastclas.activities.DescriptionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.versatile.fastclas.activities.FullImagesSlidingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.versatile.fastclas.activities.OfferPriceAcivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.versatile.fastclas.activities.PackagesActivity"
+            android:screenOrientation="portrait" />
     </application>
-
 </manifest>

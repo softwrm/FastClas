@@ -19,6 +19,4 @@
         android:bottomRightRadius="3dp"
         android:topLeftRadius="3dp"
         android:topRightRadius="3dp" />
-
-
 </shape>

@@ -1,10 +1,13 @@
 package com.versatile.fastclas.activities;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
 import android.text.SpannableString;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
@@ -44,7 +47,7 @@ import java.util.ArrayList;
 
 public class RegisterActivity extends BaseActivity implements View.OnClickListener, IParseListener {
 
-    TextView mTxtTitle, mTxtAlreadymember;
+    TextView mTxtTitle, txtTerms;
     EditText mEdtFirstname, mEdtLastname,
             mEdtGender, mEdtPhoneno,
             mEdtEmail, mEdtPassword,
@@ -79,6 +82,13 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         mTxtTitle.setText("Registration");
         initComponents();
 
+        if (ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                    this,
+                    new String[]{android.Manifest.permission.CALL_PHONE}, 8);
+        }
+
            /*This is important because this will be called every time you receive
      any sms */
         IncomingSms.bindListener(new SmsListener() {
@@ -87,6 +97,12 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 mEdtOtp.setText(messageText);
             }
         });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == 8 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        }
     }
 
     private void initComponents() {
@@ -98,40 +114,41 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
     private void setReferences() {
 
-        mTxtAlreadymember = (TextView) findViewById(R.id.txtAlready);
-        mEdtFirstname = (EditText) findViewById(R.id.edtFirstname);
-        mEdtLastname = (EditText) findViewById(R.id.edtLastname);
-        mEdtGender = (EditText) findViewById(R.id.edtGender);
-        mEdtPhoneno = (EditText) findViewById(R.id.edtPhoneno);
-        mEdtEmail = (EditText) findViewById(R.id.edtEmail);
-        mEdtPassword = (EditText) findViewById(R.id.edtPassword);
-        mEdtConfirmpassword = (EditText) findViewById(R.id.edtConfirmpassword);
-        mEdtState = (EditText) findViewById(R.id.edtState);
-        mEdtUniversity = (EditText) findViewById(R.id.edtUniversity);
-        mEdtCourse = (EditText) findViewById(R.id.edtCourse);
-        mEdtSemester = (EditText) findViewById(R.id.edtSemester);
-        mSelect = (CheckBox) findViewById(R.id.chTerms);
-        mBtnRegister = (Button) findViewById(R.id.btnRegister);
-        mImgBack = (ImageView) findViewById(R.id.imgBack);
+//        mTxtAlreadymember =  findViewById(R.id.txtAlready);
+        mEdtFirstname = findViewById(R.id.edtFirstname);
+        mEdtLastname = findViewById(R.id.edtLastname);
+        mEdtGender = findViewById(R.id.edtGender);
+        mEdtPhoneno = findViewById(R.id.edtPhoneno);
+        mEdtEmail = findViewById(R.id.edtEmail);
+        mEdtPassword = findViewById(R.id.edtPassword);
+        mEdtConfirmpassword = findViewById(R.id.edtConfirmpassword);
+        mEdtState = findViewById(R.id.edtState);
+        mEdtUniversity = findViewById(R.id.edtUniversity);
+        mEdtCourse = findViewById(R.id.edtCourse);
+        mEdtSemester = findViewById(R.id.edtSemester);
+        mSelect = findViewById(R.id.chTerms);
+        mBtnRegister = findViewById(R.id.btnRegister);
+        mImgBack = findViewById(R.id.imgBack);
+        txtTerms = findViewById(R.id.txtTerms);
         mImgBack.setVisibility(View.GONE);
 
-        SpannableString styledString = new SpannableString(mTxtAlreadymember.getText().toString());
-        styledString.setSpan(new RelativeSizeSpan(1.5f), 25, 31, 0);
-        styledString.setSpan(new ClickableSpan() {
-            @Override
-            public void onClick(View widget) {
-                finish();
-            }
-
-            @Override
-            public void updateDrawState(TextPaint ds) {
-                super.updateDrawState(ds);
-                ds.setUnderlineText(false);
-                ds.setColor(Color.BLACK);
-            }
-        }, 25, 31, 0);
-        mTxtAlreadymember.setMovementMethod(LinkMovementMethod.getInstance());
-        mTxtAlreadymember.setText(styledString);
+//        SpannableString styledString = new SpannableString(mTxtAlreadymember.getText().toString());
+//        styledString.setSpan(new RelativeSizeSpan(1.5f), 25, 31, 0);
+//        styledString.setSpan(new ClickableSpan() {
+//            @Override
+//            public void onClick(View widget) {
+//                finish();
+//            }
+//
+//            @Override
+//            public void updateDrawState(TextPaint ds) {
+//                super.updateDrawState(ds);
+//                ds.setUnderlineText(false);
+//                ds.setColor(Color.BLACK);
+//            }
+//        }, 25, 31, 0);
+//        mTxtAlreadymember.setMovementMethod(LinkMovementMethod.getInstance());
+//        mTxtAlreadymember.setText(styledString);
     }
 
     private void setClickListeners() {
@@ -141,13 +158,24 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         mEdtUniversity.setOnClickListener(this);
         mEdtCourse.setOnClickListener(this);
         mEdtSemester.setOnClickListener(this);
+        mSelect.setOnClickListener(this);
+        txtTerms.setOnClickListener(this);
 
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.txtTerms:
+                navigateActivity(new Intent(this, TermsandconditionsActivity.class), false);
+                break;
             case R.id.btnRegister:
+                if (ActivityCompat.checkSelfPermission(this,
+                        Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(
+                            this,
+                            new String[]{android.Manifest.permission.CALL_PHONE}, 8);
+                }
                 callServiceForRegistration();
                 break;
             case R.id.edtGender:
@@ -160,7 +188,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             case R.id.edtUniversity: {
                 if (!Utility.isValueNullOrEmpty(mEdtState.getText().toString().trim())) {
                     if (universityArrayList.size() <= 0) {
-                        PopUtils.alertDialog(RegisterActivity.this, "No Universities Found", null);
+                        PopUtils.alertDialog(RegisterActivity.this, "No Universities / board Found", null);
                     } else {
                         selectUniversity();
                     }
@@ -177,7 +205,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                         selectCourse();
                     }
                 } else {
-                    PopUtils.alertDialog(RegisterActivity.this, "Please Select University", null);
+                    PopUtils.alertDialog(RegisterActivity.this, "Please Select University / Board", null);
                 }
 
                 break;
@@ -185,7 +213,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             case R.id.edtSemester: {
                 if (!Utility.isValueNullOrEmpty(mEdtCourse.getText().toString().trim())) {
                     if (semesterArrayList.size() <= 0) {
-                        PopUtils.alertDialog(RegisterActivity.this, "No Semester's Found", null);
+                        PopUtils.alertDialog(RegisterActivity.this, "No Semester / Year Found", null);
                     } else {
                         selectSemester();
                     }
@@ -214,7 +242,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
 
     private void selectUniversity() {
-        PopUtils.showListItems(this, universityArrayList, mEdtUniversity, "Select University", new ReturnValue() {
+        PopUtils.showListItems(this, universityArrayList, mEdtUniversity, "Select University / Board", new ReturnValue() {
             @Override
             public void returnValues(String value, int positionValue) {
 
@@ -269,11 +297,11 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void selectSemester() {
-        PopUtils.showListItems(this, semesterArrayList, mEdtSemester, "Select Semester", new ReturnValue() {
+        PopUtils.showListItems(this, semesterArrayList, mEdtSemester, "Select Semester / Year", new ReturnValue() {
             @Override
             public void returnValues(String value, int positionValue) {
                 for (int i = 0; i < semesterModelArrayList.size(); i++) {
-                    if (value.equals(semesterModelArrayList.get(i).getSemester_name().trim())) {
+                    if (value.equals(semesterModelArrayList.get(i).getSemester_name())) {
                         semester_id = semesterModelArrayList.get(i).getSemester_id();
                     }
                 }
@@ -351,13 +379,13 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             Utility.setSnackBarEnglish(RegisterActivity.this, mEdtState, "Select State");
             mEdtState.requestFocus();
         } else if (Utility.isValueNullOrEmpty(mEdtUniversity.getText().toString().trim())) {
-            Utility.setSnackBarEnglish(RegisterActivity.this, mEdtUniversity, "Select University");
+            Utility.setSnackBarEnglish(RegisterActivity.this, mEdtUniversity, "Select University / Board");
             mEdtUniversity.requestFocus();
         } else if (Utility.isValueNullOrEmpty(mEdtCourse.getText().toString().trim())) {
             Utility.setSnackBarEnglish(RegisterActivity.this, mEdtCourse, "Select Course");
             mEdtCourse.requestFocus();
         } else if (Utility.isValueNullOrEmpty(mEdtSemester.getText().toString().trim())) {
-            Utility.setSnackBarEnglish(RegisterActivity.this, mEdtSemester, "Select Semester");
+            Utility.setSnackBarEnglish(RegisterActivity.this, mEdtSemester, "Select Semester / Year");
             mEdtSemester.requestFocus();
         } else if (!mSelect.isChecked()) {
             Utility.setSnackBarEnglish(RegisterActivity.this, mEdtPassword, "Please accept the Terms and Conditions");

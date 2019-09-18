@@ -25,7 +25,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class NotificationActivity extends BaseActivity implements IParseListener, View.OnClickListener {
-
     RecyclerView recyclerViewNotification;
     ArrayList<String> messageArrayList = new ArrayList<>();
     TextView txtNoDataFound;
@@ -58,7 +57,7 @@ public class NotificationActivity extends BaseActivity implements IParseListener
         if (PopUtils.checkInternetConnection(this)) {
             JSONObject jsonObject = new JSONObject();
             try {
-                jsonObject.put("action", "notification");
+                jsonObject.put("action", "newnotification");
                 jsonObject.put("user_id", "" + Utility.getSharedPreference(this, Constants.USER_ID));
 
                 ServerResponse serverResponse = new ServerResponse();
@@ -79,12 +78,9 @@ public class NotificationActivity extends BaseActivity implements IParseListener
     @Override
     public void ErrorResponse(VolleyError volleyError, int requestCode) {
         if (requestCode == Constants.SERVICE_NOTIFICATION) {
-            PopUtils.alertDialog(this, getString(R.string.pls_check_internet), new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    finish();
-                }
-            });
+            Utility.showSettingDialog(this,
+                    this.getResources().getString(R.string.some_thing_went_wrong),
+                    this.getResources().getString(R.string.error), Constants.SERVER_ERROR).show();
         }
     }
 

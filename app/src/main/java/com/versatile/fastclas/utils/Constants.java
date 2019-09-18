@@ -1,7 +1,10 @@
 package com.versatile.fastclas.utils;
 
 public class Constants {
-    public static final String BASE_URL = "http://fansadda.mobi/fastclas/ws/index.php";
+    //    public static final String BASE_URL = "https://fastclas.com/fastclasapp/ws/index.php";
+    public static final String BASE_URL = "https://fastclas.com/fastclasapp/ws/index.php";
+    public static final int NO_INTERNET_CONNECTION = 1;
+    public static final int SERVER_ERROR = 3;
 
     public static final String YOUTUBE_API_KEY = "AIzaSyAYVM915-YH_jTe1LvEqXqemNSf3uz9ung";
 
@@ -29,8 +32,13 @@ public class Constants {
     public static final int SERVICE_NOTIFICATION = 122;
     public static final int SERVICE_DEVICEID = 123;
     public static final int SERVICE_DASHBOARD = 124;
+    public static final int SERVICE_MYORDERS = 125;
+    public static final int SERVICE_TERMSNCONDITIONS = 126;
+    public static final int SERVICE_MESSAGE = 127;
+    public static final int SERVICE_PACKAGES = 128;
+    public static final int SERVICE_ABOUTUS = 129;
 
-    public static final String APP_PREF = "fast_class_preff";
+    public static final String APP_PREF = "fast_clas_preff";
     public static final String LNAME = "LNAME";
     public static final String GENDER = "GENDER";
     public static final String MOBILE = "MOBILE";

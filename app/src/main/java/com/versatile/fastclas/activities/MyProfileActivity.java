@@ -23,7 +23,7 @@ public class MyProfileActivity extends BaseActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_profile);
 
-        HomeActivity.navigationView.getMenu().getItem(0).setChecked(false);
+        HomeActivity.navigationView.getMenu().getItem(1).setChecked(false);
 
         initViews();
     }

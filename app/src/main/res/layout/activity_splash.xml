@@ -5,19 +5,34 @@
     android:background="@drawable/fastclasbg">
 
     <ImageView
-        android:contentDescription="@string/app_name"
+        android:id="@+id/ivFastClas"
         android:layout_width="@dimen/space_15xlarge_150dp"
         android:layout_height="@dimen/space_15xlarge_150dp"
-        android:src="@drawable/fastclasfinallogo"
-        android:layout_centerInParent="true"/>
+        android:layout_centerInParent="true"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/fastclasfinallogo" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/ivFastClas"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="@dimen/space_xmedium_20dp"
+        android:gravity="center_horizontal"
+        android:lineSpacingExtra="@dimen/space_vsmall_5dp"
+        android:text="@string/open_text"
+        android:textColor="@color/color_blue"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+<!--
+        android:fontFamily="@font/aclonica"-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/space_xmedium_20dp"
+        android:gravity="center_horizontal"
         android:text="@string/powered_by"
         android:textColor="@color/color_blue"
-        android:textStyle="bold"
-        android:layout_alignParentBottom="true"
-        android:gravity="center_horizontal"
-        android:layout_marginBottom="@dimen/space_xmedium_20dp"/>
+        android:textStyle="bold" />
 </RelativeLayout>

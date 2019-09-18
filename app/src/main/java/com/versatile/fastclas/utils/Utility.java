@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import com.versatile.fastclas.activities.HomeActivity;
 import com.versatilemobitech.fastclas.R;
 import com.versatile.fastclas.customviews.SnackBar;
 
@@ -32,6 +33,7 @@ public class Utility {
 
     private static final int NO_INTERNET_CONNECTION = 1;
     private static final int NO_GPS_ACCESS = 2;
+    private static final int SERVER_ERROR = 3;
 
 
     public static boolean isNetworkAvailable(Context context) {
@@ -151,18 +153,24 @@ public class Utility {
 
     public static AlertDialog showSettingDialog(final Context context,
                                                 String msg, String title, final int id) {
+        String name;
+        if (id == 3) {
+            name = "Home";
+        } else {
+            name = "Settings";
+        }
         return new AlertDialog.Builder(context)
                 // .setIcon(android.R.attr.alertDialogIcon)
                 .setMessage(msg)
                 .setTitle(title)
-                .setPositiveButton(R.string.alert_dialog_ok,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,
-                                                int whichButton) {
-                                ((Activity) context).finish();
-                            }
-                        })
-                .setNegativeButton(R.string.alert_dialog_setting,
+//                .setPositiveButton(R.string.alert_dialog_ok,
+//                        new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog,
+//                                                int whichButton) {
+//                                ((Activity) context).finish();
+//                            }
+//                        })
+                .setNegativeButton(name,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,
                                                 int whichButton) {
@@ -174,6 +182,10 @@ public class Utility {
                                     case Utility.NO_GPS_ACCESS:
                                         context.startActivity(new Intent(
                                                 android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                                        break;
+                                    case Utility.SERVER_ERROR:
+//                                        context.startActivity(new Intent(context, HomeActivity.class));
+                                        ((Activity) context).finish();
                                         break;
                                     default:
                                         break;

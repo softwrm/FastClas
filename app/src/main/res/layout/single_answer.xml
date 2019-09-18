@@ -1,24 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/space_vsmall_5dp"
+    android:background="@color/white"
     android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/iv_admin"
+        android:layout_width="@dimen/space_xxxlarge_40dp"
+        android:layout_height="@dimen/space_xxxlarge_40dp"
+        android:layout_margin="@dimen/space_vsmall_5dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/ic_launcher_web"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/textUserLetter"
         android:layout_width="@dimen/space_xxxlarge_40dp"
         android:layout_height="@dimen/space_xxxlarge_40dp"
+        android:layout_margin="@dimen/space_vsmall_5dp"
         android:background="@drawable/circle_bg"
         android:gravity="center"
         android:padding="@dimen/space_vsmall_5dp"
         android:textColor="@color/color_white"
-        android:textSize="@dimen/text_xxlarge_22sp"
-        android:layout_margin="@dimen/space_vsmall_5dp"/>
+        android:textSize="@dimen/text_xxlarge_22sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/space_6xlarge_60dp"
+        android:layout_marginStart="@dimen/space_6xlarge_60dp"
         android:orientation="vertical">
 
         <TextView
@@ -43,4 +55,4 @@
             android:textColor="@color/color_ash" />
 
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

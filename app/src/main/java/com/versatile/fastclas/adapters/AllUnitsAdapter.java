@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.versatile.fastclas.utils.Utility;
 import com.versatilemobitech.fastclas.R;
 import com.versatile.fastclas.models.AllUnitsModel;
 
@@ -41,6 +42,11 @@ public class AllUnitsAdapter extends RecyclerView.Adapter<AllUnitsAdapter.MyHold
         holder.mTextLabel.setText(allUnitsModel.getUnitNumber());
         holder.mTextHeading.setText(allUnitsModel.getUnitTitle());
         holder.mTxtDescription.setText(allUnitsModel.getDescription());
+        if (!Utility.isValueNullOrEmpty(allUnitsModel.getDueDate())) {
+            holder.txtDueDate.setText("Will be updated on "+allUnitsModel.getDueDate());
+        } else {
+            holder.txtDueDate.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -50,14 +56,15 @@ public class AllUnitsAdapter extends RecyclerView.Adapter<AllUnitsAdapter.MyHold
 
     public class MyHolder extends RecyclerView.ViewHolder {
 
-        TextView mTextLabel, mTextHeading, mTxtDescription;
+        TextView mTextLabel, mTextHeading, mTxtDescription, txtDueDate;
 
         public MyHolder(View itemView) {
             super(itemView);
             itemView.setClickable(true);
-            mTextLabel = (TextView) itemView.findViewById(R.id.textLabel);
-            mTextHeading = (TextView) itemView.findViewById(R.id.textHeading);
-            mTxtDescription = (TextView) itemView.findViewById(R.id.textDescription);
+            mTextLabel = itemView.findViewById(R.id.textLabel);
+            mTextHeading = itemView.findViewById(R.id.textHeading);
+            mTxtDescription = itemView.findViewById(R.id.textDescription);
+            txtDueDate = itemView.findViewById(R.id.txtDueDate);
         }
 
         public void bind(final AllUnitsModel allUnitsModel, final OnItemClickListener listener) {

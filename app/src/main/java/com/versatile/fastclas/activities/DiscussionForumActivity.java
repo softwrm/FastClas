@@ -98,6 +98,7 @@ public class DiscussionForumActivity extends BaseActivity implements View.OnClic
                 Intent intent = new Intent(this, AskQuestionActivity.class);
                 intent.putExtra("sessionId", sessionId);
                 startActivity(intent);
+                finish();
                 break;
         }
     }
@@ -112,12 +113,9 @@ public class DiscussionForumActivity extends BaseActivity implements View.OnClic
     public void ErrorResponse(VolleyError volleyError, int requestCode) {
         if (requestCode == Constants.SERVICE_DISCUSSION) {
             hideLoadingDialog();
-            PopUtils.alertDialog(this, "Please Check Internet Connection", new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    startActivity(new Intent(DiscussionForumActivity.this, HomeActivity.class));
-                }
-            });
+            Utility.showSettingDialog(this,
+                    this.getResources().getString(R.string.some_thing_went_wrong),
+                    this.getResources().getString(R.string.error), Constants.SERVER_ERROR).show();
         }
     }
 
@@ -139,10 +137,16 @@ public class DiscussionForumActivity extends BaseActivity implements View.OnClic
                         String session_id = jsonObjectData.optString("session_id");
                         String question = jsonObjectData.optString("question");
                         String post_on = jsonObjectData.optString("post_on");
-                        int number_of_answers = jsonObjectData.optInt("number_of_answers");
+                        int answer_count = jsonObjectData.optInt("answer_count");
 
                         DiscussionForumModel discussionForumModel = new DiscussionForumModel();
-                        discussionForumModel.setNumber_of_answers("" + number_of_answers);
+                        if (answer_count == 1) {
+                            discussionForumModel.setNumber_of_answers(answer_count + " Answer");
+                        } else if (answer_count == 0) {
+                            discussionForumModel.setNumber_of_answers("Answer");
+                        } else {
+                            discussionForumModel.setNumber_of_answers(answer_count + " Answers");
+                        }
                         discussionForumModel.setQuestion_id(question_id);
                         discussionForumModel.setQuestion(question);
                         discussionForumModel.setUser_name(user_name);
@@ -153,7 +157,7 @@ public class DiscussionForumActivity extends BaseActivity implements View.OnClic
                     }
                     DiscussionForumAdapter discussionForumAdapter = new DiscussionForumAdapter(this, discussionForumModelArrayList);
                     recyclerView.setAdapter(discussionForumAdapter);
-                }else{
+                } else {
                     txtNoDataFound.setVisibility(View.VISIBLE);
                 }
             } catch (JSONException e) {

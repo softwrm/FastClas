@@ -36,7 +36,7 @@ public class SessionsActivity extends BaseActivity implements View.OnClickListen
     ImageView mImgBack;
     String label, heading, unitId, payment_status;
     ArrayList<SessionsModel> sessionsModelArrayList = new ArrayList<>();
-    TextView txtSubject;
+    TextView txtPayment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +55,7 @@ public class SessionsActivity extends BaseActivity implements View.OnClickListen
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
         mImgBack = (ImageView) findViewById(R.id.imgBack);
-        txtSubject = (TextView) findViewById(R.id.txtSubject);
+        txtPayment = (TextView) findViewById(R.id.txtPayment);
 
         label = getIntent().getStringExtra("label");
         heading = getIntent().getStringExtra("heading");
@@ -64,7 +64,7 @@ public class SessionsActivity extends BaseActivity implements View.OnClickListen
 
         txtToolbar.setText(label);
         mTxtHeading.setText(heading);
-        txtSubject.setVisibility(View.GONE);
+        txtPayment.setVisibility(View.GONE);
 
         mImgBack.setOnClickListener(this);
 
@@ -103,7 +103,7 @@ public class SessionsActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void onItemClick(SessionsModel sessionPojo, int Position) {
-        if (Position >= 3) {
+       /* if (Position >= 3) {
             try {
                 if (!payment_status.equals("0")) {
                     Intent intent = new Intent(this, SessionsInnerActivity.class);
@@ -133,7 +133,19 @@ public class SessionsActivity extends BaseActivity implements View.OnClickListen
             intent.putExtra("item_viewed", "" + sessionPojo.getItemsViewed());
             intent.putExtra("payment_status", "" + payment_status);
             navigateActivity(intent, true);
-        }
+        }*/
+        Intent intent = new Intent(this, SessionsInnerActivity.class);
+        intent.putExtra("heading", sessionPojo.getSessionTitle());
+        intent.putExtra("unit_id", unitId);
+        intent.putExtra("session_heading", heading);
+        intent.putExtra("label", label);
+        intent.putExtra("session_id", sessionPojo.getSessionId());
+        intent.putExtra("item_count", "" + sessionPojo.getItemCount());
+        intent.putExtra("item_viewed", "" + sessionPojo.getItemsViewed());
+        intent.putExtra("payment_status", "" + payment_status);
+        navigateActivity(intent, true);
+
+
     }
 
     @Override
@@ -145,12 +157,9 @@ public class SessionsActivity extends BaseActivity implements View.OnClickListen
     public void ErrorResponse(VolleyError volleyError, int requestCode) {
         if (requestCode == Constants.SERVICE_SESSION) {
             hideLoadingDialog();
-            PopUtils.alertDialog(this, "Please Check Internet Connection", new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    startActivity(new Intent(SessionsActivity.this, HomeActivity.class));
-                }
-            });
+            Utility.showSettingDialog(this,
+                    this.getResources().getString(R.string.some_thing_went_wrong),
+                    this.getResources().getString(R.string.error), Constants.SERVER_ERROR).show();
         }
     }
 
@@ -191,7 +200,6 @@ public class SessionsActivity extends BaseActivity implements View.OnClickListen
                     SessionsAdapter sessionsAdapter = new SessionsAdapter(this, sessionsModelArrayList, this);
                     recyclerView.setAdapter(sessionsAdapter);
                 } else {
-                    txtxNoDataFound.setText("No Session's Found");
                     txtxNoDataFound.setVisibility(View.VISIBLE);
                     recyclerView.setVisibility(View.GONE);
                 }

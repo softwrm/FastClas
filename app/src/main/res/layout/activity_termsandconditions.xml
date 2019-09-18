@@ -1,28 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fastclasbg"
     android:orientation="vertical">
 
-    <include layout="@layout/toolbar1" />
-
+    <include
+        android:id="@+id/topBar"
+        layout="@layout/toolbar1" />
 
     <ScrollView
-        android:background="@color/color_white"
-        android:padding="@dimen/text_xmedium_16sp"
         android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/txtProceed"
+        android:layout_below="@+id/topBar"
+        android:background="@color/color_white"
         android:overScrollMode="never"
+        android:padding="@dimen/text_xmedium_16sp"
         android:scrollbars="none">
 
         <TextView
+            android:id="@+id/txtTerms"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/space_8xlarge_80dp"
-            android:text="@string/termsandconditionstext"
-            android:textColor="@color/color_ash" />
-
+            android:textColor="@color/color_black" />
     </ScrollView>
-</LinearLayout>
+
+    <CheckBox
+        android:id="@+id/checkBoxTerms"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/txtProceed"
+        android:layout_margin="@dimen/dimen_5dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="@string/termsandconditions_payment"
+        android:visibility="gone"
+        android:checked="true"/>
+
+    <TextView
+        android:id="@+id/txtProceed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/color_blue"
+        android:gravity="center"
+        android:padding="@dimen/dimen_10dp"
+        android:text="@string/proceed"
+        android:textColor="@color/color_white"
+        android:textSize="@dimen/dimen_20sp"
+        android:visibility="gone" />
+</RelativeLayout>

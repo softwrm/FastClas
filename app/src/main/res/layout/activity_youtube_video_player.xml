@@ -5,68 +5,83 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="@dimen/dimen_20dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="end"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="@dimen/dimen_20dp"
+            android:layout_height="@dimen/space_small_10dp"
+            android:src="@drawable/notification_round" />
+    </LinearLayout>
 
     <com.google.android.youtube.player.YouTubePlayerView
         android:id="@+id/youtubePlayer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/video_control"
+        android:layout_height="match_parent"
         android:background="#ebeff2" />
 
-    <ImageView
-        android:id="@+id/imgPause"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:src="@drawable/ic_play"
-        android:visibility="gone" />
+    <!--<ImageView-->
+    <!--android:id="@+id/imgPause"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerInParent="true"-->
+    <!--android:src="@drawable/ic_play"-->
+    <!--android:visibility="gone" />-->
 
-    <LinearLayout
-        android:id="@+id/video_control"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="#444"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:visibility="gone"
-        android:weightSum="10">
+    <!-- <LinearLayout
+         android:id="@+id/video_control"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_alignParentBottom="true"
+         android:gravity="end"
+         android:orientation="horizontal"
+         android:visibility="visible">
 
-        <ImageButton
-            android:id="@+id/play_video"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:background="@null"
-            android:src="@drawable/ic_play" />
+         <ImageView
+             android:layout_width="@dimen/dimen_20dp"
+             android:layout_height="@dimen/space_small_10dp"
+             android:src="@drawable/circle_bg" />
 
-        <ImageButton
-            android:id="@+id/pause_video"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:background="@null"
-            android:src="@drawable/ic_pause" />
+         <ImageButton
+             android:id="@+id/play_video"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_margin="5dp"
+             android:layout_weight="1"
+             android:background="@null"
+             android:src="@drawable/ic_play" />
 
-        <SeekBar
-            android:id="@+id/video_seekbar"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_weight="6"
-            android:max="100"
-            android:progress="0" />
+         <ImageButton
+             android:id="@+id/pause_video"
+             android:layout_width="0dp"
+             android:layout_height="wrap_content"
+             android:layout_margin="5dp"
+             android:layout_weight="1"
+             android:background="@null"
+             android:src="@drawable/ic_pause" />
 
-        <TextView
-            android:id="@+id/play_time"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="2"
-            android:text="--:--"
-            android:textColor="@android:color/white" />
-    </LinearLayout>
+         <SeekBar
+             android:id="@+id/video_seekbar"
+             android:layout_width="0dp"
+             android:layout_height="wrap_content"
+             android:layout_margin="10dp"
+             android:layout_weight="6"
+             android:max="100"
+             android:progress="0" />
 
-</RelativeLayout><!--youtubePlayer-->
+         <TextView
+             android:id="@+id/play_time"
+             android:layout_width="0dp"
+             android:layout_height="wrap_content"
+             android:layout_margin="5dp"
+             android:layout_weight="2"
+             android:text="&#45;&#45;:&#45;&#45;"
+             android:textColor="@android:color/white" />
+     </LinearLayout>-->
+
+</RelativeLayout>

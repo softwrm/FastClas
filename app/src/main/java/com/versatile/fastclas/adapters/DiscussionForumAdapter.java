@@ -1,5 +1,6 @@
 package com.versatile.fastclas.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
@@ -49,7 +50,7 @@ public class DiscussionForumAdapter extends RecyclerView.Adapter<DiscussionForum
         holder.mTextAnswerCount.setText(discussionForumModel.getNumber_of_answers() + " Answer");
         Character character = discussionForumModel.getUser_name().charAt(0);
         holder.mTextUserLetter.setText(character.toString());
-
+        holder.txtAnswer.setText(discussionForumModel.getNumber_of_answers());
         holder.txtAnswer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,6 +61,7 @@ public class DiscussionForumAdapter extends RecyclerView.Adapter<DiscussionForum
                 intent.putExtra("question_id", discussionForumModel.getQuestion_id());
                 intent.putExtra("session_id", discussionForumModel.getSession_id());
                 context.startActivity(intent);
+                ((Activity) context).finish();
             }
         });
 

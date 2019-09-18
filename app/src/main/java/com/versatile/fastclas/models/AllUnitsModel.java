@@ -6,7 +6,15 @@ package com.versatile.fastclas.models;
 
 public class AllUnitsModel {
 
-    public String unitId,unitNumber,unitTitle,description;
+    public String unitId,unitNumber,unitTitle,description,dueDate;
+
+    public String getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(String dueDate) {
+        this.dueDate = dueDate;
+    }
 
     public String getUnitId() {
         return unitId;

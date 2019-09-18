@@ -25,13 +25,13 @@ public class ServerResponse {
                                final IParseListener iParseListener, final int requestCode) {
         this.requestCode = requestCode;
 
-        Utility.showLog("Params is", ""+params);
+        Utility.showLog("Params is", "" + params);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Utility.showLog("response is", ""+response);
-                iParseListener.SuccessResponse(""+response, requestCode);
+                Utility.showLog("response is", "" + response);
+                iParseListener.SuccessResponse("" + response, requestCode);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -39,7 +39,7 @@ public class ServerResponse {
                 Utility.showLog("Error is", "" + error);
                 iParseListener.ErrorResponse(error, requestCode);
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 return super.getParams();

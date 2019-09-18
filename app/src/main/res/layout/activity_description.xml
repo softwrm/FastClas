@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:overScrollMode="never"
+    android:scrollbars="none"
+    tools:context="com.versatile.fastclas.activities.DescriptionActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <include
+            android:id="@+id/toolbar1"
+            layout="@layout/toolbar1"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/toolbarStyle"/>
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpagerImages"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_20xlarge_200dp"
+            android:layout_marginBottom="@dimen/space_tiny_2dp"
+            android:layout_marginTop="@dimen/space_tiny_2dp" />
+
+        <TextView
+            android:id="@+id/txtDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/space_small_10dp"
+            android:text="@string/dummy1"
+            android:textColor="@color/color_black"
+            android:textSize="@dimen/text_medium_14sp" />
+
+    </LinearLayout>
+</ScrollView>

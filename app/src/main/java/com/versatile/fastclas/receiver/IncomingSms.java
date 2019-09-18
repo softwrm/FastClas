@@ -29,15 +29,20 @@ public class IncomingSms extends BroadcastReceiver {
 
                     String message = currentMessage.getDisplayMessageBody();
 
-                    Log.e("Message ", "onReceive: " + phoneNumber);
-                    Log.e("Message ", "onReceive: " + message);
+                    Log.e("Message ", "onReceive broadcast " + phoneNumber);
+                    Log.e("Message ", "onReceive broadcat message :  " + message);
 
                     if (phoneNumber.contains("DM-VMTECH")) {
+
+                        Log.e("Message ", "onReceive inside: " + message);
+
                         String digits = message.replaceAll("[^0-9.]", "");
 
-                        Log.e("Message ", "onReceive: " + digits);
+                        Log.e("Message ", "digits: " + digits);
 
                         mListener.messageReceived(digits);
+                    }else{
+                        Log.e("Message ", "onReceive inside else: " + message);
                     }
                 }
             }

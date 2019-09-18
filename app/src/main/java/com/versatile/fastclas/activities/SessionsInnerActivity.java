@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
@@ -224,12 +225,35 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
                 break;
             }
             case R.id.textReadMore: {
-                callDialogeDescription(sessionsInnerModelArrayList.get(0).getDescription());
+//                callDialogeDescription(sessionsInnerModelArrayList.get(0).getDescription());
+              /*  Intent intent = new Intent(this, DescriptionActivity.class);
+                intent.putExtra("description", sessionsInnerModelArrayList.get(0).getDescription());
+                intent.putExtra("one", sessionsInnerModelArrayList.get(0).getImage_one());
+                intent.putExtra("two", sessionsInnerModelArrayList.get(0).getImage_two());
+                intent.putExtra("three", sessionsInnerModelArrayList.get(0).getImage_three());
+                intent.putExtra("four", sessionsInnerModelArrayList.get(0).getImage_four());
+                intent.putExtra("five", sessionsInnerModelArrayList.get(0).getImage_five());
+                startActivity(intent);*/
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://fastclas.com/fastclasapp/admin/itemimages/1567959992descABHILEKHAGARIYA_UPADANA_(1).pdf"  ));
+                startActivity(intent);
                 break;
             }
             case R.id.textReadMore2: {
-                callDialogeDescription(sessionsInnerModelArrayList.get(1).getDescription());
+//                callDialogeDescription(sessionsInnerModelArrayList.get(1).getDescription());
+              /*  Intent intent = new Intent(this, DescriptionActivity.class);
+                intent.putExtra("description", sessionsInnerModelArrayList.get(1).getDescription());
+                intent.putExtra("one", sessionsInnerModelArrayList.get(1).getImage_one());
+                intent.putExtra("two", sessionsInnerModelArrayList.get(1).getImage_two());
+                intent.putExtra("three", sessionsInnerModelArrayList.get(1).getImage_three());
+                intent.putExtra("four", sessionsInnerModelArrayList.get(1).getImage_four());
+                intent.putExtra("five", sessionsInnerModelArrayList.get(1).getImage_five());
+                startActivity(intent);*/
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://fastclas.com/fastclasapp/admin/itemimages/1567959992descABHILEKHAGARIYA_UPADANA_(1).pdf"  ));
+                startActivity(intent);
                 break;
+
             }
         }
     }
@@ -270,28 +294,19 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
     public void ErrorResponse(VolleyError volleyError, int requestCode) {
         if (requestCode == Constants.SERVICE_ITEM) {
             hideLoadingDialog();
-            PopUtils.alertDialog(this, "Please Check Internet Connection", new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    startActivity(new Intent(SessionsInnerActivity.this, HomeActivity.class));
-                }
-            });
+            Utility.showSettingDialog(this,
+                    this.getResources().getString(R.string.some_thing_went_wrong),
+                    this.getResources().getString(R.string.error), Constants.SERVER_ERROR).show();
         } else if (requestCode == Constants.SERVICE_VIDEO_WATECHED_1) {
             hideLoadingDialog();
-            PopUtils.alertDialog(this, "Please Check Internet Connection", new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    startActivity(new Intent(SessionsInnerActivity.this, HomeActivity.class));
-                }
-            });
+            Utility.showSettingDialog(this,
+                    this.getResources().getString(R.string.some_thing_went_wrong),
+                    this.getResources().getString(R.string.error), Constants.SERVER_ERROR).show();
         } else if (requestCode == Constants.SERVICE_SINGLEITEMVIEWD) {
             hideLoadingDialog();
-            PopUtils.alertDialog(this, "Please Check Internet Connection", new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    startActivity(new Intent(SessionsInnerActivity.this, HomeActivity.class));
-                }
-            });
+            Utility.showSettingDialog(this,
+                    this.getResources().getString(R.string.some_thing_went_wrong),
+                    this.getResources().getString(R.string.error), Constants.SERVER_ERROR).show();
         }
     }
 
@@ -323,6 +338,11 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
                         String thumbnail_image = jsonObjectData.optString("thumbnail_image");
                         String description = jsonObjectData.optString("description");
                         String statusVal = jsonObjectData.optString("status");
+                        String image_one = jsonObjectData.optString("image_one");
+                        String image_two = jsonObjectData.optString("image_two");
+                        String image_three = jsonObjectData.optString("image_three");
+                        String image_four = jsonObjectData.optString("image_four");
+                        String image_five = jsonObjectData.optString("image_five");
                         int video_status = jsonObjectData.optInt("video_status");
 
                         SessionsInnerModel sessionsInnerModel = new SessionsInnerModel();
@@ -332,6 +352,11 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
                         sessionsInnerModel.setItemTitle3(item_title3);
                         sessionsInnerModel.setItemTitle4(item_title4);
                         sessionsInnerModel.setItemTitle5(item_title5);
+                        sessionsInnerModel.setImage_one(image_one);
+                        sessionsInnerModel.setImage_two(image_two);
+                        sessionsInnerModel.setImage_three(image_three);
+                        sessionsInnerModel.setImage_four(image_four);
+                        sessionsInnerModel.setImage_five(image_five);
                         sessionsInnerModel.setVideo(video);
                         sessionsInnerModel.setDescription(description);
                         sessionsInnerModel.setStatus(statusVal);
@@ -503,19 +528,19 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
         }
     }
 
-    private void callDialogeDescription(String desc) {
-
-        final Dialog alertDialog = new Dialog(this);
-        alertDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
-        alertDialog.setContentView(R.layout.dialog_readmore);
-        alertDialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-        alertDialog.setCancelable(true);
-        //alertDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimationexit;
-
-        TextView txtDescription = alertDialog.findViewById(R.id.txtDescription);
-        txtDescription.setText(desc);
-        alertDialog.show();
-    }
+//    private void callDialogeDescription(String desc) {
+//
+//        final Dialog alertDialog = new Dialog(this);
+//        alertDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+//        alertDialog.setContentView(R.layout.dialog_readmore);
+//        alertDialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+//        alertDialog.setCancelable(true);
+//        //alertDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimationexit;
+//
+//        TextView txtDescription = alertDialog.findViewById(R.id.txtDescription);
+//        txtDescription.setText(desc);
+//        alertDialog.show();
+//    }
 
     private void openDialog() {
         final Dialog dialogShare = new Dialog(this);
@@ -622,9 +647,9 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
             txtNext.setVisibility(View.GONE);
             txtNext.setTextColor(getResources().getColor(R.color.color_silver));
             txtNext.setEnabled(false);
-            if(txtPrevious.getVisibility() == View.VISIBLE){
-                PopUtils.alertDialog(this, "Congrats You have successfully completed the Unit", null);
-            }
+//            if (txtPrevious.getVisibility() == View.VISIBLE) {
+//                PopUtils.alertDialog(this, "Congrats You have successfully completed the Unit", null);
+//            }
         }
     }
 

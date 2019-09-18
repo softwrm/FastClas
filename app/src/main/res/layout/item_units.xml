@@ -19,7 +19,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:gravity="center_vertical"
-            android:text="Unit:1"
             android:textColor="@color/color_blue"
             android:textSize="@dimen/text_xmedium_16sp" />
 
@@ -35,7 +34,6 @@
             android:id="@+id/textHeading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Introduction to Food for a Health Planet"
             android:textColor="@color/color_black"
             android:textSize="@dimen/text_xmedium_16sp" />
 
@@ -58,5 +56,17 @@
         android:maxLines="5"
         android:paddingLeft="@dimen/space_small_10dp"
         android:paddingRight="@dimen/space_small_10dp"
-        android:textColor="@color/color_black"/>
+        android:textColor="@color/color_black" />
+
+    <TextView
+        android:gravity="end"
+        android:id="@+id/txtDueDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/space_small_10dp"
+        android:maxLines="5"
+        android:paddingLeft="@dimen/space_small_10dp"
+        android:paddingRight="@dimen/space_small_10dp"
+        android:textColor="@color/deeppurple" />
+
 </LinearLayout>

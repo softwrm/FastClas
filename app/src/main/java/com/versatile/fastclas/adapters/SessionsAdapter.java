@@ -36,7 +36,7 @@ public class SessionsAdapter extends RecyclerView.Adapter<SessionsAdapter.MyHold
         final SessionsModel sessionPojo = sessionPojos.get(position);
         holder.bind(sessionPojo, listener);
 
-        holder.mTextLabel.setText(sessionPojo.getSessionTitle());
+        holder.mTextLabel.setText("Session "+sessionPojo.getSessionNumber());
         holder.mTextPages.setText(sessionPojo.getItemsViewed() + "/" + sessionPojo.getItemCount()+" Pages");
         holder.mTxtDescription.setText(sessionPojo.getSessionTitle());
     }

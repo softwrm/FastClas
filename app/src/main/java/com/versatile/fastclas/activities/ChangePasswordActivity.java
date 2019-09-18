@@ -33,7 +33,7 @@ public class ChangePasswordActivity extends BaseActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
 
-        HomeActivity.navigationView.getMenu().getItem(3).setChecked(false);
+        HomeActivity.navigationView.getMenu().getItem(5).setChecked(false);
 
         initViews();
     }
@@ -44,12 +44,12 @@ public class ChangePasswordActivity extends BaseActivity implements View.OnClick
     }
 
     private void setReferences() {
-        mEdtOldpassword = (EditText) findViewById(R.id.edtOldpassword);
-        mEdtedtNewpassword = (EditText) findViewById(R.id.edtNewpassword);
-        mEdtConfirmpassword = (EditText) findViewById(R.id.edtRenterpassword);
-        mBtnSubmit = (Button) findViewById(R.id.btnSubmit);
-        mImgBack = (ImageView) findViewById(R.id.imgBack);
-        mTitle = (TextView) findViewById(R.id.txtToolbar);
+        mEdtOldpassword =  findViewById(R.id.edtOldpassword);
+        mEdtedtNewpassword =  findViewById(R.id.edtNewpassword);
+        mEdtConfirmpassword =  findViewById(R.id.edtRenterpassword);
+        mBtnSubmit =  findViewById(R.id.btnSubmit);
+        mImgBack =  findViewById(R.id.imgBack);
+        mTitle =  findViewById(R.id.txtToolbar);
         mTitle.setText("CHANGE PASSWORD");
     }
 
@@ -122,12 +122,9 @@ public class ChangePasswordActivity extends BaseActivity implements View.OnClick
     public void ErrorResponse(VolleyError volleyError, int requestCode) {
         if (requestCode == Constants.SERVICE_CHANGEPASSWORD) {
             hideLoadingDialog();
-            PopUtils.alertDialog(this, "Please Check Internet Connection", new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    startActivity(new Intent(ChangePasswordActivity.this, HomeActivity.class));
-                }
-            });
+            Utility.showSettingDialog(this,
+                    this.getResources().getString(R.string.some_thing_went_wrong),
+                    this.getResources().getString(R.string.error), Constants.SERVER_ERROR).show();
         }
     }
 

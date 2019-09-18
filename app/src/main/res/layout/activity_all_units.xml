@@ -32,15 +32,17 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/txtSubject"
+                android:id="@+id/txtPayment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/space_small_10dp"
+                android:background="@drawable/payment_button_bg"
                 android:gravity="end"
+                android:padding="@dimen/space_small_10dp"
                 android:text="@string/buy_subject"
-                android:textColor="@color/color_blue"
-                android:textSize="@dimen/text_medium_14sp" />
-
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_medium_14sp"
+                android:visibility="gone"/>
         </LinearLayout>
 
         <TextView
@@ -49,10 +51,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_xlarge_30dp"
             android:gravity="center"
-            android:text="@string/no_data_found"
+            android:text="@string/tq_home"
             android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/text_medium_14sp"
-            android:textStyle="bold"
+            android:textSize="@dimen/text_xmedium_16sp"
             android:visibility="gone" />
 
 
