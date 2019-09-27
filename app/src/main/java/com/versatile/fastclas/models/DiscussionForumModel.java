@@ -1,8 +1,5 @@
 package com.versatile.fastclas.models;
 
-import java.util.ArrayList;
-
-
 
 public class DiscussionForumModel {
 

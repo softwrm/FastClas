@@ -11,19 +11,12 @@ import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
-import com.versatile.fastclas.activities.HomeActivity;
-import com.versatilemobitech.fastclas.R;
+import com.otelpt.fastclas.R;
 import com.versatile.fastclas.customviews.SnackBar;
 
 

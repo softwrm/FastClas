@@ -7,9 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.versatile.fastclas.activities.MyOrdersActivity;
 import com.versatile.fastclas.models.SubjectModel;
-import com.versatilemobitech.fastclas.R;
+import com.otelpt.fastclas.R;
 
 import java.util.ArrayList;
 

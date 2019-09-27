@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.versatile.fastclas.adapters.CustomPageImagesAdapter;
-import com.versatilemobitech.fastclas.R;
+import com.otelpt.fastclas.R;
 
 import java.util.ArrayList;
 

@@ -1,11 +1,10 @@
 package com.versatile.fastclas.activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 
 import com.versatile.fastclas.BaseActivity;
-import com.versatilemobitech.fastclas.R;
+import com.otelpt.fastclas.R;
 
 public class OfferPriceAcivity extends BaseActivity {
 

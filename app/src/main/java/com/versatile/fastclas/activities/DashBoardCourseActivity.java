@@ -12,8 +12,7 @@ import android.widget.TextView;
 import com.versatile.fastclas.adapters.CoursesAdapter;
 import com.versatile.fastclas.models.CourseModel;
 import com.versatile.fastclas.models.UniversityModel;
-import com.versatile.fastclas.utils.Utility;
-import com.versatilemobitech.fastclas.R;
+import com.otelpt.fastclas.R;
 
 import java.util.ArrayList;
 

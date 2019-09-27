@@ -15,7 +15,7 @@ import com.versatile.fastclas.utils.Constants;
 import com.versatile.fastclas.utils.PopUtils;
 import com.versatile.fastclas.utils.ServerResponse;
 import com.versatile.fastclas.utils.Utility;
-import com.versatilemobitech.fastclas.R;
+import com.otelpt.fastclas.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;

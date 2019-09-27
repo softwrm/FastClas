@@ -7,8 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.versatile.fastclas.activities.NotificationActivity;
-import com.versatilemobitech.fastclas.R;
+import com.otelpt.fastclas.R;
 
 import java.util.ArrayList;
 

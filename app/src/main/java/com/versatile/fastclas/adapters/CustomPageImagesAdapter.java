@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.versatile.fastclas.customviews.TouchImageView;
-import com.versatilemobitech.fastclas.R;
+import com.otelpt.fastclas.R;
 
 import java.util.ArrayList;
 

@@ -4,9 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.versatile.fastclas.BaseActivity;
@@ -15,7 +12,7 @@ import com.versatile.fastclas.utils.Constants;
 import com.versatile.fastclas.utils.PopUtils;
 import com.versatile.fastclas.utils.ServerResponse;
 import com.versatile.fastclas.utils.Utility;
-import com.versatilemobitech.fastclas.R;
+import com.otelpt.fastclas.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;

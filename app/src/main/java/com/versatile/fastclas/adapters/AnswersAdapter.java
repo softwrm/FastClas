@@ -8,10 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.versatile.fastclas.activities.AnswersActivity;
 import com.versatile.fastclas.models.AnswersModel;
-import com.versatile.fastclas.utils.Utility;
-import com.versatilemobitech.fastclas.R;
+import com.otelpt.fastclas.R;
 
 import java.util.ArrayList;
 

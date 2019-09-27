@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.versatilemobitech.fastclas.R;
+import com.otelpt.fastclas.R;
 import com.versatile.fastclas.models.CommentsModel;
 
 import java.util.ArrayList;

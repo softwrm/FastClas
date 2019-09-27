@@ -1,13 +1,12 @@
 package com.versatile.fastclas.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.versatile.fastclas.BaseActivity;
-import com.versatilemobitech.fastclas.R;
+import com.otelpt.fastclas.R;
 import com.versatile.fastclas.utils.Constants;
 import com.versatile.fastclas.utils.Utility;
 

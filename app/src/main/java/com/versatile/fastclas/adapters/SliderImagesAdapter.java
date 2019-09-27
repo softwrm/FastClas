@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
 import com.versatile.fastclas.activities.FullImagesSlidingActivity;
 import com.versatile.fastclas.utils.Utility;
-import com.versatilemobitech.fastclas.R;
+import com.otelpt.fastclas.R;
 
 import java.util.ArrayList;
 

@@ -4,7 +4,7 @@ android {
     compileSdkVersion 27
     buildToolsVersion '27.0.3'
     defaultConfig {
-        applicationId "com.versatilemobitech.fastclas"
+        applicationId 'com.otelpt.fastclas'
         minSdkVersion 16
         targetSdkVersion 27
         versionCode 4
@@ -39,4 +39,7 @@ dependencies {
     }
 
     compile 'com.payumoney.core:payumoney-sdk:7.0.1'
+    compile 'com.github.barteksc:android-pdf-viewer:2.3.0'
+    compile files('libs\\commons-io-2.6.jar')
+
 }

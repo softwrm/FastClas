@@ -1,6 +1,5 @@
 package com.versatile.fastclas.activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,7 +15,7 @@ import com.versatile.fastclas.utils.Constants;
 import com.versatile.fastclas.utils.PopUtils;
 import com.versatile.fastclas.utils.ServerResponse;
 import com.versatile.fastclas.utils.Utility;
-import com.versatilemobitech.fastclas.R;
+import com.otelpt.fastclas.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;

@@ -5,10 +5,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.versatilemobitech.fastclas.R;
+import com.otelpt.fastclas.R;
 import com.versatile.fastclas.models.SubjectModel;
 
 import java.util.ArrayList;

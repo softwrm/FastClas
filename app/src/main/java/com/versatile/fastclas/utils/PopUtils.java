@@ -22,9 +22,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 
-import com.versatile.fastclas.activities.HomeActivity;
-import com.versatilemobitech.fastclas.R;
-import com.versatile.fastclas.activities.RegisterActivity;
+import com.otelpt.fastclas.R;
 import com.versatile.fastclas.interfaces.ReturnValue;
 
 import java.util.ArrayList;

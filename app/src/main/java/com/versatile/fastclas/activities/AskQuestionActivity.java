@@ -2,7 +2,6 @@ package com.versatile.fastclas.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,7 +16,7 @@ import com.versatile.fastclas.utils.Constants;
 import com.versatile.fastclas.utils.PopUtils;
 import com.versatile.fastclas.utils.ServerResponse;
 import com.versatile.fastclas.utils.Utility;
-import com.versatilemobitech.fastclas.R;
+import com.otelpt.fastclas.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;

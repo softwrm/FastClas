@@ -30,7 +30,7 @@ public class ServerResponse {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Utility.showLog("response is", "" + response);
+                Utility.showLog("response is PDF", "" + response);
                 iParseListener.SuccessResponse("" + response, requestCode);
             }
         }, new Response.ErrorListener() {

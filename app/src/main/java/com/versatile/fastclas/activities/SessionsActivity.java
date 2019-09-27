@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.versatile.fastclas.BaseActivity;
-import com.versatilemobitech.fastclas.R;
+import com.otelpt.fastclas.R;
 import com.versatile.fastclas.adapters.SessionsAdapter;
 import com.versatile.fastclas.interfaces.IParseListener;
 import com.versatile.fastclas.models.SessionsModel;
@@ -24,7 +24,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class SessionsActivity extends BaseActivity implements View.OnClickListener, SessionsAdapter.OnItemClickListener, IParseListener {

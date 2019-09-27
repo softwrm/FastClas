@@ -13,7 +13,7 @@ import com.versatile.fastclas.interfaces.IParseListener;
 import com.versatile.fastclas.utils.Constants;
 import com.versatile.fastclas.utils.PopUtils;
 import com.versatile.fastclas.utils.ServerResponse;
-import com.versatilemobitech.fastclas.R;
+import com.otelpt.fastclas.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;

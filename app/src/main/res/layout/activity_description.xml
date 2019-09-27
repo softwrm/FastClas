@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,16 +8,17 @@
     android:overScrollMode="never"
     android:scrollbars="none"
     tools:context="com.versatile.fastclas.activities.DescriptionActivity">
-
+    <include
+        android:id="@+id/toolbar1"
+        layout="@layout/toolbar1"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/toolbarStyle"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <include
-            android:id="@+id/toolbar1"
-            layout="@layout/toolbar1"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/toolbarStyle"/>
+        android:orientation="vertical"
+        android:visibility="gone">
+
         <android.support.v4.view.ViewPager
             android:id="@+id/viewpagerImages"
             android:layout_width="match_parent"
@@ -35,4 +36,16 @@
             android:textSize="@dimen/text_medium_14sp" />
 
     </LinearLayout>
-</ScrollView>
+    <com.github.barteksc.pdfviewer.PDFView
+        android:id="@+id/pdfView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+
+    <WebView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/webview"
+        android:visibility="visible"/>
+
+</LinearLayout>

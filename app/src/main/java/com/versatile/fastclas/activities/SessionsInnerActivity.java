@@ -26,7 +26,7 @@ import com.versatile.fastclas.utils.Constants;
 import com.versatile.fastclas.utils.PopUtils;
 import com.versatile.fastclas.utils.ServerResponse;
 import com.versatile.fastclas.utils.Utility;
-import com.versatilemobitech.fastclas.R;
+import com.otelpt.fastclas.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -87,7 +87,7 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
         txtxNoDataFound = findViewById(R.id.txtxNoDataFound);
         txtNext = findViewById(R.id.txtNext);
         txtPrevious = findViewById(R.id.txtPrevious);
-        textReadMore = findViewById(R.id.textReadMore);
+        textReadMore = findViewById(R.id.textReadMore3);
         textReadMore2 = findViewById(R.id.textReadMore2);
         mImgBack = findViewById(R.id.imgBack);
         rl = findViewById(R.id.rl);
@@ -224,36 +224,50 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
                 txtNext.setVisibility(View.VISIBLE);
                 break;
             }
-            case R.id.textReadMore: {
+            case R.id.textReadMore3: {
 //                callDialogeDescription(sessionsInnerModelArrayList.get(0).getDescription());
-              /*  Intent intent = new Intent(this, DescriptionActivity.class);
+                Intent intent = new Intent(this, DescriptionActivity.class);
                 intent.putExtra("description", sessionsInnerModelArrayList.get(0).getDescription());
                 intent.putExtra("one", sessionsInnerModelArrayList.get(0).getImage_one());
                 intent.putExtra("two", sessionsInnerModelArrayList.get(0).getImage_two());
                 intent.putExtra("three", sessionsInnerModelArrayList.get(0).getImage_three());
                 intent.putExtra("four", sessionsInnerModelArrayList.get(0).getImage_four());
                 intent.putExtra("five", sessionsInnerModelArrayList.get(0).getImage_five());
-                startActivity(intent);*/
-                Intent intent = new Intent(Intent.ACTION_VIEW);
+                startActivity(intent);
+                finish();
+              /*  Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse("https://fastclas.com/fastclasapp/admin/itemimages/1567959992descABHILEKHAGARIYA_UPADANA_(1).pdf"  ));
                 startActivity(intent);
-                break;
+                break;*/
+             /* Intent in = new Intent(this,PDFActivity.class);
+              in.putExtra("description",sessionsInnerModelArrayList.get(0).getDescription());
+              startActivity(in);
+              finish();*/
+             break;
             }
             case R.id.textReadMore2: {
 //                callDialogeDescription(sessionsInnerModelArrayList.get(1).getDescription());
-              /*  Intent intent = new Intent(this, DescriptionActivity.class);
+                if(sessionsInnerModelArrayList.size()>1) {
+               Intent intent = new Intent(this, DescriptionActivity.class);
                 intent.putExtra("description", sessionsInnerModelArrayList.get(1).getDescription());
                 intent.putExtra("one", sessionsInnerModelArrayList.get(1).getImage_one());
                 intent.putExtra("two", sessionsInnerModelArrayList.get(1).getImage_two());
                 intent.putExtra("three", sessionsInnerModelArrayList.get(1).getImage_three());
                 intent.putExtra("four", sessionsInnerModelArrayList.get(1).getImage_four());
                 intent.putExtra("five", sessionsInnerModelArrayList.get(1).getImage_five());
-                startActivity(intent);*/
-                Intent intent = new Intent(Intent.ACTION_VIEW);
+                startActivity(intent);
+                finish();
+              /*  Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse("https://fastclas.com/fastclasapp/admin/itemimages/1567959992descABHILEKHAGARIYA_UPADANA_(1).pdf"  ));
                 startActivity(intent);
-                break;
+                break;*/
 
+                 /* Intent in = new Intent(this, PDFActivity.class);
+                  in.putExtra("description", sessionsInnerModelArrayList.get(1).getDescription());
+                  startActivity(in);
+                  finish();*/
+                 break;
+              }
             }
         }
     }

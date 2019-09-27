@@ -8,11 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.versatile.fastclas.activities.DashBoardActivity;
 import com.versatile.fastclas.activities.DashBoardCourseActivity;
 import com.versatile.fastclas.models.UniversityModel;
-import com.versatile.fastclas.utils.Utility;
-import com.versatilemobitech.fastclas.R;
+import com.otelpt.fastclas.R;
 
 import java.util.ArrayList;
 

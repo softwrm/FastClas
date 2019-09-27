@@ -6,12 +6,8 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.Html;
-import android.text.method.LinkMovementMethod;
 import android.util.Log;
-import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.youtube.player.YouTubeBaseActivity;
@@ -19,7 +15,7 @@ import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
 import com.versatile.fastclas.utils.Constants;
-import com.versatilemobitech.fastclas.R;
+import com.otelpt.fastclas.R;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
