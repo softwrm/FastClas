@@ -19,7 +19,8 @@
         android:textStyle="bold"
         android:layout_alignParentBottom="true"
         android:gravity="center_horizontal"
-        android:layout_marginBottom="@dimen/space_xmedium_20dp"/>
+        android:layout_marginBottom="@dimen/space_xmedium_20dp"
+        android:visibility="gone"/>
 </RelativeLayout>
 
     <!--<?xml version="1.0" encoding="utf-8"?>-->
