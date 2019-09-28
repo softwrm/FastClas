@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
@@ -198,10 +199,30 @@ public class DescriptionActivity extends AppCompatActivity implements View.OnCli
         }
     }
     public void callWebView(final ProgressDialog progressDialog){
-        webView.setWebViewClient(new WebViewClient());
+        webView.setWebViewClient(new MyBrowser());
         webView.getSettings().setJavaScriptEnabled(true);
         webView.loadUrl("https://docs.google.com/gview?embedded=true&url="+description);
 
+
+    }
+    private class MyBrowser extends WebViewClient {
+
+        @Override
+        public void onUnhandledKeyEvent(WebView view, KeyEvent ke) {
+
+            Log.e("Unhandled Key Event",ke.toString());
+
+
+        }
+
+        @Override
+        public void onPageFinished(WebView view, String url) {
+
+
+            super.onPageFinished(view, url);
+            webView.loadUrl("javascript:(function() { " +
+                    "document.getElementsByClassName('ndfHFb-c4YZDc-GSQQnc-LgbsSe ndfHFb-c4YZDc-to915-LgbsSe VIpgJd-TzA9Ye-eEGnhe ndfHFb-c4YZDc-LgbsSe')[0].style.display='none'; })()");
+        }
 
     }
 }

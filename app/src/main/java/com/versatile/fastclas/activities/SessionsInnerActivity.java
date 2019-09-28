@@ -234,7 +234,7 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
                 intent.putExtra("four", sessionsInnerModelArrayList.get(0).getImage_four());
                 intent.putExtra("five", sessionsInnerModelArrayList.get(0).getImage_five());
                 startActivity(intent);
-                finish();
+
               /*  Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse("https://fastclas.com/fastclasapp/admin/itemimages/1567959992descABHILEKHAGARIYA_UPADANA_(1).pdf"  ));
                 startActivity(intent);
@@ -256,7 +256,7 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
                 intent.putExtra("four", sessionsInnerModelArrayList.get(1).getImage_four());
                 intent.putExtra("five", sessionsInnerModelArrayList.get(1).getImage_five());
                 startActivity(intent);
-                finish();
+
               /*  Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse("https://fastclas.com/fastclasapp/admin/itemimages/1567959992descABHILEKHAGARIYA_UPADANA_(1).pdf"  ));
                 startActivity(intent);
@@ -468,6 +468,12 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
         } else {
             textStatus.setVisibility(View.VISIBLE);
         }
+        if(sessionsInnerModelArrayList.get(0).getDescription().equals("0")){
+            textReadMore.setVisibility(View.GONE);
+        }
+        else{
+            textReadMore.setVisibility(View.VISIBLE);
+        }
 
         if (sessionsInnerModelArrayList.size() > 1) {
             if (Utility.isValueNullOrEmpty(sessionsInnerModelArrayList.get(1).getItemTitle1())) {
@@ -522,7 +528,14 @@ public class SessionsInnerActivity extends BaseActivity implements View.OnClickL
             } else {
                 textStatus2.setVisibility(View.VISIBLE);
             }
-            textReadMore2.setVisibility(View.VISIBLE);
+            if(sessionsInnerModelArrayList.get(1).getDescription().equals("0")){
+                textReadMore2.setVisibility(View.GONE);
+            }
+            else{
+                textReadMore2.setVisibility(View.VISIBLE);
+            }
+
+//            textReadMore2.setVisibility(View.VISIBLE);
             imgButton2.setVisibility(View.VISIBLE);
         } else {
             textTitle6.setVisibility(View.GONE);
