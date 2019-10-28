@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/FastClas.iml" filepath="$PROJECT_DIR$/FastClas.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/FastClas-app.iml" filepath="$PROJECT_DIR$/app/FastClas-app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/StudioProjects-FastClas.iml" filepath="$PROJECT_DIR$/StudioProjects-FastClas.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
